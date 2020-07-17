@@ -5,31 +5,33 @@ const server = function (config, data) {
   let server = {}
   server = setBaseServerMethod(server)
   const paths = data.paths
-  Object.entries(paths).forEach(([pathKey, pathValue]) => {
-    Object.entries(pathValue).forEach(([method, methodValue]) => {
-      const parameters = pathValue[method].parameters ? pathValue[method].parameters : []
-      const pathParameters = parameters.filter(param => param.in === 'path')
-      const queryParameters = parameters.filter(param => param.in === 'query')
-      let dataModel = null
-      if (methodValue.requestBody) {
-        const schema =
-          methodValue.requestBody.content['text/json'].schema.$ref
-        dataModel = retrieveDataModel(schema, data)
-      }
-      const methodName = generateMethodName(methodValue, pathKey, method)
-      server[methodName] = function (payload) {
-        const query = this.generateQueryModel(queryParameters, payload)
-        const data = this.generateDataModel(dataModel, payload)
-        const currentPath = this.generateUrl(pathKey, pathParameters, payload)
-        return axios.request({
-          url: currentPath,
-          method: method,
-          data: data,
-          params: query
-        })
-      }
+  if (paths) {
+    Object.entries(paths).forEach(([pathKey, pathValue]) => {
+      Object.entries(pathValue).forEach(([method, methodValue]) => {
+        const parameters = pathValue[method].parameters ? pathValue[method].parameters : []
+        const pathParameters = parameters.filter(param => param.in === 'path')
+        const queryParameters = parameters.filter(param => param.in === 'query')
+        let dataModel = null
+        if (methodValue.requestBody) {
+          const schema =
+            methodValue.requestBody.content['text/json'].schema.$ref
+          dataModel = retrieveDataModel(schema, data)
+        }
+        const methodName = generateMethodName(methodValue, pathKey, method)
+        server[methodName] = function (payload) {
+          const query = this.generateQueryModel(queryParameters, payload)
+          const data = this.generateDataModel(dataModel, payload)
+          const currentPath = this.generateUrl(pathKey, pathParameters, payload)
+          return axios.request({
+            url: currentPath,
+            method: method,
+            data: data,
+            params: query
+          })
+        }
+      })
     })
-  })
+  }
   return server
 }
 const setBaseServerMethod = function (server) {

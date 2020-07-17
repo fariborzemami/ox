@@ -23,7 +23,6 @@
  * @name sidebarList
  * @description Simple sidebar list with dynamic item rendering
  * @version 1.0.0
- * @author Sina <khorrami@sabacell.ir>
  * @property {Object[]} [items=pages] - The elements of list.
  * @property {string} items[].title - The title of element.
  * @property {string} items[].iconName - The icon name of element (just mdi supported).

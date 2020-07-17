@@ -1,0 +1,258 @@
+<template>
+  <div class="forgot-password-component">
+    <!-- step 1  enter email  -->
+    <v-card
+      flat
+      class="transparent"
+      :dark="isDark">
+    <v-row class="form-title pb-4" justify="center">{{$t('components.forgotPassword.title')}}</v-row>
+    <v-form ref="form" v-model="valid" @submit.prevent="onRecoverPassword">
+      <!-- email -->
+      <div class="subtitle-2 pt-1">
+        <v-icon col medium color="darken-2" class="ml-3">mdi-email</v-icon>
+        <span>{{ emailTitle }}</span>
+        <v-text-field
+          v-model="email"
+          solo
+          :reverse="$vuetify.rtl"
+          class="mt-2"
+          :label="this.emailPlaceholder"
+          :rules="emailValidation"
+          name="email"
+          type="text"
+          required
+        ></v-text-field>
+      </div>
+      <!------------>
+      <v-row justify="center">
+        <v-btn
+          type="submit"
+          :disabled="!valid"
+          class="white--text"
+          :color="recoveryLinkColor">
+          {{ recoveryButtonTitle }}
+        </v-btn>
+      </v-row>
+      <!-- register link -->
+      <v-row class="py-4 subtitle-2" justify="center">
+        <span class="py-1 pl-1">{{ $t('components.forgotPassword.notRegister') }}</span>
+        <v-btn
+          text
+          :color="recoveryButtonColor"
+          small
+          class="px-0"
+          :to="{ name: registerRoute}">
+            {{recoveryButtonTitle}}
+        </v-btn>
+      </v-row>
+    </v-form>
+    </v-card>
+  </div>
+</template>
+<script>
+/**
+ * @name forgotPassword component
+ * @description get recovery link with email
+ * @version 1.0.0
+ * @event forgotpass - return email
+ * @property {Boolean} [isDark=false]
+ * @property {String} [recoveryButtonTitle]
+ * @property {String} [recoveryButtonColor='teal lighten-2']
+ * @property {String} [recoveryLinkColor='teal lighten-2']
+ * @property {String} [registerRoute='register']
+ * @property {String} [emailTitle]
+ * @property {String} [emailPlaceholder]
+ * @property {String} [emailRequiredMessage]
+ * @property {String} [emailPatternRegex]
+ * @property {String} [emailPatternMessage]
+ * @property {Boolean} [emailIsRequired=true]
+ * @property {Boolean} [emailHavePattern=true]
+ */
+export default {
+  props: {
+    isDark: {
+      type: Boolean,
+      default: false,
+      required: false
+    },
+    recoveryButtonTitle: {
+      type: String,
+      default () {
+        return this.$t('components.forgotPassword.passwordRecovery')
+      },
+      required: false
+    },
+    recoveryButtonColor: {
+      type: String,
+      default: 'teal lighten-2',
+      required: false
+    },
+    recoveryLinkColor: {
+      type: String,
+      default: 'teal lighten-2',
+      required: false
+    },
+    registerRoute: {
+      type: String,
+      default: 'register',
+      required: true
+    },
+    emailTitle: {
+      type: String,
+      default () {
+        return this.$t('components.forgotPassword.email')
+      },
+      required: false
+    },
+    emailPlaceholder: {
+      type: String,
+      default () {
+        return this.$t('components.forgotPassword.emailPlaceholder')
+      },
+      required: false
+    },
+    emailRequiredMessage: {
+      type: String,
+      default () {
+        return this.$t('components.forgotPassword.emailRequired')
+      },
+      required: false
+    },
+    emailPatternRegex: {
+      type: String,
+      default: '/.+@.+..+/',
+      required: false
+    },
+    emailPatternMessage: {
+      type: String,
+      default () {
+        return this.$t('components.forgotPassword.emailValidation')
+      },
+      required: false
+    },
+    emailRequiredEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    emailPatternEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    }
+  },
+  data () {
+    return {
+      valid: true,
+      email: '',
+      emailRules: {
+        required: value => !!value || this.emailRequiredMessage,
+        pattern: value => RegExp(this.emailPatternRegex.substring(1, this.emailPatternRegex.length - 1)).test(value) || this.emailPatternMessage
+      }
+    }
+  },
+  computed: {
+    emailValidation () {
+      if (this.emailRequiredEnabled === true && this.emailPatternEnabled === true) {
+        return [this.emailRules.required, this.emailRules.pattern]
+      } else if (this.emailRequiredEnabled === true) {
+        return [this.emailRules.required]
+      } else if (this.emailPatternEnabled === true) {
+        return [this.emailRules.pattern]
+      }
+      return ''
+    }
+  },
+  methods: {
+    onRecoverPassword (event) {
+      this.$emit('forgotpass', {
+        email: this.email
+      })
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+  .forgot-password-component {
+    $active-color : #26a69a;
+    $input-text-color : #424242;
+    $placeholder-text : #a3a3a3;
+    $text-color-dark : #9c9c9c;
+    $error-text : #cc4b4b;
+
+    .recover-password-details{
+      font-size: 14px;
+      color: #f2c94c;
+    }
+
+    .v-btn.v-btn--disabled:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
+      background-color: #B2DFDB !important;
+      color: white !important;
+    }
+    .form-title {
+      font-size : 20px;
+    }
+    .v-ripple__animation{
+      opacity: 0 !important;
+    }
+    .v-btn {
+      letter-spacing: 0;
+      &:before , &.v-btn--active {
+        background-color: transparent !important;
+      }
+    }
+    .theme--dark {
+      &.v-card {
+        color: $text-color-dark;
+        i {
+           color: $text-color-dark;
+        }
+      }
+      .v-icon {
+        color: $text-color-dark;
+      }
+      .form-title {
+        color : white;
+      }
+    }
+    .v-input input {
+      color: $input-text-color;
+    }
+    .v-text-field {
+      &.error--text {
+        .v-input__slot{
+          border: 2px solid !important;
+        }
+      }
+    }
+    .v-text-field .v-input__slot {
+      background: #F3F7F9 !important;
+      border-radius: 5px !important;
+      box-shadow: none !important;
+      .v-label {
+         font-size: 12px !important;
+         color: $placeholder-text !important;
+      }
+    }
+    .v-application--is-rtl .v-input--selection-controls__input {
+      margin-left: 15px !important;
+    }
+    .v-messages {
+      min-height: 18px !important;
+    }
+    .v-text-field__details {
+      padding: 0 !important;
+      .error--text {
+        display: flex;
+        align-items: center;
+        &:before {
+          content: "\F0026";
+          font: normal normal normal 24px/1 "Material Design Icons";
+          font-size: 18px;
+          padding-left : .5rem;
+        }
+      }
+    }
+  }
+</style>

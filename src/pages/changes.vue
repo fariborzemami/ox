@@ -1,32 +1,31 @@
 <route>
 {
-  "name": "index",
+  "name": "changes",
   "meta": {
-    "order": 1,
+    "order": 20,
     "isVisible": true,
-    "iconName": "mdi-home"
+    "iconName": "mdi-file-document-edit"
   }
 }
 </route>
 <template>
-  <div class="home text-end">
-    <vue-markdown :source="readme"></vue-markdown>
+  <div class="changes text-end">
+    <vue-markdown :source="changelog"></vue-markdown>
   </div>
 </template>
-
 <script>
-import README from '../../README.md'
+import CHANGELOG from '../../CHANGELOG.md'
 import VueMarkdown from 'vue-markdown'
 
 export default {
-  name: 'Home',
+  name: 'Changes',
   layout: 'panel',
   components: {
     VueMarkdown
   },
   data () {
     return {
-      readme: README
+      changelog: CHANGELOG
     }
   }
 }

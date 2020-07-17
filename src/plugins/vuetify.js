@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
 
-import fa from '../locale/fa'
-
 Vue.use(Vuetify)
 
 export default (APP_CONFIG) => {
@@ -10,10 +8,13 @@ export default (APP_CONFIG) => {
     rtl: APP_CONFIG.rtl,
     theme: {
       dark: APP_CONFIG.darkTheme,
-      themes: APP_CONFIG.themes
+      themes: APP_CONFIG.themes,
+      options: {
+        customProperties: true
+      }
     },
     lang: {
-      locales: { fa },
+      locales: APP_CONFIG.locales,
       current: APP_CONFIG.locale
     }
   })

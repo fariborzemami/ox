@@ -16,7 +16,7 @@
           >
           <router-link :to="APP_CONFIG.homeURL" >
             <v-img
-              src="/img/brand-logo.png"
+              :src="APP_CONFIG.brandLogo"
               class="mb-15 mx-auto"
               height="auto"
               width="230"

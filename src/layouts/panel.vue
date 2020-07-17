@@ -3,7 +3,7 @@
     <v-navigation-drawer
       clipped
       app
-      right
+      :right="$vuetify.rtl"
       :dark="APP_CONFIG.layout.panel.isSidebarDark"
       :mini-variant="drawerIsMini"
       class="sidebarContent"
@@ -26,12 +26,13 @@
     <v-app-bar
       :dark="APP_CONFIG.layout.panel.isHeaderDark"
       color="headerColor"
-      clipped-right
+      :clipped-right="$vuetify.rtl"
+      :clipped-left="!$vuetify.rtl"
       app
       >
       <router-link :to="APP_CONFIG.homeURL" >
         <v-img
-          src="/img/brand-logo.png"
+          :src="APP_CONFIG.brandLogo"
           height="auto"
           width="120"
           >

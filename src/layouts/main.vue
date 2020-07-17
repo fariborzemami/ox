@@ -19,7 +19,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <router-link :to="APP_CONFIG.homeURL" >
         <v-img
-          src="/img/brand-logo.png"
+          :src="APP_CONFIG.brandLogo"
           height="auto"
           width="120"
           >

@@ -1,0 +1,246 @@
+<route>
+{
+  "name": "forms",
+  "meta": {
+    "order": 3,
+    "isVisible": true,
+    "iconName": "mdi-pen"
+  }
+}
+</route>
+<template>
+  <div>
+    <page-title
+      :title="$t('pages.forms.title')"
+    ></page-title>
+    <v-form
+      v-model="formIsValid"
+      :class="formData.type"
+    >
+      <form-item
+        v-model="formData.type"
+        type="select"
+        :items="formTypes"
+        icon="mdi-cards-variant"
+        :label="$t('pages.forms.typeSelectLabel')"
+      ></form-item>
+      <form-item
+        v-model="formData.name"
+        type="textbox"
+        :rules="nameRules"
+        icon="mdi-form-textbox"
+        :label="$t('pages.forms.nameTextLabel')"
+        :placeholder="$t('pages.forms.nameTextPlaceholder')"
+      ></form-item>
+      <form-item
+        v-model="formData.email"
+        type="textbox"
+        icon="mdi-form-textbox"
+        :label="$t('pages.forms.mailTextLabel')"
+        :placeholder="$t('pages.forms.mailTextPlaceholder')"
+        ltr
+      ></form-item>
+      <form-item
+        icon="mdi-form-textbox"
+        :label="$t('pages.forms.mailTextSlotLabel')"
+      >
+        <v-text-field
+          v-model="formData.email"
+          :placeholder="$t('pages.forms.mailTextPlaceholder')"
+          dir="ltr"
+          outlined
+        ></v-text-field>
+      </form-item>
+      <form-item
+        v-model="formData.sheba"
+        type="textbox"
+        :rules="shebaRules"
+        icon="mdi-form-textbox"
+        :label="$t('pages.forms.shebaTextLabel')"
+        :placeholder="$t('pages.forms.shebaTextPlaceholder')"
+        :suffix="$t('pages.forms.shebaSuffix')"
+        ltr
+      ></form-item>
+      <form-item
+        v-model="formData.textArea"
+        type="textarea"
+        rows="4"
+        icon="mdi-form-textarea"
+        :label="$t('pages.forms.descTextareaLabel')"
+        :placeholder="$t('pages.forms.descTextareaPlaceholder')"
+      ></form-item>
+      <form-item
+        v-model="formData.select"
+        type="select"
+        :rules="[v => !!v || $t('pages.forms.itemSelectRuleRequired')]"
+        :items="items"
+        icon="mdi-select"
+        :label="$t('pages.forms.itemSelectLabel')"
+        :placeholder="$t('pages.forms.itemSelectPlaceholder')"
+      ></form-item>
+      <form-item
+        v-model="formData.selectMultiple"
+        type="select"
+        :items="items"
+        icon="mdi-select-multiple"
+        :label="$t('pages.forms.itemSelectMultipleLabel')"
+        :placeholder="$t('pages.forms.itemSelectMultiplePlaceholder')"
+        multiple
+      ></form-item>
+      <form-item
+        v-model="formData.selectMultiple"
+        type="multiselect"
+        :options="items"
+        :multiple="true"
+        icon="mdi-select-multiple"
+        :label="$t('pages.forms.itemMultiselectLabel')"
+        :placeholder="$t('pages.forms.itemMultiselectPlaceholder')"
+      ></form-item>
+      <form-item
+        v-model="formData.date"
+        icon="mdi-calendar"
+        :label="$t('pages.forms.datePickerLabel')"
+        type="date"
+      ></form-item>
+      <form-item
+        v-model="formData.datetime"
+        icon="mdi-calendar-clock"
+        :label="$t('pages.forms.datetimePickerLabel')"
+        type="datetime"
+      ></form-item>
+      <form-item
+        v-model="formData.time"
+        icon="mdi-clock"
+        :label="$t('pages.forms.timePickerLabel')"
+        type="time"
+      ></form-item>
+      <form-item
+        v-model="formData.counter"
+        type="slider"
+        min="1"
+        max="20"
+        icon="mdi-counter"
+        :label="$t('pages.forms.counterSliderLabel')"
+      ></form-item>
+      <form-item
+        v-model="formData.checkbox"
+        type="checkbox"
+        :rules="[v => !!v || $t('pages.forms.agreeCheckboxRuleRequired')]"
+        icon="mdi-checkbox-marked"
+        :label="$t('pages.forms.agreeCheckboxLabel')"
+      ></form-item>
+      <form-item
+        v-model="formData.checkbox"
+        type="switch"
+        :rules="[v => !!v || $t('pages.forms.agreeSwitchRuleRequired')]"
+        icon="mdi-toggle-switch"
+        :label="$t('pages.forms.agreeSwitchLabel')"
+      ></form-item>
+      <form-item
+        v-model="formData.radiobox"
+        type="radio"
+        :rules="[v => !!v || $t('pages.forms.genderRadioRuleRequired')]"
+        :options="[$t('pages.forms.genderRadioOptionMale'), $t('pages.forms.genderRadioOptionFemale')]"
+        icon="mdi-radiobox-marked"
+        :label="$t('pages.forms.genderRadioLabel')"
+      ></form-item>
+      <form-item
+        v-model="formData.file"
+        type="file"
+        icon="mdi-file-upload"
+        accept="image/*"
+        :label="$t('pages.forms.docFileLabel')"
+        :placeholder="$t('pages.forms.docFilePlaceholder')"
+      ></form-item>
+      <form-action
+        :submit-text="$t('pages.forms.sendButtonText')"
+        :cancel-text="$t('pages.forms.returnButtonText')"
+        novalidate
+        @submit="onSubmitForm"
+      ></form-action>
+      <form-action>
+        <v-btn
+          :disabled="!formIsValid"
+          color="success"
+          depressed
+          @click="onSubmitForm"
+        >
+          {{ $t('pages.forms.submitButtonText') }}
+        </v-btn>
+        <v-btn
+          color="secondary"
+          depressed
+          outlined
+          @click="$router.go(-1)"
+        >
+          {{ $t('pages.forms.cancelButtonText') }}
+        </v-btn>
+        <v-btn
+          color="error"
+        >
+          {{ $t('pages.forms.removeButtonText') }}
+        </v-btn>
+      </form-action>
+    </v-form>
+  </div>
+</template>
+
+<script>
+export default {
+  layout: 'panel',
+  data: () => ({
+    // NOTE: Keep this name same in all form pages and components
+    formIsValid: true,
+    // NOTE: Keep this name same in all form pages and components
+    formData: {
+      type: 'form-horizontal',
+      name: '',
+      email: '',
+      sheba: '',
+      textArea: '',
+      select: null,
+      selectMultiple: null,
+      checkbox: false,
+      radiobox: null,
+      file: null,
+      counter: 10,
+      datetime: null,
+      date: null,
+      time: null
+    },
+    items: [
+      'Item 1',
+      'Item 2',
+      'Item 3',
+      'Item 4'
+    ],
+    formTypes: [
+      'form-horizontal',
+      'form-vertical',
+      'form-inline'
+    ]
+  }),
+  computed: {
+    nameRules () {
+      return [
+        v => !!v || this.$t('pages.forms.nameTextRuleRequired'),
+        v => (v && v.length <= 10) || this.$t('pages.forms.nameTextRuleMaxLength')
+      ]
+    },
+    shebaRules () {
+      return [
+        v => (v && v.length === 24) || this.$t('pages.forms.shebaRuleLength'),
+        v => (v && /^\d+$/.test(v)) || this.$t('pages.forms.shebaRuleOnlyNumber')
+      ]
+    }
+  },
+  methods: {
+    // NOTE: Keep this name same in all form pages and components
+    onSubmitForm () {
+      console.log('on form submit clicked!')
+      console.log(this.formData)
+    }
+  }
+}
+</script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

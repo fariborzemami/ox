@@ -9,7 +9,6 @@
  * @name [Component name]
  * @description [Write component description]
  * @version [1.0.0]
- * @author [Write your email address]
  * @event [Write component events]
  * @property [Write component events]
  * @todo [Write Remaining task of this component here]

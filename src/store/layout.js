@@ -1,10 +1,13 @@
+import APP_CONFIG from '@/config.js'
 import faker from 'faker'
-faker.locale = 'fa'
+faker.locale = APP_CONFIG.locale
 export default {
+  namespaced: true,
   state: {
     profile: {
       name: faker.name.firstName() + ' ' + faker.name.lastName(),
-      avatarImage: faker.image.avatar()
+      avatarImage: faker.image.avatar(),
+      email: faker.internet.email()
     },
     memberTerritoryMenus: [
       {
