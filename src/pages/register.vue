@@ -10,7 +10,6 @@
 </route>
 <template>
   <registration
-    :isDark="true"
     login-route="login"
     @register="onRegsiter"
   />

@@ -10,7 +10,6 @@
 </route>
 <template>
   <login
-    :isDark="true"
     forgot-password-route="forgotpass"
     register-route="register"
     @login="onLogin" />

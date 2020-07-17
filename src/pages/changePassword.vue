@@ -11,7 +11,6 @@
 </route>
 <template>
   <changePassword
-    :isDark="true"
     @changepassword="onChangepassword"/>
 </template>
 <script>

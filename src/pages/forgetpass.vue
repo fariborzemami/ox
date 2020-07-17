@@ -10,7 +10,6 @@
 </route>
 <template>
   <forgotpass
-    :isDark="true"
     register-route="register"
     @forgotpass="forgotpass" />
 </template>
