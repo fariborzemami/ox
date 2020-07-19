@@ -64,7 +64,7 @@
  * @event changepassword
  * @property {Boolean} [isDark=false] - Specifies the form theme,
  * @property {String} [changePasswordButtonTitle] - Specifies the title of the registration button,
- * @property {String} [changePasswordButtonColor='teal lighten-2'] - Specifies the color of the registration button,
+ * @property {String} [changePasswordButtonColor='blue darken-2'] - Specifies the color of the registration button,
  * @property {Boolean} [newPasswordEnabled=true] - Specifies whether input exists in the form,
  * @property {Boolean} [passwordEnabled=true] - Specifies whether input exists in the form,
  * @property {String} [newPasswordTitle] - Specifies the input Title text,
@@ -99,7 +99,7 @@ export default {
     },
     changePasswordButtonColor: {
       type: String,
-      default: 'teal lighten-2',
+      default: 'blue darken-2',
       required: false
     },
     newPasswordEnabled: {
@@ -253,10 +253,6 @@ export default {
     $text-color-dark : #9c9c9c;
     $error-text : #cc4b4b;
 
-    .v-btn.v-btn--disabled:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
-      background-color: #B2DFDB !important;
-      color: white !important;
-    }
     .form-title {
       font-size : 20px;
     }

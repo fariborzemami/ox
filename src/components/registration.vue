@@ -37,6 +37,21 @@
           required
         ></v-text-field>
       </div>
+      <!-- last name -->
+      <div v-if="lastNameEnabled" class="subtitle-2 pt-2">
+        <v-icon medium color="darken-2" class="ml-3">mdi-account-circle</v-icon>
+        <span>{{lastNameTitle}}</span>
+        <v-text-field
+          v-model="userInfo.lastName"
+          solo
+          class="mt-2"
+          :label="lastNamePlaceholder"
+          :rules="lastNameRequiredEnabled ? [lastNameRules.required] : [] "
+          name="lastName"
+          type="text"
+          required
+        ></v-text-field>
+      </div>
       <!-- password  -->
       <div v-if="passwordEnabled" class="subtitle-2 pt-2">
         <v-icon medium color="darken-2" class="ml-3">mdi-lock</v-icon>
@@ -98,7 +113,7 @@
           text
           :color="loginLinkColor"
           small
-          class="px-0"
+          class="px-0 text-decoration-underline"
           :to="{ name: loginRoute}">
           {{ loginLinkTitle }}
         </v-btn>
@@ -116,8 +131,8 @@
  * @version 1.0.0
  * @event register - return name , email, password, phone number
  * @property {String} [registerButtonTitle] - Specifies the title of the registration button,
- * @property {String} [registerButtonColor='teal lighten-2'] - Specifies the color of the registration button,
- * @property {String} [loginLinkColor='teal lighten-2'] - Specifies the color of the login link,
+ * @property {String} [registerButtonColor='blue darken-2'] - Specifies the color of the registration button,
+ * @property {String} [loginLinkColor='blue darken-2'] - Specifies the color of the login link,
  * @property {String} [loginLinkTitle] - Specifies the title of the login link,
  * @property {String} [loginRoute='login'] - Specifies the URL of the login page,
  * @property {Boolean} [isDark=false]
@@ -135,6 +150,11 @@
  * @property {String} [nameRequiredMessage]
  * @property {Boolean} [nameRequiredEnabled=true]
  * @property {Boolean} [nameEnabled]
+ * @property {String} [lastNameTitle]
+ * @property {String} [lastNamePlaceholder]
+ * @property {String} [lastNameRequiredMessage]
+ * @property {Boolean} [lastNameRequiredEnabled=true]
+ * @property {Boolean} [lastNameEnabled]
  * @property {String} [passwordTitle]
  * @property {String} [passwordPlaceholder]
  * @property {String} [passwordRequiredMessage]
@@ -174,12 +194,12 @@ export default {
     },
     registerButtonColor: {
       type: String,
-      default: 'teal lighten-2',
+      default: 'blue darken-2',
       required: false
     },
     checkBoxColor: {
       type: String,
-      default: 'teal lighten-2',
+      default: 'blue darken-2',
       required: false
     },
     loginRoute: {
@@ -189,7 +209,7 @@ export default {
     },
     loginLinkColor: {
       type: String,
-      default: 'teal lighten-2',
+      default: 'blue darken-2',
       required: false
     },
     emailEnabled: {
@@ -366,6 +386,37 @@ export default {
       type: Boolean,
       default: true,
       required: false
+    },
+    lastNameEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    lastNameTitle: {
+      type: String,
+      default () {
+        return this.$t('components.register.lastName')
+      },
+      required: false
+    },
+    lastNamePlaceholder: {
+      type: String,
+      default () {
+        return this.$t('components.register.lastName')
+      },
+      required: false
+    },
+    lastNameRequiredMessage: {
+      type: String,
+      default () {
+        return this.$t('components.register.lastNameRequired')
+      },
+      required: false
+    },
+    lastNameRequiredEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
     }
   },
   data () {
@@ -375,6 +426,7 @@ export default {
         password: '',
         phoneNumber: '',
         name: '',
+        lastName: '',
         email: '',
         agreeRules: true
       },
@@ -389,6 +441,9 @@ export default {
       },
       nameRules: {
         required: value => !!value || this.nameRequiredMessage
+      },
+      lastNameRules: {
+        required: value => !!value || this.lastNameRequiredMessage
       },
       emailRules: {
         required: value => !!value || this.emailRequiredMessage,
@@ -446,11 +501,6 @@ export default {
     $placeholder-text : #a3a3a3;
     $text-color-dark : #9c9c9c;
 
-    .v-btn.v-btn--disabled:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
-      background-color: #B2DFDB !important;
-      color: white !important;
-    }
-
     .form-title {
       font-size : 20px;
     }
@@ -503,13 +553,9 @@ export default {
     }
 
     .v-input--checkbox {
-      &.v-input--is-label-active {
-        .theme--light.v-label {
-          color: $active-color !important;
-        }
-      }
       .v-label {
         font-size: 12px !important;
+        text-decoration : underline;
       }
     }
     .v-application--is-rtl .v-input--selection-controls__input {

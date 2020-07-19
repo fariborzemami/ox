@@ -73,7 +73,9 @@
         v-model="formData.select"
         type="select"
         :rules="[v => !!v || $t('pages.forms.itemSelectRuleRequired')]"
-        :items="items"
+        :items="complexItems"
+        item-text="firstName"
+        item-value="id"
         icon="mdi-select"
         :label="$t('pages.forms.itemSelectLabel')"
         :placeholder="$t('pages.forms.itemSelectPlaceholder')"
@@ -140,7 +142,7 @@
         v-model="formData.radiobox"
         type="radio"
         :rules="[v => !!v || $t('pages.forms.genderRadioRuleRequired')]"
-        :options="[$t('pages.forms.genderRadioOptionMale'), $t('pages.forms.genderRadioOptionFemale')]"
+        :options="radioOptions"
         icon="mdi-radiobox-marked"
         :label="$t('pages.forms.genderRadioLabel')"
       ></form-item>
@@ -231,6 +233,26 @@ export default {
       return [
         v => (v && v.length === 24) || this.$t('pages.forms.shebaRuleLength'),
         v => (v && /^\d+$/.test(v)) || this.$t('pages.forms.shebaRuleOnlyNumber')
+      ]
+    },
+    complexItems () {
+      return [...Array(5)].map((_, index) => ({
+        id: index + 1,
+        firstName: this.faker.name.firstName(),
+        lastName: this.faker.name.lastName(),
+        amount: this.faker.finance.amount()
+      }))
+    },
+    radioOptions () {
+      return [
+        {
+          text: this.$t('pages.forms.genderRadioOptionMale'),
+          value: 'm'
+        },
+        {
+          text: this.$t('pages.forms.genderRadioOptionFemale'),
+          value: 'f'
+        }
       ]
     }
   },

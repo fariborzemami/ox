@@ -1,6 +1,6 @@
 import axios from 'axios'
 const server = function (config, data) {
-  axios.defaults.baseURL = config.baseUrl
+  axios.defaults.baseURL = config.baseURL
   axios.defaults.headers.common.Authorization = config.token
   let server = {}
   server = setBaseServerMethod(server)

@@ -53,12 +53,10 @@
         @change="onChange"
       >
         <v-radio
-          :label="$attrs.options[0]"
-          :value="$attrs.options[0]"
-        ></v-radio>
-        <v-radio
-          :label="$attrs.options[1]"
-          :value="$attrs.options[1]"
+          v-for="(option, index) in $attrs.options"
+          :key="index"
+          :label="option.text"
+          :value="option.value"
         ></v-radio>
       </v-radio-group>
       <v-slider
@@ -68,13 +66,22 @@
         v-bind="$attrs"
         @change="onChange"
       ></v-slider>
-      <v-file-input
+      <div
         v-else-if="type === 'file'"
-        outlined
-        :value="value"
-        v-bind="$attrs"
-        @change="onChange"
-      ></v-file-input>
+        class="form-uploader"
+      >
+        <v-file-input
+          outlined
+          :value="value"
+          truncate-length="10"
+          v-bind="$attrs"
+          @change="onChange"
+        ></v-file-input>
+        <v-img
+          v-if="value"
+          :src="url"
+        ></v-img>
+      </div>
       <multiselect
         v-else-if="type === 'multiselect'"
         :value="value"
@@ -144,6 +151,12 @@ export default {
   computed: {
     hasSlot () {
       return !!this.$slots.default
+    },
+    url () {
+      if (typeof this.value === 'string') {
+        return this.value
+      }
+      return URL.createObjectURL(this.value)
     }
   },
   methods: {

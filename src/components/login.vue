@@ -60,7 +60,7 @@
         <v-btn
           text
           small
-          class="px-3 mb-4 forgot-password"
+          class="px-3 mb-4 text-decoration-underline forgot-password"
           :to="{ name: forgotPasswordRoute}">
           {{ forgotPassLinkTitle }}
         </v-btn>
@@ -83,7 +83,7 @@
           text
           :color="registerLinkColor"
           small
-          class="px-0"
+          class="px-0 text-decoration-underline"
           :to="{ name: registerRoute}">
           {{ $t('components.login.register') }}
         </v-btn>
@@ -100,9 +100,9 @@
  * @event login - return email and password
  * @property {Boolean} [isDark=false] - Specifies the form theme,
  * @property {String} [loginButtonTitle] - Specifies the title of the registration button,
- * @property {String} [loginButtonColor='teal lighten-2'] - Specifies the color of the login button,
- * @property {String} [registerLinkColor='teal lighten-2'] - Specifies the color of the registration link,
- * @property {String} [checkBoxColor='teal lighten-2'] - Specifies the color of the checkbox,
+ * @property {String} [loginButtonColor='blue darken-2'] - Specifies the color of the login button,
+ * @property {String} [registerLinkColor='blue darken-2'] - Specifies the color of the registration link,
+ * @property {String} [checkBoxColor='blue darken-2'] - Specifies the color of the checkbox,
  * @property {String} [registerRoute='login'] - Specifies the URL of the login page,
  * @property {String} [forgotPasswordRoute='forgotPassword'] - Specifies the URL of the
  * @property {String} [forgotPassLinkTitle] - Specifies the forgot pass link  title
@@ -146,17 +146,17 @@ export default {
     },
     loginButtonColor: {
       type: String,
-      default: 'teal lighten-2',
+      default: 'blue darken-2',
       required: false
     },
     registerLinkColor: {
       type: String,
-      default: 'teal lighten-2',
+      default: 'blue darken-2',
       required: false
     },
     checkBoxColor: {
       type: String,
-      default: 'teal lighten-2',
+      default: 'blue darken-2',
       required: false
     },
     registerRoute: {
@@ -322,11 +322,6 @@ export default {
     $placeholder-text : #a3a3a3;
     $text-color-dark : #9c9c9c;
     $error-text : #cc4b4b;
-
-    .v-btn.v-btn--disabled:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
-      background-color: #B2DFDB !important;
-      color: white !important;
-    }
 
     .form-title {
       font-size : 20px;

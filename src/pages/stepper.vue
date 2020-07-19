@@ -66,7 +66,7 @@
           <v-form
             ref="form"
             v-model="stepper.step2.isValid"
-            class="horizontal-form"
+            class="form-horizontal"
           >
             <form-item
               v-model="stepper.step2.name"

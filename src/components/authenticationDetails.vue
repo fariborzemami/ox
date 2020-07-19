@@ -110,7 +110,7 @@ export default {
     },
     buttonColor: {
       type: String,
-      default: 'teal lighten-2',
+      default: 'blue darken-2',
       required: false
     },
     buttonEnabled: {

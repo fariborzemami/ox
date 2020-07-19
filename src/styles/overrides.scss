@@ -7,7 +7,7 @@
   > div{
     border-radius: 0;
     font-size: 0.84rem !important;
-    .v-input{
+    .v-input:not(.v-file-input){
       .v-input__prepend-outer,
       .v-input__append-outer,
       .v-input__append-inner{
@@ -42,21 +42,58 @@
         }
       }
     }
-    .v-file-input{
-      .v-input__prepend-outer{
-        display: none;
-      }
-      .v-input__append-inner{
-        background-color: var(--v-formInputColor-base);
-        height: 100%;
-        border-radius: 5px 0 0 5px;
-        min-height: inherit;
-        .v-input__icon{
-          margin: auto;
+    .form-uploader{
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      min-width: 320px;
+      width: 320px;
+      padding: 15px;
+      background-color: var(--v-formInputColor-base);
+      border-radius: 0.3rem;
+      .v-file-input{
+        .v-input__prepend-outer{
+          display: none;
+        }
+        font-size: 0.84rem;
+        width: auto;
+        max-width: min-content;
+        direction: ltr;
+        .v-input__slot{
+          fieldset{
+            border: none;
+          }
+          cursor: pointer;
+          background-color: var(--v-mainContent-base);
+          padding: 0 !important;
+          min-height: 32px;
+          height: auto;
+          min-width: max-content;
+          .v-text-field__slot{
+            padding: 0 8px;
+            .v-file-input__text{
+              min-width: 60px;
+              max-width: 90px;
+            }
+          }
+          .v-input__append-inner{
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            margin: auto;
+            .mdi-close::before{
+              font-size: 16px;
+            }
+          }
+        }
+        .v-text-field__details{
+          display: none;
         }
       }
-      .v-text-field__slot{
-        border-radius: 0 5px 5px 0 !important;
+      .v-image{
+        width: 150px;
+        max-width: 150px;
+        max-height: 100px;
       }
     }
     .multiselect{
@@ -134,7 +171,7 @@
     &:first-child{
       border-top: none;
     }
-    .v-input{
+    .v-input:not(.v-file-input){
       margin-top: 0 !important;
       padding-top: 0;
       .v-input__control{
@@ -157,6 +194,11 @@
           align-items: center;
           min-width: 250px;
         }
+      }
+    }
+    .form-uploader{
+      @media (max-width: 780px){
+        width: 100%;
       }
     }
     .multiselect{
@@ -191,7 +233,7 @@
     display: flex;
     flex-direction: column;
     padding-top: 18px;
-    .v-input{
+    .v-input:not(.v-file-input){
       .v-input__control{
         > * + *{
           margin-top: 10px;
@@ -241,7 +283,7 @@
     }
   }
   > div{
-    .v-input{
+    .v-input:not(.v-file-input){
       .v-input__prepend-outer,
       .v-input__append-outer,
       .v-input__append-inner{
@@ -284,6 +326,7 @@
     box-shadow: none !important;
     .v-stepper__step{
       flex-direction: column-reverse;
+      padding-bottom: 0;
     }
     .v-divider{
       @media only screen and (max-width: 959px) {

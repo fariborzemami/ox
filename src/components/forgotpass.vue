@@ -40,7 +40,7 @@
           text
           :color="recoveryButtonColor"
           small
-          class="px-0"
+          class="px-0 text-decoration-underline"
           :to="{ name: registerRoute}">
             {{recoveryButtonTitle}}
         </v-btn>
@@ -57,8 +57,8 @@
  * @event forgotpass - return email
  * @property {Boolean} [isDark=false]
  * @property {String} [recoveryButtonTitle]
- * @property {String} [recoveryButtonColor='teal lighten-2']
- * @property {String} [recoveryLinkColor='teal lighten-2']
+ * @property {String} [recoveryButtonColor='blue darken-2']
+ * @property {String} [recoveryLinkColor='blue darken-2']
  * @property {String} [registerRoute='register']
  * @property {String} [emailTitle]
  * @property {String} [emailPlaceholder]
@@ -84,12 +84,12 @@ export default {
     },
     recoveryButtonColor: {
       type: String,
-      default: 'teal lighten-2',
+      default: 'blue darken-2',
       required: false
     },
     recoveryLinkColor: {
       type: String,
-      default: 'teal lighten-2',
+      default: 'blue darken-2',
       required: false
     },
     registerRoute: {
@@ -184,11 +184,6 @@ export default {
     .recover-password-details{
       font-size: 14px;
       color: #f2c94c;
-    }
-
-    .v-btn.v-btn--disabled:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
-      background-color: #B2DFDB !important;
-      color: white !important;
     }
     .form-title {
       font-size : 20px;
