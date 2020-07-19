@@ -7,17 +7,20 @@
     <v-row class="form-title pb-4" justify="center">{{$t('components.changePassword.changePassword')}}</v-row>
     <v-form ref="form" v-model="valid" @submit.prevent="onChangePassword">
       <!-- password  -->
-      <div v-if="passwordEnabled" class="subtitle-2 pt-1">
-        <v-icon medium color="darken-2" class="ml-3">mdi-lock</v-icon>
-        <span>{{ passwordTitle}}</span>
+      <div v-if="passwordEnabled" class="subtitle-2 input-placeholder-left pt-1">
+        <v-icon v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-lock</v-icon>
+        <span v-if="solo">{{ passwordTitle}}</span>
         <v-text-field
           v-model="userPassword.password"
-          solo
-          :reverse="$vuetify.rtl"
+          :solo="solo"
+          :outlined="outlined"
+          flat
           class="mt-2"
-          :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+          :prepend-inner-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="passwordValidation"
-          :label="this.passwordPlaceholder"
+          :label="this.passwordTitle"
+          :placeholder="this.passwordPlaceholder"
+          :prepend-icon="outlined && iconEnabled ? 'mdi-lock' : ''"
           name="password"
           :type="showPass ? 'text' : 'password'"
           required
@@ -25,17 +28,20 @@
         ></v-text-field>
       </div>
       <!-- new password  -->
-      <div v-if="newPasswordEnabled" class="subtitle-2 pt-1">
-        <v-icon medium color="darken-2" class="ml-3">mdi-lock</v-icon>
-        <span>{{ newPasswordTitle}}</span>
+      <div v-if="newPasswordEnabled" class="subtitle-2 input-placeholder-left pt-1">
+        <v-icon v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-lock</v-icon>
+        <span v-if="solo">{{ newPasswordTitle}}</span>
         <v-text-field
           v-model="userPassword.newPassword"
-          solo
-          :reverse="$vuetify.rtl"
+          :solo="solo"
+          :outlined="outlined"
+          flat
           class="mt-2"
-          :append-icon="showNewPass ? 'mdi-eye' : 'mdi-eye-off'"
+          :prepend-inner-icon="showNewPass ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="newPasswordValidation"
-          :label="this.newPasswordPlaceholder"
+          :label="this.newPasswordTitle"
+          :placeholder="this.passwordPlaceholder"
+          :prepend-icon="outlined && iconEnabled ? 'mdi-lock' : ''"
           name="newPassword"
           :type="showNewPass ? 'text' : 'password'"
           required
@@ -81,10 +87,27 @@
  * @property {String} [passwordPatternRegex] - validation regex
  * @property {String} [newPasswordPatternMessage] - validation regex message
  * @property {String} [passwordPatternMessage] - validation regex message
-
+ * @property {Boolean} [solo=true] - input theme is solo
+ * @property {Boolean} [outlined=false] - input theme is outlined
+ * @property {Boolean} [iconEnabled=true]
  */
 export default {
   props: {
+    iconEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    solo: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    outlined: {
+      type: Boolean,
+      default: false,
+      required: false
+    },
     isDark: {
       type: Boolean,
       default: false,
@@ -273,10 +296,23 @@ export default {
         color : white;
       }
     }
-    .v-input input {
-      color: $input-text-color;
+    .theme--light {
+      .v-text-field .v-input__slot {
+        background: #F3F7F9 !important;
+      }
+      .v-input input {
+        color: $input-text-color;
+      }
     }
-    .v-text-field {
+    .v-text-field--placeholder{
+      font-size: 12px;
+    }
+    .input-placeholder-left{
+      input {
+        text-align: left;
+      }
+    }
+    .v-text-field--solo {
       &.error--text {
         .v-input__slot{
           border: 2px solid !important;
@@ -284,13 +320,7 @@ export default {
       }
     }
     .v-text-field .v-input__slot {
-      background: #F3F7F9 !important;
       border-radius: 5px !important;
-      box-shadow: none !important;
-      .v-label {
-         font-size: 12px !important;
-         color: $placeholder-text !important;
-      }
     }
     .v-application--is-rtl .v-input--selection-controls__input {
       margin-left: 15px !important;

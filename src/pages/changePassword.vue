@@ -11,7 +11,10 @@
 </route>
 <template>
   <changePassword
-    @changepassword="onChangepassword"/>
+    :solo=true
+    :outlined=false
+    :icon-enabled=true
+    @changepassword="onChangepassword" />
 </template>
 <script>
 export default {

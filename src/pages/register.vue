@@ -11,6 +11,9 @@
 <template>
   <registration
     login-route="login"
+    :solo=true
+    :outlined=false
+    :icon-enabled=true
     @register="onRegsiter"
   />
 </template>

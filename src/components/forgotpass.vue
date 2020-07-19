@@ -8,17 +8,19 @@
     <v-row class="form-title pb-4" justify="center">{{$t('components.forgotPassword.title')}}</v-row>
     <v-form ref="form" v-model="valid" @submit.prevent="onRecoverPassword">
       <!-- email -->
-      <div class="subtitle-2 pt-1">
-        <v-icon col medium color="darken-2" class="ml-3">mdi-email</v-icon>
-        <span>{{ emailTitle }}</span>
+      <div class="subtitle-2 input-placeholder-left pt-1">
+        <v-icon v-if="solo && iconEnabled" col medium color="darken-2" class="ml-3">mdi-email</v-icon>
+        <span v-if="solo">{{ emailTitle }}</span>
         <v-text-field
           v-model="email"
-          solo
-          :reverse="$vuetify.rtl"
+          :solo="solo"
+          :outlined="outlined"
+          flat
           class="mt-2"
-          :label="this.emailPlaceholder"
+          :label="this.emailTitle"
+          :placeholder="this.emailPlaceholder"
           :rules="emailValidation"
-          name="email"
+          :prepend-icon="outlined && iconEnabled ? 'mdi-email' : ''" name="email"
           type="text"
           required
         ></v-text-field>
@@ -42,7 +44,7 @@
           small
           class="px-0 text-decoration-underline"
           :to="{ name: registerRoute}">
-            {{recoveryButtonTitle}}
+            {{$t('components.forgotPassword.register')}}
         </v-btn>
       </v-row>
     </v-form>
@@ -67,9 +69,27 @@
  * @property {String} [emailPatternMessage]
  * @property {Boolean} [emailIsRequired=true]
  * @property {Boolean} [emailHavePattern=true]
+ * @property {Boolean} [solo=true] - input theme is solo
+ * @property {Boolean} [outlined=false] - input theme is outlined
+ * @property {Boolean} [iconEnabled=true]
  */
 export default {
   props: {
+    iconEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    solo: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    outlined: {
+      type: Boolean,
+      default: false,
+      required: false
+    },
     isDark: {
       type: Boolean,
       default: false,
@@ -211,10 +231,23 @@ export default {
         color : white;
       }
     }
-    .v-input input {
-      color: $input-text-color;
+    .theme--light {
+      .v-text-field .v-input__slot {
+        background: #F3F7F9 !important;
+      }
+      .v-input input {
+        color: $input-text-color;
+      }
     }
-    .v-text-field {
+    .v-text-field--placeholder{
+      font-size: 12px;
+    }
+    .input-placeholder-left{
+      input {
+        text-align: left;
+      }
+    }
+    .v-text-field--solo {
       &.error--text {
         .v-input__slot{
           border: 2px solid !important;
@@ -222,13 +255,7 @@ export default {
       }
     }
     .v-text-field .v-input__slot {
-      background: #F3F7F9 !important;
       border-radius: 5px !important;
-      box-shadow: none !important;
-      .v-label {
-         font-size: 12px !important;
-         color: $placeholder-text !important;
-      }
     }
     .v-application--is-rtl .v-input--selection-controls__input {
       margin-left: 15px !important;

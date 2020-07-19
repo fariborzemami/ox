@@ -7,31 +7,38 @@
       <v-row class="form-title pb-4" justify="center">{{$t('components.register.title')}}</v-row>
       <v-form ref="form" v-model="valid" @submit.prevent="register">
       <!-- email -->
-      <div v-if="emailEnabled" class="subtitle-2 pt-2">
-        <v-icon col medium color="darken-2" class="ml-3">mdi-email</v-icon>
-        <span>{{emailTitle}}</span>
+      <div v-if="emailEnabled" class="subtitle-2 input-placeholder-left pt-2">
+        <v-icon v-if="solo && iconEnabled" col medium color="darken-2" class="ml-3">mdi-email</v-icon>
+        <span v-if="solo">{{emailTitle}}</span>
         <v-text-field
           v-model="userInfo.email"
-          solo
-          :reverse="$vuetify.rtl"
+          :solo="solo"
+          :outlined="outlined"
+          flat
           class="mt-2"
-          :label="emailPlaceholder"
+          :label="emailTitle"
+          :placeholder="emailPlaceholder"
           :rules="emailValidation"
+          :prepend-icon="outlined && iconEnabled ? 'mdi-email' : ''"
           name="email"
           type="text"
           required
         ></v-text-field>
       </div>
       <!-- name -->
-      <div v-if="nameEnabled" class="subtitle-2 pt-2">
-        <v-icon medium color="darken-2" class="ml-3">mdi-account-circle</v-icon>
-        <span>{{nameTitle}}</span>
+      <div v-if="nameEnabled"  class="subtitle-2 pt-2">
+        <v-icon v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-account-circle</v-icon>
+        <span v-if="solo">{{nameTitle}}</span>
         <v-text-field
           v-model="userInfo.name"
-          solo
+          :solo="solo"
+          :outlined="outlined"
+          flat
           class="mt-2"
-          :label="namePlaceholder"
+          :label="nameTitle"
+          :placeholder="namePlaceholder"
           :rules="nameRequiredEnabled ? [nameRules.required] : [] "
+          :prepend-icon="outlined && iconEnabled ? 'mdi-account-circle' : ''"
           name="name"
           type="text"
           required
@@ -39,31 +46,38 @@
       </div>
       <!-- last name -->
       <div v-if="lastNameEnabled" class="subtitle-2 pt-2">
-        <v-icon medium color="darken-2" class="ml-3">mdi-account-circle</v-icon>
-        <span>{{lastNameTitle}}</span>
+        <v-icon v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-account-circle</v-icon>
+        <span v-if="solo">{{lastNameTitle}}</span>
         <v-text-field
           v-model="userInfo.lastName"
-          solo
+          :solo="solo"
+          :outlined="outlined"
+          flat
           class="mt-2"
-          :label="lastNamePlaceholder"
+          :label="lastNameTitle"
+          :placeholder="lastNamePlaceholder"
           :rules="lastNameRequiredEnabled ? [lastNameRules.required] : [] "
           name="lastName"
+          :prepend-icon="outlined && iconEnabled ? 'mdi-account-circle' : ''"
           type="text"
           required
         ></v-text-field>
       </div>
       <!-- password  -->
-      <div v-if="passwordEnabled" class="subtitle-2 pt-2">
-        <v-icon medium color="darken-2" class="ml-3">mdi-lock</v-icon>
-        <span>{{passwordTitle}}</span>
+      <div v-if="passwordEnabled" class="subtitle-2 input-placeholder-left pt-2">
+        <v-icon  v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-lock</v-icon>
+        <span v-if="solo">{{passwordTitle}}</span>
         <v-text-field
           v-model="userInfo.password"
-          solo
-          :reverse="$vuetify.rtl"
+          :solo="solo"
+          :outlined="outlined"
+          flat
           class="mt-2"
-          :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+          :prepend-inner-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="passwordValidation"
-          :label="passwordPlaceholder"
+          :label="passwordTitle"
+          :placeholder="passwordPlaceholder"
+          :prepend-icon="outlined && iconEnabled ? 'mdi-lock' : ''"
           name="password"
           :type="showPass ? 'text' : 'password'"
           required
@@ -71,16 +85,19 @@
         ></v-text-field>
       </div>
       <!-- phone number -->
-      <div v-if="phoneNumberEnabled" class="subtitle-2 pt-2">
-        <v-icon medium color="darken-2" class="ml-3">mdi-cellphone-iphone</v-icon>
-        <span>{{phoneNumberTitle}}</span>
+      <div v-if="phoneNumberEnabled" class="subtitle-2 input-placeholder-left pt-2">
+        <v-icon  v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-cellphone-iphone</v-icon>
+        <span v-if="solo">{{phoneNumberTitle}}</span>
         <v-text-field
           v-model="userInfo.phoneNumber"
-          solo
-          :reverse="$vuetify.rtl"
+          :solo="solo"
+          :outlined="outlined"
+          flat
           class="mt-2"
           :rules="phoneNumberValidation"
-          :label="phoneNumberPlaceholder"
+          :label="phoneNumberTitle"
+          :placeholder="phoneNumberPlaceholder"
+          :prepend-icon="outlined && iconEnabled ? 'mdi-cellphone-iphone' : ''"
           name="phoneNumber"
           type="text"
           required
@@ -170,9 +187,27 @@
  * @property {String} [phoneNumberPatternMessage]
  * @property {Boolean} [phoneNumberRequiredEnabled=true]
  * @property {Boolean} [phoneNumberPatternEnabled=true]
+ * @property {Boolean} [solo=true] - input theme is solo
+ * @property {Boolean} [outlined=false] - input theme is outlined
+ * @property {Boolean} [iconEnabled=true]
  */
 export default {
   props: {
+    iconEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    solo: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    outlined: {
+      type: Boolean,
+      default: false,
+      required: false
+    },
     isDark: {
       type: Boolean,
       default: false,
@@ -530,11 +565,23 @@ export default {
       }
     }
 
-    .v-input input {
-      color: $input-text-color;
+    .theme--light {
+      .v-text-field .v-input__slot {
+        background: #F3F7F9 !important;
+      }
+      .v-input input {
+        color: $input-text-color;
+      }
     }
-
-    .v-text-field {
+    .v-text-field--placeholder{
+      font-size: 12px;
+    }
+    .input-placeholder-left{
+      input {
+        text-align: left;
+      }
+    }
+    .v-text-field--solo {
       &.error--text {
         .v-input__slot{
           border: 2px solid !important;
@@ -543,13 +590,7 @@ export default {
     }
 
     .v-text-field .v-input__slot {
-      background: #F3F7F9 !important;
       border-radius: 5px !important;
-      box-shadow: none !important;
-      .v-label {
-         font-size: 12px !important;
-         color: $placeholder-text !important;
-      }
     }
 
     .v-input--checkbox {

@@ -14,33 +14,39 @@
       v-model="valid"
       @submit="onLogin">
       <!-- email -->
-      <div v-if="emailEnabled" class="subtitle-2 pt-1">
-        <v-icon col medium color="darken-2" class="ml-3">mdi-email</v-icon>
-        <span>{{ emailTitle }}</span>
+      <div v-if="emailEnabled" class="subtitle-2 input-placeholder-left pt-1">
+        <v-icon v-if="solo && iconEnabled" col medium color="darken-2" class="ml-3">mdi-email</v-icon>
+        <span v-if="solo">{{ emailTitle }}</span>
         <v-text-field
           v-model="userInfo.email"
-          solo
-          :reverse="$vuetify.rtl"
+          :solo="solo"
+          :outlined="outlined"
+          flat
           class="mt-2"
-          :label="this.emailPlaceholder"
+          :label="this.emailTitle"
+          :placeholder="this.emailPlaceholder"
           :rules="emailValidation"
+          :prepend-icon="outlined && iconEnabled ? 'mdi-email' : ''"
           name="email"
           type="text"
           required
         ></v-text-field>
       </div>
       <!-- password  -->
-      <div v-if="passwordEnabled" class="subtitle-2 pt-1">
-        <v-icon medium color="darken-2" class="ml-3">mdi-lock</v-icon>
-        <span>{{ passwordTitle }}</span>
+      <div v-if="passwordEnabled" class="subtitle-2 input-placeholder-left  pt-1">
+        <v-icon v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-lock</v-icon>
+        <span v-if="solo">{{ passwordTitle }}</span>
         <v-text-field
           v-model="userInfo.password"
-          solo
-          :reverse="$vuetify.rtl"
+          :solo="solo"
+          :outlined="outlined"
+          flat
           class="mt-2"
-          :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+          :prepend-inner-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="passwordValidation"
-          :label="this.passwordPlaceholder"
+          :label="this.passwordTitle"
+          :placeholder="this.passwordPlaceholder"
+          :prepend-icon="outlined && iconEnabled ? 'mdi-lock' : ''"
           name="password"
           :type="showPass ? 'text' : 'password'"
           required
@@ -122,9 +128,27 @@
  * @property {Boolean} [passwordPatternEnabled=true] - if value is false , regex validation disable
  * @property {String} [passwordPatternRegex] - validation regex
  * @property {String} [passwordPatternMessage] - validation regex message
+ * @property {Boolean} [solo=true] - input theme is solo
+ * @property {Boolean} [outlined=false] - input theme is outlined
+ * @property {Boolean} [iconEnabled=true]
  */
 export default {
   props: {
+    iconEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    solo: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    outlined: {
+      type: Boolean,
+      default: false,
+      required: false
+    },
     isDark: {
       type: Boolean,
       default: false,
@@ -359,10 +383,23 @@ export default {
         color : white;
       }
     }
-    .v-input input {
-      color: $input-text-color;
+    .theme--light {
+      .v-text-field .v-input__slot {
+        background: #F3F7F9 !important;
+      }
+      .v-input input {
+        color: $input-text-color;
+      }
     }
-    .v-text-field {
+    .v-text-field--placeholder{
+      font-size: 12px;
+    }
+    .input-placeholder-left{
+      input {
+        text-align: left;
+      }
+    }
+    .v-text-field--solo {
       &.error--text {
         .v-input__slot{
           border: 2px solid !important;
@@ -370,13 +407,7 @@ export default {
       }
     }
     .v-text-field .v-input__slot {
-      background: #F3F7F9 !important;
       border-radius: 5px !important;
-      box-shadow: none !important;
-      .v-label {
-         font-size: 12px !important;
-         color: $placeholder-text !important;
-      }
     }
     .v-input--checkbox {
       .v-label {

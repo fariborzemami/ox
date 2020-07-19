@@ -11,6 +11,9 @@
 <template>
   <forgotpass
     register-route="register"
+    :solo=true
+    :outlined=false
+    :icon-enabled=true
     @forgotpass="forgotpass" />
 </template>
 <script>

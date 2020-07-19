@@ -12,6 +12,9 @@
   <login
     forgot-password-route="forgotpass"
     register-route="register"
+    :solo=true
+    :outlined=false
+    :icon-enabled=true
     @login="onLogin" />
 </template>
 <script>
