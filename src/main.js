@@ -30,7 +30,17 @@ const vuetify = Vuetify(APP_CONFIG)
 
 const token = GetToken()
 
-const server = Server(APP_CONFIG, token)
+const requestInterceptor = (config) => {
+  console.log('request interceptor')
+  return config
+}
+
+const responseInterceptor = (response) => {
+  console.log('response interceptor')
+  return response
+}
+
+const server = Server(APP_CONFIG, token, requestInterceptor, responseInterceptor)
 
 window.SERVER = server
 

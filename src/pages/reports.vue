@@ -58,9 +58,9 @@
       <filter-item
         v-model="filterBox.ageRange"
         type="range"
-        :label="$t('pages.reports.ageRangePlaceholder')"
         min="15"
         max="100"
+        :placeholder="$t('pages.reports.ageRangePlaceholder')"
       ></filter-item>
     </filter-box>
     <v-data-table

@@ -58,7 +58,6 @@
         font-size: 0.84rem;
         width: auto;
         max-width: min-content;
-        direction: ltr;
         .v-input__slot{
           fieldset{
             border: none;
@@ -149,6 +148,19 @@
         border-radius: 0.3rem;
         max-height: 40px;
         padding-top: 8px;
+      }
+    }
+    .row{
+      height: calc(1.5em + 0.75rem + 8px);
+      min-height: calc(1.5em + 0.75rem + 8px);
+      font-size: 0.84rem;
+      border-radius: 5px;
+      padding: 0 16px;
+      background-color: var(--v-formInputColor-base);
+      margin-left: 0;
+      .col-4,
+      .col-8{
+        padding: 2px 0 2px 0;
       }
     }
   }
@@ -264,25 +276,40 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  .form-item-component{
-    flex: 0 0 100%;
-    max-width: 100%;
-    width: 100%;
-    padding: 12px;
-    @media (min-width: 600px){
-      flex: 0 0 50%;
-      max-width: 50%;
+  .md{
+    .v-text-field__slot,
+    .v-select__slot{
+      margin-top: 2px;
+      height: 38px !important;
+      min-height: 38px;
     }
-    @media (min-width: 960px){
-      flex: 0 0 33.3333333333%;
-      max-width: 33.3333333333%;
+    .multiselect{
+      min-height: 40px;
+      margin-bottom: 31px;
+      .multiselect__tags{
+        .multiselect__placeholder{
+          margin: auto;
+        }
+        padding-bottom: 6px;
+        padding-top: 6px;
+      }
     }
-    @media (min-width: 1264px){
-      flex: 0 0 25%;
-      max-width: 25%;
+    .vpd-input-group{
+      height: auto !important;
+      min-height: auto !important;
+      input{
+        padding-top: 4px;
+        padding-bottom: 4px;
+      }
     }
   }
   > div{
+    .row{
+      margin-bottom: 17px;
+      .v-input--range-slider{
+        height: inherit;
+      }
+    }
     .v-input:not(.v-file-input){
       .v-input__prepend-outer,
       .v-input__append-outer,
@@ -302,6 +329,9 @@
     .vpd-input-group{
       height: 48px;
       margin-bottom: 19px;
+      input{
+        width: 100%;
+      }
     }
   }
   .form-label{
@@ -352,3 +382,27 @@
   }
 }
 
+.report-table{
+  padding-right: 1rem;
+  border: 1px solid var(--v-borderColor-base);
+  border-radius: 10px !important;
+  box-shadow: -2px 3px 5px hsla(0,0%,49%,.1);
+  tbody>tr{
+    direction: ltr;
+    td.text-start{
+      text-align: end !important;
+    }
+    td>button.v-btn{
+      min-width: 110px !important;
+      letter-spacing: normal;
+    }
+  }
+}
+
+.filter-actions{
+   padding: 0 16px;
+  .v-btn{
+    min-width: 110px !important;
+    letter-spacing: normal;
+  }
+}

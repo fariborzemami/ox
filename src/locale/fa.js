@@ -80,6 +80,9 @@ export default {
     }
   },
   pages: {
+    server: {
+      title: 'سرور'
+    },
     stepper: {
       title: 'گام شمار',
       formNameLabel: 'نام کمپین',
@@ -162,6 +165,14 @@ export default {
     },
     changePassword: {
       title: 'تغییر گذرواژه'
+    },
+    chat: {
+      title: 'گفتگو ها',
+      searchInChat: 'جستجو در گفتگوها',
+      sendMessage: 'ارسال پیام',
+      typeMessage: 'پیام خود را تایپ کنید',
+      today: 'امروز',
+      yesterday: 'دیروز'
     },
     starter: {
       title: 'شروع کننده'

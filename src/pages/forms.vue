@@ -19,6 +19,7 @@
     >
       <form-item
         v-model="formData.type"
+        :class="{ 'col-3': formData.type === 'form-inline' }"
         type="select"
         :items="formTypes"
         icon="mdi-cards-variant"
@@ -26,6 +27,7 @@
       ></form-item>
       <form-item
         v-model="formData.name"
+        :class="{ 'col-3': formData.type === 'form-inline' }"
         type="textbox"
         :rules="nameRules"
         icon="mdi-form-textbox"
@@ -34,6 +36,7 @@
       ></form-item>
       <form-item
         v-model="formData.email"
+        :class="{ 'col-3': formData.type === 'form-inline' }"
         type="textbox"
         icon="mdi-form-textbox"
         :label="$t('pages.forms.mailTextLabel')"
@@ -41,6 +44,7 @@
         ltr
       ></form-item>
       <form-item
+        :class="{ 'col-3': formData.type === 'form-inline' }"
         icon="mdi-form-textbox"
         :label="$t('pages.forms.mailTextSlotLabel')"
       >
@@ -53,6 +57,7 @@
       </form-item>
       <form-item
         v-model="formData.sheba"
+        :class="{ 'col-3': formData.type === 'form-inline' }"
         type="textbox"
         :rules="shebaRules"
         icon="mdi-form-textbox"
@@ -63,6 +68,7 @@
       ></form-item>
       <form-item
         v-model="formData.textArea"
+        :class="{ 'col-3': formData.type === 'form-inline' }"
         type="textarea"
         rows="4"
         icon="mdi-form-textarea"
@@ -71,6 +77,7 @@
       ></form-item>
       <form-item
         v-model="formData.select"
+        :class="{ 'col-3': formData.type === 'form-inline' }"
         type="select"
         :rules="[v => !!v || $t('pages.forms.itemSelectRuleRequired')]"
         :items="complexItems"
@@ -82,6 +89,7 @@
       ></form-item>
       <form-item
         v-model="formData.selectMultiple"
+        :class="{ 'col-3': formData.type === 'form-inline' }"
         type="select"
         :items="items"
         icon="mdi-select-multiple"
@@ -91,6 +99,7 @@
       ></form-item>
       <form-item
         v-model="formData.selectMultiple"
+        :class="{ 'col-3': formData.type === 'form-inline' }"
         type="multiselect"
         :options="items"
         :multiple="true"
@@ -100,24 +109,28 @@
       ></form-item>
       <form-item
         v-model="formData.date"
+        :class="{ 'col-3': formData.type === 'form-inline' }"
         icon="mdi-calendar"
         :label="$t('pages.forms.datePickerLabel')"
         type="date"
       ></form-item>
       <form-item
         v-model="formData.datetime"
+        :class="{ 'col-3': formData.type === 'form-inline' }"
         icon="mdi-calendar-clock"
         :label="$t('pages.forms.datetimePickerLabel')"
         type="datetime"
       ></form-item>
       <form-item
         v-model="formData.time"
+        :class="{ 'col-3': formData.type === 'form-inline' }"
         icon="mdi-clock"
         :label="$t('pages.forms.timePickerLabel')"
         type="time"
       ></form-item>
       <form-item
         v-model="formData.counter"
+        :class="{ 'col-3': formData.type === 'form-inline' }"
         type="slider"
         min="1"
         max="20"
@@ -126,6 +139,7 @@
       ></form-item>
       <form-item
         v-model="formData.checkbox"
+        :class="{ 'col-3': formData.type === 'form-inline' }"
         type="checkbox"
         :rules="[v => !!v || $t('pages.forms.agreeCheckboxRuleRequired')]"
         icon="mdi-checkbox-marked"
@@ -133,6 +147,7 @@
       ></form-item>
       <form-item
         v-model="formData.checkbox"
+        :class="{ 'col-3': formData.type === 'form-inline' }"
         type="switch"
         :rules="[v => !!v || $t('pages.forms.agreeSwitchRuleRequired')]"
         icon="mdi-toggle-switch"
@@ -140,6 +155,7 @@
       ></form-item>
       <form-item
         v-model="formData.radiobox"
+        :class="{ 'col-3': formData.type === 'form-inline' }"
         type="radio"
         :rules="[v => !!v || $t('pages.forms.genderRadioRuleRequired')]"
         :options="radioOptions"
@@ -148,6 +164,7 @@
       ></form-item>
       <form-item
         v-model="formData.file"
+        :class="{ 'col-3': formData.type === 'form-inline' }"
         type="file"
         icon="mdi-file-upload"
         accept="image/*"

@@ -1,5 +1,8 @@
 <template>
-  <div class="form-item-component">
+  <div
+    class="form-item-component"
+    :class="{ md }"
+  >
     <div class="form-label">
       <v-icon> {{ icon }} </v-icon>
       <label> {{ label }} </label>
@@ -59,6 +62,27 @@
           :value="option.value"
         ></v-radio>
       </v-radio-group>
+      <div
+        v-else-if="type === 'range'"
+        class="row mx-0 mt-0"
+      >
+        <div class="col-4 my-auto">
+          {{ $attrs.placeholder }}
+        </div>
+        <v-range-slider
+          class="col-8"
+          :value="value"
+          v-bind="$attrs"
+          @change="onChange"
+        >
+          <template v-slot:prepend>
+            {{ value[0] }}
+          </template>
+          <template v-slot:append>
+            {{ value[1] }}
+          </template>
+        </v-range-slider>
+      </div>
       <v-slider
         v-else-if="type === 'slider'"
         :value="value"
@@ -109,6 +133,7 @@
  * @property {string} [label] - form label text.
  * @property {string} [type] - form input type (when slot not exists).
  * @property {Boolean} [ltr=false] - form input ltr direction. (default is rtl).
+ * @property {Boolean} [md=false] - form input md size.
  * @property {*} [v-model] - default input value (when slot not exists).
  */
 import Multiselect from 'vue-multiselect'
@@ -132,13 +157,18 @@ export default {
       type: String,
       required: false,
       validator: (v) => ['textbox', 'textarea', 'select', 'checkbox', 'switch', 'radio', 'file',
-        'multiselect', 'date', 'datetime', 'time', 'slider'].indexOf(v) !== -1
+        'multiselect', 'date', 'datetime', 'time', 'slider', 'range'].indexOf(v) !== -1
     },
     value: {
       type: [String, Boolean, Array, Number, File],
       required: false
     },
     ltr: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    md: {
       type: Boolean,
       required: false,
       default: false
@@ -155,6 +185,8 @@ export default {
     url () {
       if (typeof this.value === 'string') {
         return this.value
+      } else if (Array.isArray(this.value)) {
+        return
       }
       return URL.createObjectURL(this.value)
     }

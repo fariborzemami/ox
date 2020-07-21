@@ -1,6 +1,6 @@
 <template>
   <div class="filter-box-component">
-    <div class="filter-inputs d-flex flex-wrap">
+    <v-form class="form-inline pa-0">
       <filter-item
         v-if="!disableFromDate"
         v-model="fromDate"
@@ -14,7 +14,7 @@
         :placeholder="$t('components.filterBox.toDate')"
       ></filter-item>
       <slot></slot>
-    </div>
+    </v-form>
     <div class="filter-actions d-flex flex-row-reverse pb-4">
       <v-btn
         outlined
@@ -32,12 +32,8 @@
  * @description filter box component for report-table
  * @version 1.0.0
  */
-import filterItem from '../components/filter-item'
 export default {
   name: 'FilterBox',
-  components: {
-    'filter-item': filterItem
-  },
   props: {
     disableFromDate: {
       type: Boolean,
@@ -84,7 +80,7 @@ export default {
   clear: both;
   width: 100%;
   margin-bottom: 1rem;
-  border: 1px solid #E1E7EE;
+  border: 1px solid var(--v-borderColor-base);
   border-radius: 10px;
   box-shadow: -2px 3px 5px hsla(0,0%,49%,.1);
 }
