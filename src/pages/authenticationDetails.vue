@@ -5,7 +5,8 @@
     "title": "authenticationDetails",
     "order": 10,
     "isVisible": true,
-    "iconName": "mdi-login"
+    "iconName": "mdi-login",
+    "artwork": "/img/samples/auth-artwork.png"
   }
 }
 </route>

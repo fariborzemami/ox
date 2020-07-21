@@ -4,7 +4,8 @@
   "meta": {
     "order": 6,
     "isVisible": true,
-    "iconName": "mdi-login"
+    "iconName": "mdi-login",
+    "artwork": "/img/samples/auth-artwork.png"
     }
 }
 </route>

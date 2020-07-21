@@ -5,7 +5,8 @@
     "title": "change password",
     "order": 9,
     "isVisible": true,
-    "iconName": "mdi-login"
+    "iconName": "mdi-login",
+    "artwork": "/img/samples/auth-artwork.png"
   }
 }
 </route>

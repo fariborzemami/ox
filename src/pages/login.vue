@@ -4,7 +4,8 @@
   "meta": {
     "order": 5,
     "isVisible": true,
-    "iconName": "mdi-email"
+    "iconName": "mdi-email",
+    "artwork": "/img/samples/auth-artwork.png"
   }
 }
 </route>

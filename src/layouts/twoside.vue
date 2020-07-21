@@ -33,7 +33,7 @@
             sm="12"
             md="8"
             >
-            <img src="/img/samples/auth-artwork.png" />
+            <img :src="artworkURL" />
           </v-col>
         </v-row>
       </v-container>
@@ -45,6 +45,12 @@
 export default {
   props: {
     source: String
+  },
+  computed: {
+    artworkURL () {
+      const routeArtwork = this.$route.meta.artwork
+      return routeArtwork || '/img/sample/artwork.png'
+    }
   }
 }
 </script>
