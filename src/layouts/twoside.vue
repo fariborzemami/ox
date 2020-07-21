@@ -1,5 +1,7 @@
 <template>
-  <v-app id="inspire">
+  <v-app
+    id="inspire"
+    class="layout-twoside">
     <v-main>
       <v-container
         class="fill-height py-0"
@@ -12,7 +14,7 @@
           cols="12"
           sm="12"
           md="4"
-          class="my-auto"
+          class="layout-twoside--content-area my-auto"
           >
           <router-link :to="APP_CONFIG.homeURL" >
             <v-img
@@ -29,7 +31,7 @@
         </v-col>
           <v-col
             cols="12"
-            class="fill-height blue-grey lighten-5 d-flex justify-center align-center"
+            class="layout-twoside--artwork-area fill-height blue-grey lighten-5 d-flex justify-center align-center"
             sm="12"
             md="8"
             >

@@ -18,6 +18,7 @@
     "core-js": "^3.6.5",
     "faker": "git+ssh://git@github.com/fariborzemami/faker.js.git",
     "persian-datepicker-next-version": "git+https://github.com/babakhani/persian-datepicker-next-version.git",
+    "portal-vue": "^2.1.7",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
     "vue-markdown": "^2.2.4",
