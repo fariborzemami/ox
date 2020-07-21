@@ -33,7 +33,15 @@
             sm="12"
             md="8"
             >
-            <img :src="artworkURL" />
+            <portal-target name="layoutTwoside">
+              <!--
+                This component can be located anywhere in your App.
+                The slot content of the above portal component will be rendered here.
+              -->
+            </portal-target>
+            <img
+            v-if="artworkURL"
+            :src="artworkURL" />
           </v-col>
         </v-row>
       </v-container>
@@ -49,7 +57,7 @@ export default {
   computed: {
     artworkURL () {
       const routeArtwork = this.$route.meta.artwork
-      return routeArtwork || this.APP_CONFIG.defaultPagesArtwork
+      return routeArtwork || false
     }
   }
 }

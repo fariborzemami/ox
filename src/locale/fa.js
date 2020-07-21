@@ -80,6 +80,9 @@ export default {
     }
   },
   pages: {
+    portal: {
+      title: 'پرتال'
+    },
     server: {
       title: 'سرور'
     },

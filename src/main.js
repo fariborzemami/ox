@@ -10,8 +10,10 @@ import globalMixin from '@/mixins/global'
 import faker from 'faker'
 import Server from '@/plugins/server'
 import GetToken from '@/plugins/gettoken'
+import PortalVue from 'portal-vue'
 
 Vue.mixin(globalMixin)
+Vue.use(PortalVue)
 
 Vue.mixin({
   beforeCreate () {
