@@ -49,7 +49,7 @@ export default {
   computed: {
     artworkURL () {
       const routeArtwork = this.$route.meta.artwork
-      return routeArtwork || '/img/sample/artwork.png'
+      return routeArtwork || this.APP_CONFIG.defaultPagesArtwork
     }
   }
 }
