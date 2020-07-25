@@ -80,6 +80,12 @@ export default {
     }
   },
   pages: {
+    portal: {
+      title: 'Portal'
+    },
+    server: {
+      title: 'Server'
+    },
     stepper: {
       title: 'Stepper',
       formNameLabel: 'Campaign name',
@@ -162,6 +168,14 @@ export default {
     },
     changePassword: {
       title: 'Change password'
+    },
+    chat: {
+      title: 'Chats',
+      searchInChat: 'Search',
+      sendMessage: 'Send',
+      typeMessage: 'Write your message!',
+      today: 'Today',
+      yesterday: 'Yesterday'
     },
     starter: {
       title: 'Starter'
