@@ -41,7 +41,7 @@ import Datepicker from '../../node_modules/persian-datepicker-next-version/dist/
 // eslint-disable-next-line no-unused-vars
 import styles from '../../node_modules/persian-datepicker-next-version/dist/pwt-datepicker.css'
 export default {
-  layout: 'main',
+  layout: APP_CONFIG.layout.mainPanelLayout,
   components: { Datepicker },
   data () {
     return {

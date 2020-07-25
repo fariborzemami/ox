@@ -105,7 +105,7 @@
 </template>
 <script>
 export default {
-  layout: 'panel',
+  layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
     return {
       items: [],

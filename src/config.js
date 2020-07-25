@@ -33,6 +33,7 @@ export default {
     }
   },
   layout: {
+    mainPanelLayout: 'panel-full-height-side',
     panel: {
       isHeaderDark: true,
       isSidebarDark: false

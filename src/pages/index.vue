@@ -20,7 +20,7 @@ import VueMarkdown from 'vue-markdown'
 
 export default {
   name: 'Home',
-  layout: 'panel',
+  layout: APP_CONFIG.layout.mainPanelLayout,
   components: {
     VueMarkdown
   },

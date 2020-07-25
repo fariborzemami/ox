@@ -120,7 +120,7 @@
 
 <script>
 export default {
-  layout: 'panel',
+  layout: APP_CONFIG.layout.mainPanelLayout,
   computed: {
     profile () {
       return this.$store.state.layout.profile

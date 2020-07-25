@@ -24,7 +24,7 @@ import chat from '@/components/chat.vue'
 import pageTitle from '@/components/page-title'
 import faker from '../../node_modules/faker/locale/fa'
 export default {
-  layout: 'main',
+  layout: APP_CONFIG.layout.mainPanelLayout,
   components: {
     chat,
     'page-title': pageTitle

@@ -17,7 +17,7 @@
 </template>
 <script>
 export default {
-  layout: 'panel-full-height-side',
+  layout: APP_CONFIG.layout.mainPanelLayout,
   mounted () {
     window.SERVER.ChangePassword({})
   }

@@ -206,7 +206,7 @@
 
 <script>
 export default {
-  layout: 'panel',
+  layout: APP_CONFIG.layout.mainPanelLayout,
   data: () => ({
     // NOTE: Keep this name same in all form pages and components
     formIsValid: true,

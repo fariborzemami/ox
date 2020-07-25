@@ -18,6 +18,6 @@
 </template>
 <script>
 export default {
-  layout: 'main'
+  layout: APP_CONFIG.layout.mainPanelLayout
 }
 </script>

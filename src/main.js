@@ -45,6 +45,7 @@ const responseInterceptor = (response) => {
 const server = Server(APP_CONFIG, token, requestInterceptor, responseInterceptor)
 
 window.SERVER = server
+window.APP_CONFIG = APP_CONFIG
 
 store.server = server
 
