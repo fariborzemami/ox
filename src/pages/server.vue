@@ -17,7 +17,7 @@
 </template>
 <script>
 export default {
-  layout: 'main',
+  layout: 'panel-full-height-side',
   mounted () {
     window.SERVER.ChangePassword({})
   }
