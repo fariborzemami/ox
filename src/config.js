@@ -1,4 +1,5 @@
 import fa from './locale/fa'
+import en from './locale/en'
 import API_JSON from '../public/swagger/openapi.json'
 
 // NOTE: put all applciation config here
@@ -7,7 +8,8 @@ export default {
   locale: 'en',
   localeDateString: 'en-US',
   locales: {
-    fa
+    fa,
+    en
   },
   rtl: false,
   darkTheme: false,
