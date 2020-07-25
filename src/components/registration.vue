@@ -4,7 +4,12 @@
       flat
       class="transparent"
       :dark="isDark">
-      <v-row class="form-title pb-4" justify="center">{{$t('components.register.title')}}</v-row>
+      <v-row
+        v-if="titleEnabled"
+        class="form-title pb-4"
+        justify="center">
+        {{$t('components.register.title')}}
+      </v-row>
       <v-form ref="form" v-model="valid" @submit.prevent="register">
       <!-- email -->
       <div v-if="emailEnabled" class="subtitle-2 input-placeholder-left pt-2">
@@ -190,6 +195,7 @@
  * @property {Boolean} [solo=true] - input theme is solo
  * @property {Boolean} [outlined=false] - input theme is outlined
  * @property {Boolean} [iconEnabled=true]
+ * @property {Boolean} [titleEnabled=true] - Specifies whether main title is displayed or not
  */
 export default {
   props: {
@@ -449,6 +455,11 @@ export default {
       required: false
     },
     lastNameRequiredEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    titleEnabled: {
       type: Boolean,
       default: true,
       required: false

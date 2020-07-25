@@ -5,6 +5,7 @@
       class="transparent"
       :dark="isDark">
     <v-row
+      v-if="titleEnabled"
       class="form-title pb-4"
       justify="center">
       {{$t('components.login.login')}}
@@ -131,6 +132,10 @@
  * @property {Boolean} [solo=true] - input theme is solo
  * @property {Boolean} [outlined=false] - input theme is outlined
  * @property {Boolean} [iconEnabled=true]
+ * @property {Boolean} [passwordPatternEnabled=true] - if value is false , regex validation disable,
+ * @property {String} [passwordPatternRegex] - validation regex,
+ * @property {String} [passwordPatternMessage] - validation regex message,
+ * @property {Boolean} [titleEnabled=true] - Specifies whether main title is displayed or not
  */
 export default {
   props: {
@@ -285,6 +290,11 @@ export default {
       required: false
     },
     passwordPatternEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    titleEnabled: {
       type: Boolean,
       default: true,
       required: false

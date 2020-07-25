@@ -4,7 +4,11 @@
       flat
       class="transparent"
       :dark="isDark">
-    <v-row class="form-title pb-4" justify="center">{{$t('components.changePassword.changePassword')}}</v-row>
+    <v-row
+      v-if="titleEnabled"
+      class="form-title pb-4"
+      justify="center">
+      {{$t('components.changePassword.changePassword')}}</v-row>
     <v-form ref="form" v-model="valid" @submit.prevent="onChangePassword">
       <!-- password  -->
       <div v-if="passwordEnabled" class="subtitle-2 input-placeholder-left pt-1">
@@ -90,6 +94,7 @@
  * @property {Boolean} [solo=true] - input theme is solo
  * @property {Boolean} [outlined=false] - input theme is outlined
  * @property {Boolean} [iconEnabled=true]
+ * @property {Boolean} [titleEnabled=true] - Specifies whether main title is displayed or not
  */
 export default {
   props: {
@@ -212,6 +217,11 @@ export default {
       required: false
     },
     passwordPatternEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    titleEnabled: {
       type: Boolean,
       default: true,
       required: false
