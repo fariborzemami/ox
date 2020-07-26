@@ -35,6 +35,7 @@
         <v-btn
           type="submit"
           :disabled="!valid"
+          :width="recoveryButtonWidth"
           class="white--text"
           :color="recoveryLinkColor">
           {{ recoveryButtonTitle }}
@@ -64,6 +65,7 @@
  * @event forgotpass - return email
  * @property {Boolean} [isDark=false]
  * @property {String} [recoveryButtonTitle]
+ * @property {String} [recoveryButtonWidth] - Specifies the width of the recovery button,
  * @property {String} [recoveryButtonColor='blue darken-2']
  * @property {String} [recoveryLinkColor='blue darken-2']
  * @property {String} [registerRoute='register']
@@ -106,6 +108,10 @@ export default {
       default () {
         return this.$t('components.forgotPassword.passwordRecovery')
       },
+      required: false
+    },
+    recoveryButtonWidth: {
+      type: String,
       required: false
     },
     recoveryButtonColor: {

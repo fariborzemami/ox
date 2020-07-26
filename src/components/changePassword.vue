@@ -56,6 +56,7 @@
       <v-row justify="center">
         <v-btn
           type="submit"
+          :width="changePasswordButtonWidth"
           :disabled="!valid"
           class="white--text"
           :color="changePasswordButtonColor">
@@ -74,6 +75,7 @@
  * @event changepassword
  * @property {Boolean} [isDark=false] - Specifies the form theme,
  * @property {String} [changePasswordButtonTitle] - Specifies the title of the registration button,
+ * @property {String} [changePasswordButtonWidth] - Specifies the width of the change password button,
  * @property {String} [changePasswordButtonColor='blue darken-2'] - Specifies the color of the registration button,
  * @property {Boolean} [newPasswordEnabled=true] - Specifies whether input exists in the form,
  * @property {Boolean} [passwordEnabled=true] - Specifies whether input exists in the form,
@@ -123,6 +125,10 @@ export default {
       default () {
         return this.$t('components.changePassword.changePassword')
       },
+      required: false
+    },
+    changePasswordButtonWidth: {
+      type: String,
       required: false
     },
     changePasswordButtonColor: {
