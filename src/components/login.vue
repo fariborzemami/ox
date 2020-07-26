@@ -84,6 +84,7 @@
       <v-row justify="center">
         <v-btn
           type="button"
+          :width="loginButtonWidth"
           :disabled="!valid"
           class="white--text"
           :color="loginButtonColor"
@@ -117,7 +118,8 @@
  * @version 1.0.0
  * @event login - return email and password
  * @property {Boolean} [isDark=false] - Specifies the form theme,
- * @property {String} [loginButtonTitle] - Specifies the title of the registration button,
+ * @property {String} [loginButtonTitle] - Specifies the title of the login button,
+ * @property {String} [loginButtonWidth] - Specifies the width of the login button,
  * @property {String} [loginButtonColor='blue darken-2'] - Specifies the color of the login button,
  * @property {String} [registerLinkColor='blue darken-2'] - Specifies the color of the registration link,
  * @property {String} [checkBoxColor='blue darken-2'] - Specifies the color of the checkbox,
@@ -177,6 +179,10 @@ export default {
       default () {
         return this.$t('components.login.login')
       },
+      required: false
+    },
+    loginButtonWidth: {
+      type: String,
       required: false
     },
     forgotPassLinkTitle: {
