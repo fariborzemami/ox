@@ -122,7 +122,7 @@
       <v-row justify="center">
         <v-btn
           type="submit"
-          :width="registerButtonWidth"
+          :block="registerButtonFullWidth"
           :disabled="!valid"
           class="white--text"
           :color="registerButtonColor">
@@ -154,7 +154,7 @@
  * @version 1.0.0
  * @event register - return name , email, password, phone number
  * @property {String} [registerButtonTitle] - Specifies the title of the registration button,
- * @property {String} [registerButtonWidth] - Specifies the width of the registration button,
+ * @property {String} [registerButtonFullWidth] -Specifies that Expands the button to 100% of available space,
  * @property {String} [registerButtonColor='blue darken-2'] - Specifies the color of the registration button,
  * @property {String} [loginLinkColor='blue darken-2'] - Specifies the color of the login link,
  * @property {String} [loginLinkTitle] - Specifies the title of the login link,
@@ -228,8 +228,9 @@ export default {
       },
       required: false
     },
-    registerButtonWidth: {
-      type: String,
+    registerButtonFullWidth: {
+      type: Boolean,
+      default: false,
       required: false
     },
     loginLinkTitle: {
