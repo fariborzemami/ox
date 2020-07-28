@@ -4,6 +4,9 @@ export default {
   ...en,
 
   components: {
+    formHelpBox: {
+      send: 'send'
+    },
     login: {
       email: 'Email',
       password: 'Password',

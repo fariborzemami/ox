@@ -12,6 +12,7 @@ import FormAction from '../components/form-action'
 import FilterBox from '../components/filter-box'
 import FilterItem from '../components/filter-item'
 import Starter from '../components/starter.vue'
+import FormHelpBox from '../components/form-help-box.vue'
 
 Vue.use({
   install (Vue, options) {
@@ -29,5 +30,6 @@ Vue.use({
     Vue.component('FormItem', FormItem)
     Vue.component('FormAction', FormAction)
     Vue.component('Starter', Starter)
+    Vue.component('FormHelpBox', FormHelpBox)
   }
 })

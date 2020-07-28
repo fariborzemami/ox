@@ -4,6 +4,9 @@ export default {
   ...fa,
 
   components: {
+    formHelpBox: {
+      send: 'ارسال'
+    },
     login: {
       email: 'پست الکترونیکی',
       password: 'کلمه عبور',
@@ -80,6 +83,9 @@ export default {
     }
   },
   pages: {
+    formHelpBox: {
+      title: 'صفحه راهنمایی'
+    },
     portal: {
       title: 'پرتال'
     },
