@@ -53,6 +53,7 @@ export default {
     forgotPassword: {
       title: 'بازیابی کلمه عبور',
       email: 'پست الکترونیکی',
+      back: 'بازگشت',
       passwordRecovery: 'بازیابی کلمه عبور',
       notRegister: 'هنوز ثبت نام نکرده اید ! ',
       register: 'ثبت نام کنید',

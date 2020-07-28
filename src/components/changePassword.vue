@@ -19,6 +19,7 @@
           :solo="solo"
           :outlined="outlined"
           flat
+          color="primary"
           class="mt-2"
           :prepend-inner-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="passwordValidation"
@@ -32,7 +33,7 @@
         ></v-text-field>
       </div>
       <!-- new password  -->
-      <div v-if="newPasswordEnabled" class="subtitle-2 input-placeholder-left pt-1">
+      <div v-if="newPasswordEnabled" class="subtitle-2 input-placeholder-left">
         <v-icon v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-lock</v-icon>
         <span v-if="solo">{{ newPasswordTitle}}</span>
         <v-text-field
@@ -40,6 +41,7 @@
           :solo="solo"
           :outlined="outlined"
           flat
+          color="primary"
           class="mt-2"
           :prepend-inner-icon="showNewPass ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="newPasswordValidation"

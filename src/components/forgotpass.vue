@@ -21,6 +21,7 @@
           :solo="solo"
           :outlined="outlined"
           flat
+          color="primary"
           class="mt-2"
           :label="this.emailTitle"
           :placeholder="this.emailPlaceholder"
@@ -34,7 +35,7 @@
       <v-row justify="center">
         <v-btn
           v-if="backButtonEnabled"
-          class="mr-3"
+          class="mx-3"
           :to="backButtonRoute"
           :color="backLinkColor">
           {{$t('components.forgotPassword.back')}}

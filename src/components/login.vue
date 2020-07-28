@@ -15,7 +15,9 @@
       v-model="valid"
       @submit="onLogin">
       <!-- email -->
-      <div v-if="emailEnabled" class="subtitle-2 input-placeholder-left pt-1">
+      <div
+        v-if="emailEnabled"
+        class="subtitle-2 input-placeholder-left pt-1">
         <v-icon v-if="solo && iconEnabled" col medium color="darken-2" class="ml-3">mdi-email</v-icon>
         <span v-if="solo">{{ emailTitle }}</span>
         <v-text-field
@@ -23,6 +25,7 @@
           :solo="solo"
           :outlined="outlined"
           flat
+          color="primary"
           class="mt-2"
           :label="this.emailTitle"
           :placeholder="this.emailPlaceholder"
@@ -34,7 +37,9 @@
         ></v-text-field>
       </div>
       <!-- password  -->
-      <div v-if="passwordEnabled" class="subtitle-2 input-placeholder-left  pt-1">
+      <div
+        v-if="passwordEnabled"
+        class="w-100 subtitle-2 input-placeholder-left">
         <v-icon v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-lock</v-icon>
         <span v-if="solo">{{ passwordTitle }}</span>
         <v-text-field
@@ -42,6 +47,7 @@
           :solo="solo"
           :outlined="outlined"
           flat
+          color="primary"
           class="mt-2"
           :prepend-inner-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="passwordValidation"
@@ -56,9 +62,10 @@
       </div>
       <!------------>
       <v-row justify='space-between'>
+        <v-col col="12">
         <v-checkbox
           v-model="userInfo.rememberMe"
-          class="pr-3 mt-0"
+          class="pr-3 mt-0 float-left"
           :color="checkBoxColor"
           hide-details
           :label="$t('components.login.rememberMe')"
@@ -67,10 +74,11 @@
         <v-btn
           text
           small
-          class="px-3 mb-4 text-decoration-underline forgot-password"
+          class="px-3 mb-4 float-right text-decoration-underline forgot-password"
           :to="{ name: forgotPasswordRoute}">
           {{ forgotPassLinkTitle }}
         </v-btn>
+        </v-col>
       </v-row>
       <!-- login btn -->
       <v-row justify="center">
@@ -84,7 +92,10 @@
         </v-btn>
       </v-row>
       <!-- register link -->
-      <v-row class="py-4 subtitle-2"  justify="center">
+      <v-row
+        v-if="registerLinkEnabled"
+        class="py-4 subtitle-2"
+        justify="center">
         <span class="py-1 pl-1">{{ $t('components.login.notRegister') }}</span>
         <v-btn
           text
@@ -136,6 +147,8 @@
  * @property {String} [passwordPatternRegex] - validation regex,
  * @property {String} [passwordPatternMessage] - validation regex message,
  * @property {Boolean} [titleEnabled=true] - Specifies whether main title is displayed or not
+ * @property {Boolean} [registerLinkEnabled=true] - Specifies Registeration page link visibility
+
  */
 export default {
   props: {
@@ -295,6 +308,11 @@ export default {
       required: false
     },
     titleEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    registerLinkEnabled: {
       type: Boolean,
       default: true,
       required: false
