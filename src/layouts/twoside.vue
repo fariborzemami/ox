@@ -41,9 +41,13 @@
                 The slot content of the above portal component will be rendered here.
               -->
             </portal-target>
-            <img
-            v-if="artworkURL"
-            :src="artworkURL" />
+        <v-img
+          v-if="artworkURL"
+          max-width="100%"
+          max-height="100%"
+          :aspect-ratio="this.$route.meta.artworkAspectRatio || APP_CONFIG.layout.twoside.defaultArtworkAspectRatio"
+          contain
+          :src="artworkURL" />
           </v-col>
         </v-row>
       </v-container>
