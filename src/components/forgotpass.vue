@@ -33,6 +33,13 @@
       <!------------>
       <v-row justify="center">
         <v-btn
+          v-if="BackButtonEnabled"
+          class="white--text mr-3"
+          to="/"
+          :color="recoveryLinkColor">
+          {{$t('components.forgotPassword.back')}}
+        </v-btn>
+        <v-btn
           type="submit"
           :disabled="!valid"
           class="white--text"
@@ -78,6 +85,7 @@
  * @property {Boolean} [outlined=false] - input theme is outlined
  * @property {Boolean} [iconEnabled=true]
  * @property {Boolean} [titleEnabled=true] - Specifies whether main title is displayed or not
+ * @property {Boolean} [backButtonEnabled=false] - Specifies whether main back Button is displayed or not
  */
 export default {
   props: {
@@ -167,6 +175,11 @@ export default {
       required: false
     },
     titleEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    BackButtonEnabled: {
       type: Boolean,
       default: true,
       required: false

@@ -53,6 +53,7 @@ export default {
     forgotPassword: {
       title: 'Forgot password',
       email: 'Email',
+      back: 'Back',
       passwordRecovery: 'Password recovery',
       notRegister: 'Not regestered yet?',
       register: 'Register',
