@@ -74,7 +74,7 @@
         <v-btn
           text
           small
-          class="px-3 mb-4 float-right text-decoration-underline forgot-password"
+          class="px-3 float-right text-decoration-underline forgot-password"
           :to="{ name: forgotPasswordRoute}">
           {{ forgotPassLinkTitle }}
         </v-btn>
