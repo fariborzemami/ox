@@ -27,6 +27,7 @@
 
     </v-navigation-drawer>
     <v-app-bar
+      class="elevation-0"
       :dark="APP_CONFIG.layout.panel.isHeaderDark"
       color="headerColor"
       app
