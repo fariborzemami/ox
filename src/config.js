@@ -34,6 +34,9 @@ export default {
   },
   layout: {
     mainPanelLayout: 'panel-full-height-side',
+    twoside: {
+      defaultArtworkAspectRatio: 2
+    },
     panel: {
       isHeaderDark: true,
       isSidebarDark: false

@@ -21,6 +21,7 @@
           :solo="solo"
           :outlined="outlined"
           flat
+          color="primary"
           class="mt-2"
           :label="this.emailTitle"
           :placeholder="this.emailPlaceholder"
@@ -32,6 +33,13 @@
       </div>
       <!------------>
       <v-row justify="center">
+        <v-btn
+          v-if="backButtonEnabled"
+          class="mx-3"
+          :to="backButtonRoute"
+          :color="backLinkColor">
+          {{$t('components.forgotPassword.back')}}
+        </v-btn>
         <v-btn
           type="submit"
           :disabled="!valid"
@@ -80,6 +88,10 @@
  * @property {Boolean} [outlined=false] - input theme is outlined
  * @property {Boolean} [iconEnabled=true]
  * @property {Boolean} [titleEnabled=true] - Specifies whether main title is displayed or not
+ * @property {Boolean} [backButtonEnabled=false] - Specifies whether main back button is displayed or not
+ * @property {String} [backButtonRoute='/'] - Specifies back button route
+ * @property {String} [backLinkColor=''] - Specifies back button color
+
  */
 export default {
   props: {
@@ -176,6 +188,21 @@ export default {
     titleEnabled: {
       type: Boolean,
       default: true,
+      required: false
+    },
+    backButtonEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    backButtonRoute: {
+      type: String,
+      default: '/',
+      required: false
+    },
+    backLinkColor: {
+      type: String,
+      default: '',
       required: false
     }
   },

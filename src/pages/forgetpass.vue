@@ -15,6 +15,7 @@
     :solo=true
     :outlined=false
     :icon-enabled=true
+    :backButtonEnabled="true"
     @forgotpass="forgotpass" />
 </template>
 <script>

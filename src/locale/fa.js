@@ -4,6 +4,9 @@ export default {
   ...fa,
 
   components: {
+    formHelpBox: {
+      send: 'ارسال'
+    },
     login: {
       email: 'پست الکترونیکی',
       password: 'کلمه عبور',
@@ -50,6 +53,7 @@ export default {
     forgotPassword: {
       title: 'بازیابی کلمه عبور',
       email: 'پست الکترونیکی',
+      back: 'بازگشت',
       passwordRecovery: 'بازیابی کلمه عبور',
       notRegister: 'هنوز ثبت نام نکرده اید ! ',
       register: 'ثبت نام کنید',
@@ -80,6 +84,9 @@ export default {
     }
   },
   pages: {
+    formHelpBox: {
+      title: 'صفحه راهنمایی'
+    },
     portal: {
       title: 'پرتال'
     },

@@ -12,7 +12,7 @@
       </v-row>
       <v-form ref="form" v-model="valid" @submit.prevent="register">
       <!-- email -->
-      <div v-if="emailEnabled" class="subtitle-2 input-placeholder-left pt-2">
+      <div v-if="emailEnabled" class="subtitle-2 input-placeholder-left">
         <v-icon v-if="solo && iconEnabled" col medium color="darken-2" class="ml-3">mdi-email</v-icon>
         <span v-if="solo">{{emailTitle}}</span>
         <v-text-field
@@ -20,6 +20,7 @@
           :solo="solo"
           :outlined="outlined"
           flat
+          color="primary"
           class="mt-2"
           :label="emailTitle"
           :placeholder="emailPlaceholder"
@@ -31,7 +32,7 @@
         ></v-text-field>
       </div>
       <!-- name -->
-      <div v-if="nameEnabled"  class="subtitle-2 pt-2">
+      <div v-if="nameEnabled"  class="subtitle-2">
         <v-icon v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-account-circle</v-icon>
         <span v-if="solo">{{nameTitle}}</span>
         <v-text-field
@@ -39,6 +40,7 @@
           :solo="solo"
           :outlined="outlined"
           flat
+          color="primary"
           class="mt-2"
           :label="nameTitle"
           :placeholder="namePlaceholder"
@@ -50,7 +52,7 @@
         ></v-text-field>
       </div>
       <!-- last name -->
-      <div v-if="lastNameEnabled" class="subtitle-2 pt-2">
+      <div v-if="lastNameEnabled" class="subtitle-2">
         <v-icon v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-account-circle</v-icon>
         <span v-if="solo">{{lastNameTitle}}</span>
         <v-text-field
@@ -58,6 +60,7 @@
           :solo="solo"
           :outlined="outlined"
           flat
+          color="primary"
           class="mt-2"
           :label="lastNameTitle"
           :placeholder="lastNamePlaceholder"
@@ -69,7 +72,7 @@
         ></v-text-field>
       </div>
       <!-- password  -->
-      <div v-if="passwordEnabled" class="subtitle-2 input-placeholder-left pt-2">
+      <div v-if="passwordEnabled" class="subtitle-2 input-placeholder-left">
         <v-icon  v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-lock</v-icon>
         <span v-if="solo">{{passwordTitle}}</span>
         <v-text-field
@@ -77,6 +80,7 @@
           :solo="solo"
           :outlined="outlined"
           flat
+          color="primary"
           class="mt-2"
           :prepend-inner-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="passwordValidation"
@@ -90,7 +94,7 @@
         ></v-text-field>
       </div>
       <!-- phone number -->
-      <div v-if="phoneNumberEnabled" class="subtitle-2 input-placeholder-left pt-2">
+      <div v-if="phoneNumberEnabled" class="subtitle-2 input-placeholder-left">
         <v-icon  v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-cellphone-iphone</v-icon>
         <span v-if="solo">{{phoneNumberTitle}}</span>
         <v-text-field
@@ -98,6 +102,7 @@
           :solo="solo"
           :outlined="outlined"
           flat
+          color="primary"
           class="mt-2"
           :rules="phoneNumberValidation"
           :label="phoneNumberTitle"
@@ -585,6 +590,7 @@ export default {
 
     .theme--light {
       .v-text-field .v-input__slot {
+        /* TODO: remove hardcode colors */
         background: #F3F7F9 !important;
       }
       .v-input input {

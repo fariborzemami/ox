@@ -4,6 +4,9 @@ export default {
   ...en,
 
   components: {
+    formHelpBox: {
+      send: 'send'
+    },
     login: {
       email: 'Email',
       password: 'Password',
@@ -50,6 +53,7 @@ export default {
     forgotPassword: {
       title: 'Forgot password',
       email: 'Email',
+      back: 'Back',
       passwordRecovery: 'Password recovery',
       notRegister: 'Not regestered yet?',
       register: 'Register',
