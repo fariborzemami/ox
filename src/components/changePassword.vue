@@ -58,7 +58,7 @@
       <v-row justify="center">
         <v-btn
           type="submit"
-          :block="changePasswordButtonFullWidth"
+          :block="isButtonFullWidth"
           :disabled="!valid"
           class="white--text"
           :color="changePasswordButtonColor">
@@ -77,7 +77,7 @@
  * @event changepassword
  * @property {Boolean} [isDark=false] - Specifies the form theme,
  * @property {String} [changePasswordButtonTitle] - Specifies the title of the registration button,
- * @property {String} [changePasswordButtonColor] - Expands the button to 100% of available space,
+ * @property {String} [isButtonFullWidth] - Expands the button to 100% of available space,
  * @property {String} [changePasswordButtonColor='blue darken-2'] - Specifies the color of the registration button,
  * @property {Boolean} [newPasswordEnabled=true] - Specifies whether input exists in the form,
  * @property {Boolean} [passwordEnabled=true] - Specifies whether input exists in the form,
@@ -129,7 +129,7 @@ export default {
       },
       required: false
     },
-    changePasswordButtonFullWidth: {
+    isButtonFullWidth: {
       type: Boolean,
       default: false,
       required: false
