@@ -84,7 +84,7 @@
       <v-row justify="center">
         <v-btn
           type="button"
-          :block="loginButtonFullWidth"
+          :block="isButtonFullWidth"
           :disabled="!valid"
           class="white--text"
           :color="loginButtonColor"
@@ -119,7 +119,7 @@
  * @event login - return email and password
  * @property {Boolean} [isDark=false] - Specifies the form theme,
  * @property {String} [loginButtonTitle] - Specifies the title of the login button,
- * @property {String} [loginButtonFullWidth] - Expands the login button to 100% of available space,
+ * @property {String} [isButtonFullWidth] - Expands the login button to 100% of available space,
  * @property {String} [loginButtonColor='blue darken-2'] - Specifies the color of the login button,
  * @property {String} [registerLinkColor='blue darken-2'] - Specifies the color of the registration link,
  * @property {String} [checkBoxColor='blue darken-2'] - Specifies the color of the checkbox,
@@ -181,7 +181,7 @@ export default {
       },
       required: false
     },
-    loginButtonFullWidth: {
+    isButtonFullWidth: {
       type: Boolean,
       default: false,
       required: false

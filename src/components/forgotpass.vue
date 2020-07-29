@@ -43,7 +43,7 @@
         <v-btn
           type="submit"
           :disabled="!valid"
-          :block="recoveryButtonFullWidth"
+          :block="isButtonFullWidth"
           class="white--text"
           :color="recoveryLinkColor">
           {{ recoveryButtonTitle }}
@@ -73,7 +73,7 @@
  * @event forgotpass - return email
  * @property {Boolean} [isDark=false]
  * @property {String} [recoveryButtonTitle]
- * @property {String} [recoveryButtonFullWidth] - Expands the button to 100% of available space,
+ * @property {String} [isButtonFullWidth] - Expands the button to 100% of available space,
  * @property {String} [recoveryButtonColor='blue darken-2']
  * @property {String} [recoveryLinkColor='blue darken-2']
  * @property {String} [registerRoute='register']
@@ -122,7 +122,7 @@ export default {
       },
       required: false
     },
-    recoveryButtonFullWidth: {
+    isButtonFullWidth: {
       type: Boolean,
       default: false,
       required: false
