@@ -124,10 +124,11 @@
         ></v-checkbox>
       </v-row>
       <!-- register btn -->
-      <v-row justify="center">
+      <v-row justify="center mx-0">
         <v-btn
           type="submit"
           :block="isButtonFullWidth"
+          :x-large="isButtonLarge"
           :disabled="!valid"
           class="white--text"
           :color="registerButtonColor">
@@ -203,6 +204,7 @@
  * @property {Boolean} [outlined=false] - input theme is outlined
  * @property {Boolean} [iconEnabled=true]
  * @property {Boolean} [titleEnabled=true] - Specifies whether main title is displayed or not
+ * @property {Boolean} [isButtonLarge=false] - Specifies Button is larger than usual or not
  */
 export default {
   props: {
@@ -474,6 +476,11 @@ export default {
     titleEnabled: {
       type: Boolean,
       default: true,
+      required: false
+    },
+    isButtonLarge: {
+      type: Boolean,
+      default: false,
       required: false
     }
   },
