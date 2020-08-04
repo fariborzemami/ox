@@ -81,10 +81,11 @@
         </v-col>
       </v-row>
       <!-- login btn -->
-      <v-row justify="center">
+      <v-row justify="center mx-0">
         <v-btn
           type="button"
           :block="isButtonFullWidth"
+          :x-large="isButtonLarge"
           :disabled="!valid"
           class="white--text"
           :color="loginButtonColor"
@@ -148,8 +149,9 @@
  * @property {Boolean} [passwordPatternEnabled=true] - if value is false , regex validation disable,
  * @property {String} [passwordPatternRegex] - validation regex,
  * @property {String} [passwordPatternMessage] - validation regex message,
- * @property {Boolean} [titleEnabled=true] - Specifies whether main title is displayed or not
- * @property {Boolean} [registerLinkEnabled=true] - Specifies Registeration page link visibility
+ * @property {Boolean} [titleEnabled=true] - Specifies whether main title is displayed or not,
+ * @property {Boolean} [registerLinkEnabled=true] - Specifies Registeration page link visibility,
+ * @property {Boolean} [isButtonLarge=false] - Specifies Button is larger than usual or not
 
  */
 export default {
@@ -322,6 +324,11 @@ export default {
     registerLinkEnabled: {
       type: Boolean,
       default: true,
+      required: false
+    },
+    isButtonLarge: {
+      type: Boolean,
+      default: false,
       required: false
     }
   },

@@ -32,10 +32,11 @@
         ></v-text-field>
       </div>
       <!------------>
-      <v-row justify="center">
+      <v-row justify="center mx-0">
         <v-btn
           v-if="backButtonEnabled"
           class="mx-3"
+          :x-large="isButtonLarge"
           :to="backButtonRoute"
           :color="backLinkColor">
           {{$t('components.forgotPassword.back')}}
@@ -44,6 +45,7 @@
           type="submit"
           :disabled="!valid"
           :block="isButtonFullWidth"
+          :x-large="isButtonLarge"
           class="white--text"
           :color="recoveryLinkColor">
           {{ recoveryButtonTitle }}
@@ -91,7 +93,7 @@
  * @property {Boolean} [backButtonEnabled=false] - Specifies whether main back button is displayed or not
  * @property {String} [backButtonRoute='/'] - Specifies back button route
  * @property {String} [backLinkColor=''] - Specifies back button color
-
+ * @property {Boolean} [isButtonLarge=false] - Specifies Button is larger than usual or not
  */
 export default {
   props: {
@@ -203,6 +205,11 @@ export default {
     backLinkColor: {
       type: String,
       default: '',
+      required: false
+    },
+    isButtonLarge: {
+      type: Boolean,
+      default: false,
       required: false
     }
   },
