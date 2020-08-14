@@ -6,8 +6,8 @@
       :dark="isDark">
     <v-row
       v-if="titleEnabled"
-      class="form-title pb-4"
-      justify="center">
+      class="form-title justify-center pb-4"
+      >
       {{$t('components.changePassword.changePassword')}}</v-row>
     <v-form ref="form" v-model="valid" @submit.prevent="onChangePassword">
       <!-- password  -->
@@ -55,7 +55,9 @@
         ></v-text-field>
       </div>
       <!-- change password btn -->
-      <v-row justify="center mx-0">
+      <v-row
+        class="justify-center mx-0"
+        >
         <v-btn
           type="submit"
           :block="isButtonFullWidth"
@@ -301,6 +303,17 @@ export default {
     $placeholder-text : #a3a3a3;
     $text-color-dark : #9c9c9c;
     $error-text : #cc4b4b;
+    $input-color : #F3F7F9;
+
+    .v-text-field .v-input__slot {
+      background: $input-color !important;
+    }
+    .v-input input::placeholder {
+      color: $placeholder-text !important;
+    }
+    .v-input input {
+      color: $input-text-color !important;
+    }
 
     .form-title {
       font-size : 20px;

@@ -6,8 +6,8 @@
       :dark="isDark">
       <v-row
         v-if="titleEnabled"
-        class="form-title pb-4"
-        justify="center">
+        class="justify-center form-title pb-4"
+        >
         {{$t('components.register.title')}}
       </v-row>
       <v-form ref="form" v-model="valid" @submit.prevent="register">
@@ -27,6 +27,7 @@
           :rules="emailValidation"
           :prepend-icon="outlined && iconEnabled ? 'mdi-email' : ''"
           name="email"
+          :hint="$t('components.register.emailStatus')"
           type="text"
           required
         ></v-text-field>
@@ -114,17 +115,25 @@
           ></v-text-field>
       </div>
       <!-- role -->
-      <v-row justify='center'>
+      <v-row
+        class='justify-center'
+        >
         <v-checkbox
           v-model="userInfo.agreeRules"
           :color="checkBoxColor"
           :label="$t('components.register.rules')"
           :rules="[agreeRulesRules.required]"
           required
-        ></v-checkbox>
+        >
+          <template v-slot:label>
+            <a v-if="userInfo.agreeRules">
+              {{$t('components.register.rules')}}
+            </a>
+          </template>
+        </v-checkbox>
       </v-row>
       <!-- register btn -->
-      <v-row justify="center mx-0">
+      <v-row class="justify-center mx-0">
         <v-btn
           type="submit"
           :block="isButtonFullWidth"
@@ -136,7 +145,9 @@
         </v-btn>
       </v-row>
       <!-- login link -->
-      <v-row class="py-4 subtitle-2"  justify="center">
+      <v-row
+        class="justify-center py-4 subtitle-2"
+        >
         <span class="py-1">{{ $t('components.register.haveAccount') }}</span>
         <v-btn
           text
@@ -398,7 +409,7 @@ export default {
     },
     phoneNumberPatternRegex: {
       type: String,
-      default: '/[0][9][0-9]{9}/',
+      default: '/[0][9][0-9]{9,9}/',
       required: false
     },
     phoneNumberRequiredEnabled: {
@@ -502,7 +513,8 @@ export default {
       },
       phoneNumberRules: {
         required: value => !!value || this.phoneNumberRequiredMessage,
-        pattern: value => RegExp(this.phoneNumberPatternRegex.substring(1, this.phoneNumberPatternRegex.length - 1)).test(value) || this.phoneNumberPatternMessage
+        pattern: value => RegExp(this.phoneNumberPatternRegex.substring(1, this.phoneNumberPatternRegex.length - 1)).test(value) || this.phoneNumberPatternMessage,
+        counter: value => value.length <= 11 || this.$t('components.register.phoneNumberCountValidation')
       },
       nameRules: {
         required: value => !!value || this.nameRequiredMessage
@@ -542,11 +554,11 @@ export default {
     },
     phoneNumberValidation () {
       if (this.phoneNumberRequiredEnabled === true && this.phoneNumberPatternEnabled === true) {
-        return [this.phoneNumberRules.required, this.phoneNumberRules.pattern]
+        return [this.phoneNumberRules.required, this.phoneNumberRules.pattern, this.phoneNumberRules.counter]
       } else if (this.phoneNumberRequiredEnabled === true) {
-        return [this.phoneNumberRules.required]
+        return [this.phoneNumberRules.required, this.phoneNumberRules.counter]
       } else if (this.phoneNumberPatternEnabled === true) {
-        return [this.phoneNumberRules.pattern]
+        return [this.phoneNumberRules.pattern, this.phoneNumberRules.counter]
       }
       return ''
     }
@@ -565,7 +577,8 @@ export default {
     $input-text-color : #424242;
     $placeholder-text : #a3a3a3;
     $text-color-dark : #9c9c9c;
-
+    $input-color : #F3F7F9;
+    $input-hint : #1ABE75;
     .form-title {
       font-size : 20px;
     }
@@ -595,14 +608,14 @@ export default {
       }
     }
 
-    .theme--light {
-      .v-text-field .v-input__slot {
-        /* TODO: remove hardcode colors */
-        background: #F3F7F9 !important;
-      }
-      .v-input input {
-        color: $input-text-color;
-      }
+    .v-text-field .v-input__slot {
+      background: $input-color !important;
+    }
+    .v-input input::placeholder {
+      color: $placeholder-text !important;
+    }
+    .v-input input {
+      color: $input-text-color !important;
     }
     .v-text-field--placeholder{
       font-size: 12px;
@@ -635,6 +648,7 @@ export default {
     }
 
     .v-messages {
+      color: $input-hint !important;
       min-height: 18px !important;
     }
 

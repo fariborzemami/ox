@@ -6,8 +6,8 @@
       :dark="isDark">
     <v-row
       v-if="titleEnabled"
-      class="form-title pb-4"
-      justify="center">
+      class="justify-centerform-title pb-4"
+      >
       {{$t('components.login.login')}}
     </v-row>
     <v-form
@@ -61,27 +61,31 @@
         ></v-text-field>
       </div>
       <!------------>
-      <v-row justify='space-between'>
+      <v-row
+        class='justify-space-between'
+        >
         <v-col col="12">
-        <v-checkbox
-          v-model="userInfo.rememberMe"
-          class="pr-3 mt-0 float-left"
-          :color="checkBoxColor"
-          hide-details
-          :label="$t('components.login.rememberMe')"
-          required
-        ></v-checkbox>
-        <v-btn
-          text
-          small
-          class="px-3 float-right text-decoration-underline forgot-password"
-          :to="{ name: forgotPasswordRoute}">
-          {{ forgotPassLinkTitle }}
-        </v-btn>
+          <v-checkbox
+            v-model="userInfo.rememberMe"
+            class="pl-3 mt-0 float-right"
+            :color="checkBoxColor"
+            hide-details
+            :label="$t('components.login.rememberMe')"
+            required
+          ></v-checkbox>
+          <v-btn
+            text
+            small
+            class="pl-1 pr-3 float-left text-decoration-underline forgot-password"
+            :to="{ name: forgotPasswordRoute}">
+            {{ forgotPassLinkTitle }}
+          </v-btn>
         </v-col>
       </v-row>
       <!-- login btn -->
-      <v-row justify="center mx-0">
+      <v-row
+        class="justify-center mx-0"
+        >
         <v-btn
           type="button"
           :block="isButtonFullWidth"
@@ -96,8 +100,8 @@
       <!-- register link -->
       <v-row
         v-if="registerLinkEnabled"
-        class="py-4 subtitle-2"
-        justify="center">
+        class="justify-center py-4 subtitle-2"
+        >
         <span class="py-1 pl-1">{{ $t('components.login.notRegister') }}</span>
         <v-btn
           text
@@ -388,7 +392,17 @@ export default {
     $placeholder-text : #a3a3a3;
     $text-color-dark : #9c9c9c;
     $error-text : #cc4b4b;
+    $input-color : #F3F7F9;
 
+    .v-text-field .v-input__slot {
+      background: $input-color !important;
+    }
+    .v-input input::placeholder {
+      color: $placeholder-text !important;
+    }
+    .v-input input {
+      color: $input-text-color !important;
+    }
     .form-title {
       font-size : 20px;
     }
@@ -402,15 +416,6 @@ export default {
         background-color: transparent !important;
       }
     }
-
-    .forgot-password {
-      color : $error-text !important;
-      text-decoration : underline;
-      &:before{
-        background: transparent !important;
-      }
-    }
-
     .theme--dark {
       &.v-card {
         color: $text-color-dark;
@@ -425,14 +430,14 @@ export default {
         color : white;
       }
     }
-    .theme--light {
-      .v-text-field .v-input__slot {
-        background: #F3F7F9 !important;
-      }
-      .v-input input {
-        color: $input-text-color;
+    .forgot-password {
+      color : $error-text !important;
+      text-decoration : underline;
+      &:before{
+        background: transparent !important;
       }
     }
+
     .v-text-field--placeholder{
       font-size: 12px;
     }

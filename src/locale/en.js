@@ -4,6 +4,14 @@ export default {
   ...en,
 
   components: {
+    passwordVerification: {
+      title: 'Verify it\'s you',
+      password: 'Enter your password',
+      passwordPlaceholder: '********',
+      buttonTitle: 'Next',
+      passwordRequired: 'Password is required',
+      passwordValidation: 'Password must be at least 8 characters long'
+    },
     formHelpBox: {
       send: 'send'
     },
@@ -81,9 +89,16 @@ export default {
       fromDate: 'From date',
       toDate: 'To date',
       buttonText: 'Filter'
+    },
+    underConstruction: {
+      title: 'Under Construction',
+      description: 'This section is Under Construction'
     }
   },
   pages: {
+    passwordVerification: {
+      title: 'verify it\'s you'
+    },
     portal: {
       title: 'Portal'
     },
@@ -245,6 +260,13 @@ export default {
       changePasswordTitle: 'Change password',
       changePasswordDescription: 'Your password was changed successfully',
       login: 'Login'
+    },
+    globalSnackbar: {
+      title: 'Global Toast Message',
+      showSnackbar: 'show Message'
+    },
+    underConstruction: {
+      title: 'Under Construction'
     }
   }
 }

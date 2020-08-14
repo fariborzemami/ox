@@ -1,8 +1,8 @@
 <route>
 {
-  "name": "changePassword",
+  "name": "passwordVerification",
   "meta": {
-    "title": "change password",
+    "title": "enter current password",
     "order": 9,
     "isVisible": true,
     "iconName": "mdi-login",
@@ -11,20 +11,21 @@
 }
 </route>
 <template>
-  <changePassword
+  <PasswordVerification
     :is-dark=true
     :solo=true
     :outlined=false
     :icon-enabled=true
-    @changepassword="onChangepassword" />
+    @verifypassword="onVerifyPassword" />
 </template>
 <script>
 export default {
   layout: 'twoside',
   methods: {
-    onChangepassword (payload) {
-      console.log('Do Change Password ---------------- !!!!')
+    onVerifyPassword (payload) {
+      console.log('Do verify Password ---------------- !!!!')
       console.log(payload.password)
+      this.$router.push({ name: 'changePassword' })
     }
   }
 }

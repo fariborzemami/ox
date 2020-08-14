@@ -2,7 +2,7 @@ import axios from 'axios'
 const server = function (config, data) {
   axios.defaults.baseURL = config.baseURL
   axios.interceptors.request.use(config.requestInterceptor)
-  axios.interceptors.response.use(config.responseInterceptor)
+  axios.interceptors.response.use(config.responseInterceptor, config.responseInterceptor)
   let server = {}
   server = setBaseServerMethod(server)
   const paths = data.paths

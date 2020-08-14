@@ -11,6 +11,7 @@
 </route>
 <template>
   <forgotpass
+    :is-dark=true
     register-route="register"
     :solo=true
     :outlined=false

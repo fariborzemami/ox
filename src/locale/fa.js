@@ -4,6 +4,14 @@ export default {
   ...fa,
 
   components: {
+    passwordVerification: {
+      title: 'تایید گذر واژه فعلی',
+      password: 'کلمه عبور',
+      passwordPlaceholder: '********',
+      buttonTitle: 'تایید گذر واژه',
+      passwordRequired: 'کلمه عبور فعلی الزامی‌است',
+      passwordValidation: 'حداقل تعداد کاراکتر مجاز کلمه عبور 8 کاراکتر می‌باشد'
+    },
     formHelpBox: {
       send: 'ارسال'
     },
@@ -48,7 +56,8 @@ export default {
       passwordValidation: 'حداقل تعداد کاراکتر برای کلمه عبور ۸ کاراکتر است',
       emailValidation: 'فرمت پست الکترونیکی اشتباه است',
       emailStatus: 'پست الکترونیکی شما به عنوان نام کاربری بوده و غیر قابل تغییر است',
-      phoneNumberValidation: 'فرمت شماره موبایل اشتباه است'
+      phoneNumberValidation: 'فرمت شماره موبایل اشتباه است',
+      phoneNumberCountValidation: 'شماره موبایل باید 11 رقمی باشد'
     },
     forgotPassword: {
       title: 'بازیابی کلمه عبور',
@@ -81,9 +90,19 @@ export default {
       fromDate: 'از تاریخ',
       toDate: 'تا تاریخ',
       buttonText: 'فیلتر کردن'
+    },
+    underConstruction: {
+      title: 'در حال ساخت',
+      description: 'این بخش در حال ساخت میباشد.'
     }
   },
   pages: {
+    admin: {
+      title: 'صفحات مدیریت'
+    },
+    passwordVerification: {
+      title: 'تایید گذر واژه فعلی'
+    },
     formHelpBox: {
       title: 'صفحه راهنمایی'
     },
@@ -248,6 +267,13 @@ export default {
       changePasswordTitle: 'تغییر کلمه عبور',
       changePasswordDescription: 'کلمه عبور شما با موفقیت تغییر یافت',
       login: 'ورود'
+    },
+    globalSnackbar: {
+      title: 'ناتیفیکیشن',
+      showSnackbar: 'نمایش پیام'
+    },
+    underConstruction: {
+      title: 'در حال ساخت'
     }
   }
 }

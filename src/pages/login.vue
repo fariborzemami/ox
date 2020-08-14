@@ -13,6 +13,7 @@
   <login
     forgot-password-route="forgotpass"
     register-route="register"
+    :is-dark=true
     :solo=true
     :outlined=false
     :icon-enabled=true

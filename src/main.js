@@ -15,6 +15,8 @@ import PortalVue from 'portal-vue'
 Vue.mixin(globalMixin)
 Vue.use(PortalVue)
 
+window.CURRENT_USER_ROLE = 'ADMIN'
+
 Vue.mixin({
   beforeCreate () {
     faker.locale = APP_CONFIG.locale
@@ -50,6 +52,7 @@ window.APP_CONFIG = APP_CONFIG
 store.server = server
 
 Vue.server = server
+
 Vue.config.productionTip = false
 
 new Vue({

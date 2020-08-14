@@ -5,6 +5,7 @@
     >
       {{ title }}
     </h2>
+    <slot name="status"></slot>
     <v-spacer></v-spacer>
     <slot></slot>
   </div>

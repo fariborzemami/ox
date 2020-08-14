@@ -35,7 +35,16 @@ export default {
       type: Array,
       default: function () {
         const routes = this.$router.options.routes[0]
-        const visibleRoutes = routes.children.filter(route => route.meta.isVisible || !('isVisible' in route.meta))
+        const visibleRoutes = routes.children
+          .filter(route => route.meta.isVisible || !('isVisible' in route.meta))
+          .filter((route) => {
+            if (route.meta.roles) {
+              return route.meta.roles.includes(window.CURRENT_USER_ROLE)
+            } else {
+              return true
+            }
+          })
+
         visibleRoutes.sort((a, b) => a.meta.order < b.meta.order ? -1 : 1)
 
         return visibleRoutes.map(route => ({

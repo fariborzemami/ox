@@ -4,7 +4,7 @@
     class="layout-twoside">
     <v-main>
       <v-container
-        class="fill-height py-0"
+        class="authContent fill-height py-0"
         fluid
         >
         <v-row

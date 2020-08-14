@@ -12,6 +12,7 @@
 <template>
   <registration
     login-route="login"
+    :is-dark=true
     :solo=true
     :outlined=false
     :icon-enabled=true

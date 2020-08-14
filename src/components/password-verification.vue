@@ -1,70 +1,58 @@
 <template>
-  <div class="forgot-password-component">
-    <!-- step 1  enter email  -->
+  <div class="verify-password-component">
     <v-card
       flat
       class="transparent"
       :dark="isDark">
     <v-row
       v-if="titleEnabled"
-      class="form-title justify-center  pb-4"
-      >
-      {{$t('components.forgotPassword.title')}}
-    </v-row>
-    <v-form ref="form" v-model="valid" @submit.prevent="onRecoverPassword">
-      <!-- email -->
-      <div class="subtitle-2 input-placeholder-left pt-1">
-        <v-icon v-if="solo && iconEnabled" col medium color="darken-2" class="ml-3">mdi-email</v-icon>
-        <span v-if="solo">{{ emailTitle }}</span>
+      class="form-title pb-4 justify-center"
+    >
+      {{$t('components.passwordVerification.title')}}</v-row>
+    <v-form ref="form" v-model="valid" @submit.prevent="onVerifyPassword">
+      <!-- password  -->
+      <div v-if="passwordEnabled" class="subtitle-2 input-placeholder-left pt-1">
+        <v-icon v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-lock</v-icon>
+        <span v-if="solo">{{ passwordTitle}}</span>
         <v-text-field
-          v-model="email"
+          v-model="userPassword.password"
           :solo="solo"
           :outlined="outlined"
           flat
           color="primary"
           class="mt-2"
-          :label="this.emailTitle"
-          :placeholder="this.emailPlaceholder"
-          :rules="emailValidation"
-          :prepend-icon="outlined && iconEnabled ? 'mdi-email' : ''" name="email"
-          type="text"
+          :prepend-inner-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+          :rules="passwordValidation"
+          :label="this.passwordTitle"
+          :placeholder="this.passwordPlaceholder"
+          :prepend-icon="outlined && iconEnabled ? 'mdi-lock' : ''"
+          name="password"
+          :type="showPass ? 'text' : 'password'"
           required
+          @click:append="showPass = !showPass"
         ></v-text-field>
       </div>
-      <!------------>
+      <!-- verify password btn -->
       <v-row
         class="justify-center mx-0"
-        >
+      >
         <v-btn
           v-if="backButtonEnabled"
           class="mx-3"
           :x-large="isButtonLarge"
-          :to="backButtonRoute"
-          :color="backLinkColor">
+          :color="backLinkColor"
+          @click="cancelButtonClicked"
+        >
           {{$t('components.forgotPassword.back')}}
         </v-btn>
         <v-btn
           type="submit"
-          :disabled="!valid"
           :block="isButtonFullWidth"
           :x-large="isButtonLarge"
+          :disabled="!valid"
           class="white--text"
-          :color="recoveryLinkColor">
-          {{ recoveryButtonTitle }}
-        </v-btn>
-      </v-row>
-      <!-- register link -->
-      <v-row
-        class="justify-center py-4 subtitle-2"
-        >
-        <span class="py-1 pl-1">{{ $t('components.forgotPassword.notRegister') }}</span>
-        <v-btn
-          text
-          :color="recoveryButtonColor"
-          small
-          class="px-0 text-decoration-underline"
-          :to="{ name: registerRoute}">
-            {{$t('components.forgotPassword.register')}}
+          :color="verifyPasswordButtonColor">
+          {{ verifyPasswordButtonTitle }}
         </v-btn>
       </v-row>
     </v-form>
@@ -73,34 +61,41 @@
 </template>
 <script>
 /**
- * @name forgotPassword component
- * @description get recovery link with email
+ * @name verify password component
+ * @description verify user password
  * @version 1.0.0
- * @event forgotpass - return email
- * @property {Boolean} [isDark=false]
- * @property {String} [recoveryButtonTitle]
+ * @event verifypassword
+ * @property {Boolean} [isDark=false] - Specifies the form theme,
+ * @property {String} [verifyPasswordButtonTitle] - Specifies the title of the registration button,
  * @property {String} [isButtonFullWidth] - Expands the button to 100% of available space,
- * @property {String} [recoveryButtonColor='blue darken-2']
- * @property {String} [recoveryLinkColor='blue darken-2']
- * @property {String} [registerRoute='register']
- * @property {String} [emailTitle]
- * @property {String} [emailPlaceholder]
- * @property {String} [emailRequiredMessage]
- * @property {String} [emailPatternRegex]
- * @property {String} [emailPatternMessage]
- * @property {Boolean} [emailIsRequired=true]
- * @property {Boolean} [emailHavePattern=true]
+ * @property {String} [verifyPasswordButtonColor='blue darken-2'] - Specifies the color of the registration button,
+ * @property {Boolean} [passwordEnabled=true] - Specifies whether input exists in the form,
+ * @property {String} [passwordTitle] - Specifies the input Title text,
+ * @property {String} [passwordPlaceholder] - Specifies the input placeholder text,
+ * @property {String} [passwordRequiredMessage] - If the input value is empty, the text of the error message is displayed,
+ * @property {Boolean} [passwordPatternEnabled=true]
+ * @property {String} [passwordPatternRegex] - validation regex
+ * @property {String} [passwordPatternMessage] - validation regex message
  * @property {Boolean} [solo=true] - input theme is solo
  * @property {Boolean} [outlined=false] - input theme is outlined
  * @property {Boolean} [iconEnabled=true]
  * @property {Boolean} [titleEnabled=true] - Specifies whether main title is displayed or not
- * @property {Boolean} [backButtonEnabled=false] - Specifies whether main back button is displayed or not
- * @property {String} [backButtonRoute='/'] - Specifies back button route
- * @property {String} [backLinkColor=''] - Specifies back button color
  * @property {Boolean} [isButtonLarge=false] - Specifies Button is larger than usual or not
+ * @property {Boolean} [backButtonEnabled=false] - Specifies whether main back button is displayed or not
+ * @property {String} [backLinkColor=''] - Specifies back button color
  */
 export default {
   props: {
+    backButtonEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    backLinkColor: {
+      type: String,
+      default: '',
+      required: false
+    },
     iconEnabled: {
       type: Boolean,
       default: true,
@@ -121,10 +116,10 @@ export default {
       default: false,
       required: false
     },
-    recoveryButtonTitle: {
+    verifyPasswordButtonTitle: {
       type: String,
       default () {
-        return this.$t('components.forgotPassword.passwordRecovery')
+        return this.$t('components.passwordVerification.buttonTitle')
       },
       required: false
     },
@@ -133,60 +128,55 @@ export default {
       default: false,
       required: false
     },
-    recoveryButtonColor: {
+    verifyPasswordButtonColor: {
       type: String,
       default: 'blue darken-2',
       required: false
     },
-    recoveryLinkColor: {
-      type: String,
-      default: 'blue darken-2',
-      required: false
-    },
-    registerRoute: {
-      type: String,
-      default: 'register',
-      required: true
-    },
-    emailTitle: {
-      type: String,
-      default () {
-        return this.$t('components.forgotPassword.email')
-      },
-      required: false
-    },
-    emailPlaceholder: {
-      type: String,
-      default () {
-        return this.$t('components.forgotPassword.emailPlaceholder')
-      },
-      required: false
-    },
-    emailRequiredMessage: {
-      type: String,
-      default () {
-        return this.$t('components.forgotPassword.emailRequired')
-      },
-      required: false
-    },
-    emailPatternRegex: {
-      type: String,
-      default: '/.+@.+..+/',
-      required: false
-    },
-    emailPatternMessage: {
-      type: String,
-      default () {
-        return this.$t('components.forgotPassword.emailValidation')
-      },
-      required: false
-    },
-    emailRequiredEnabled: {
+    passwordEnabled: {
       type: Boolean,
       default: true,
       required: false
     },
-    emailPatternEnabled: {
+    passwordTitle: {
+      type: String,
+      default () {
+        return this.$t('components.passwordVerification.password')
+      },
+      required: false
+    },
+    passwordPlaceholder: {
+      type: String,
+      default () {
+        return this.$t('components.passwordVerification.passwordPlaceholder')
+      },
+      required: false
+    },
+    passwordRequiredMessage: {
+      type: String,
+      default () {
+        return this.$t('components.passwordVerification.passwordRequired')
+      },
+      required: false
+    },
+    passwordPatternMessage: {
+      type: String,
+      default () {
+        return this.$t('components.passwordVerification.passwordValidation')
+      },
+      required: false
+    },
+    passwordPatternRegex: {
+      type: String,
+      default: '/^(?=.*).{8,}/',
+      required: false
+    },
+    passwordRequiredEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    passwordPatternEnabled: {
       type: Boolean,
       default: true,
       required: false
@@ -194,21 +184,6 @@ export default {
     titleEnabled: {
       type: Boolean,
       default: true,
-      required: false
-    },
-    backButtonEnabled: {
-      type: Boolean,
-      default: true,
-      required: false
-    },
-    backButtonRoute: {
-      type: String,
-      default: '/',
-      required: false
-    },
-    backLinkColor: {
-      type: String,
-      default: '',
       required: false
     },
     isButtonLarge: {
@@ -220,29 +195,35 @@ export default {
   data () {
     return {
       valid: true,
-      email: '',
-      emailRules: {
-        required: value => !!value || this.emailRequiredMessage,
-        pattern: value => RegExp(this.emailPatternRegex.substring(1, this.emailPatternRegex.length - 1)).test(value) || this.emailPatternMessage
+      userPassword: {
+        password: ''
+      },
+      showPass: false,
+      passwordRules: {
+        required: value => !!value || this.passwordRequiredMessage,
+        pattern: value => RegExp(this.passwordPatternRegex.substring(1, this.passwordPatternRegex.length - 1)).test(value) || this.passwordPatternMessage
       }
     }
   },
   computed: {
-    emailValidation () {
-      if (this.emailRequiredEnabled === true && this.emailPatternEnabled === true) {
-        return [this.emailRules.required, this.emailRules.pattern]
-      } else if (this.emailRequiredEnabled === true) {
-        return [this.emailRules.required]
-      } else if (this.emailPatternEnabled === true) {
-        return [this.emailRules.pattern]
+    passwordValidation () {
+      if (this.passwordRequiredEnabled === true && this.passwordPatternEnabled === true) {
+        return [this.passwordRules.required, this.passwordRules.pattern]
+      } else if (this.passwordRequiredEnabled === true) {
+        return [this.passwordRules.required]
+      } else if (this.passwordPatternEnabled === true) {
+        return [this.passwordRules.pattern]
       }
       return ''
     }
   },
   methods: {
-    onRecoverPassword (event) {
-      this.$emit('forgotpass', {
-        email: this.email
+    cancelButtonClicked (e) {
+      this.$router.go(-1)
+    },
+    onVerifyPassword (event) {
+      this.$emit('verifypassword', {
+        password: this.userPassword.password
       })
     }
   }
@@ -250,7 +231,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .forgot-password-component {
+  .verify-password-component {
     $active-color : #26a69a;
     $input-text-color : #424242;
     $placeholder-text : #a3a3a3;
@@ -268,21 +249,11 @@ export default {
       color: $input-text-color !important;
     }
 
-    .recover-password-details{
-      font-size: 14px;
-      color: #f2c94c;
-    }
     .form-title {
       font-size : 20px;
     }
-    .v-ripple__animation{
-      opacity: 0 !important;
-    }
     .v-btn {
       letter-spacing: 0;
-      &:before , &.v-btn--active {
-        background-color: transparent !important;
-      }
     }
     .theme--dark {
       &.v-card {
@@ -327,9 +298,11 @@ export default {
     .v-application--is-rtl .v-input--selection-controls__input {
       margin-left: 15px !important;
     }
+
     .v-messages {
       min-height: 18px !important;
     }
+
     .v-text-field__details {
       padding: 0 !important;
       .error--text {

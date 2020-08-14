@@ -17,7 +17,7 @@ export default {
       },
       {
         title: 'pages.logout.title',
-        path: '/login',
+        path: '/logout',
         iconName: 'mdi-logout'
       }
     ]

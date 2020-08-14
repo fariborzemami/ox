@@ -13,6 +13,9 @@ import FilterBox from '../components/filter-box'
 import FilterItem from '../components/filter-item'
 import Starter from '../components/starter.vue'
 import FormHelpBox from '../components/form-help-box.vue'
+import GlobalSnackbar from '../components/global-snackbar.vue'
+import PasswordVerification from '../components/password-verification.vue'
+import UnderConstruction from '../components/under-construction.vue'
 
 Vue.use({
   install (Vue, options) {
@@ -31,5 +34,8 @@ Vue.use({
     Vue.component('FormAction', FormAction)
     Vue.component('Starter', Starter)
     Vue.component('FormHelpBox', FormHelpBox)
+    Vue.component('GlobalSnackbar', GlobalSnackbar)
+    Vue.component('PasswordVerification', PasswordVerification)
+    Vue.component('UnderConstruction', UnderConstruction)
   }
 })
