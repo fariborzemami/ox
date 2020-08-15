@@ -2,7 +2,7 @@
   <div class="sidebar-list-component">
     <v-list dense>
       <v-list-item
-        v-for="(item, index) in items"
+        v-for="(item, index) in innerItems"
         :key="'sidebar-list-item-' + index"
         link
         :to="item.path"
@@ -32,14 +32,23 @@ export default {
   name: 'SidebarList',
   props: {
     items: {
-      type: Array,
-      default: function () {
+      type: [Boolean, Array],
+      default: null,
+      required: false
+    }
+  },
+  computed: {
+    innerItems () {
+      let out
+      if (this.item) {
+        out = this.item
+      } else {
         const routes = this.$router.options.routes[0]
         const visibleRoutes = routes.children
           .filter(route => route.meta.isVisible || !('isVisible' in route.meta))
           .filter((route) => {
             if (route.meta.roles) {
-              return route.meta.roles.includes(window.CURRENT_USER_ROLE)
+              return route.meta.roles.includes(this.$store.state.layout.profile.role)
             } else {
               return true
             }
@@ -47,13 +56,13 @@ export default {
 
         visibleRoutes.sort((a, b) => a.meta.order < b.meta.order ? -1 : 1)
 
-        return visibleRoutes.map(route => ({
+        out = visibleRoutes.map(route => ({
           title: this.$vuetify.lang.t(`$vuetify.pages.${route.name}.title`),
           path: `${routes.path}${route.path}`,
           iconName: route.meta.iconName
         }))
-      },
-      required: false
+      }
+      return out
     }
   }
 }

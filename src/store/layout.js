@@ -7,6 +7,7 @@ export default {
     profile: {
       name: faker.name.firstName() + ' ' + faker.name.lastName(),
       avatarImage: faker.image.avatar(),
+      role: 'USER',
       email: faker.internet.email()
     },
     memberTerritoryMenus: [

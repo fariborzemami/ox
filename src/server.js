@@ -13,10 +13,16 @@ const server = function (config, data) {
         const pathParameters = parameters.filter(param => param.in === 'path')
         const queryParameters = parameters.filter(param => param.in === 'query')
         let dataModel = null
+        let isMultipartFormData = false
         if (methodValue.requestBody) {
-          const schema =
-            methodValue.requestBody.content['text/json'].schema.$ref
-          dataModel = retrieveDataModel(schema, data)
+          isMultipartFormData = methodValue.requestBody.content['multipart/form-data']
+          if (isMultipartFormData) {
+            dataModel = new FormData()
+          } else {
+            const schema =
+              methodValue.requestBody.content['text/json'].schema.$ref
+            dataModel = retrieveDataModel(schema, data)
+          }
         }
         const methodName = generateMethodName(methodValue, pathKey, method)
         server[methodName] = function (payload) {
@@ -44,13 +50,23 @@ const setBaseServerMethod = function (server) {
     })
     return query
   }
-  server.generateDataModel = function generateDataModel (dataDto, payload) {
-    const dataModel = {}
-    dataDto && Object.keys(dataDto).forEach(property => {
-      dataModel[property] = payload[property]
-      delete payload[property]
-    })
-    return dataModel
+  server.generateDataModel = function generateDataModel (dataModel, payload) {
+    if (dataModel && dataModel.constructor && dataModel.constructor.name === 'FormData') {
+      if (Array.isArray(payload)) {
+        payload.map((item) => {
+          dataModel.append('items', item)
+        })
+      }
+      dataModel.append('items', payload)
+      return dataModel
+    } else {
+      const model = {}
+      dataModel && Object.keys(dataModel).forEach(property => {
+        model[property] = payload[property]
+        delete payload[property]
+      })
+      return model
+    }
   }
   server.generateUrl = function generateUrl (path, pathParameters, payload) {
     let currentPath = path
