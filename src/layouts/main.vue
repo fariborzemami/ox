@@ -41,6 +41,7 @@
         </v-row>
       </v-container>
     </v-main>
+    <GlobalSnackbar />
 
     <v-footer
       app

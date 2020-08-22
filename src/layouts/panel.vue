@@ -1,6 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer
+      v-model="drawer"
       clipped
       app
       :right="$vuetify.rtl"
@@ -30,6 +31,7 @@
       :clipped-left="!$vuetify.rtl"
       app
       >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <router-link :to="APP_CONFIG.homeURL" >
         <v-img
           :src="APP_CONFIG.brandLogo"
@@ -59,12 +61,19 @@
               {{ profile.name }}
             </span>
             <v-avatar
-            width="32"
-            height="32">
+              class="mr-2"
+              width="32"
+              height="32">
               <img
+                v-if="profile.avatarImage"
                 :src="profile.avatarImage"
-                alt="profile.name"
-                >
+                :alt="profile.name"
+                />
+              <img
+                v-else
+                src="/img/default-avatar.jpg"
+                :alt="profile.name"
+                />
             </v-avatar>
           </v-btn>
         </template>
@@ -104,6 +113,7 @@
         </v-row>
       </v-container>
     </v-main>
+    <GlobalSnackbar />
   </v-app>
 </template>
 
@@ -127,6 +137,7 @@ export default {
     }
   },
   data: () => ({
+    drawer: null,
     drawerIsMini: null
   }),
   methods: {

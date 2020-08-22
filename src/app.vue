@@ -18,7 +18,6 @@
       ></v-skeleton-loader>
     </portal>
     <router-view />
-    <GlobalSnackbar />
   </div>
 </template>
 

@@ -29,7 +29,7 @@
           name="password"
           :type="showPass ? 'text' : 'password'"
           required
-          @click:append="showPass = !showPass"
+          @click:prepend-inner="showPass = !showPass"
         ></v-text-field>
       </div>
       <!-- new password  -->
@@ -51,7 +51,7 @@
           name="newPassword"
           :type="showNewPass ? 'text' : 'password'"
           required
-          @click:append="showNewPass = !showNewPass"
+          @click:prepend-inner="showNewPass = !showNewPass"
         ></v-text-field>
       </div>
       <!-- change password btn -->

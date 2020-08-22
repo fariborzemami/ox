@@ -6,14 +6,14 @@
       :dark="isDark">
     <v-row
       v-if="titleEnabled"
-      class="justify-centerform-title pb-4"
+      class="justify-center form-title pb-4"
       >
       {{$t('components.login.login')}}
     </v-row>
     <v-form
       ref="form"
       v-model="valid"
-      @submit="onLogin">
+      @submit.prevent="onLogin">
       <!-- email -->
       <div
         v-if="emailEnabled"
@@ -57,26 +57,27 @@
           name="password"
           :type="showPass ? 'text' : 'password'"
           required
-          @click:append="showPass = !showPass"
+          @click:prepend-inner="showPass = !showPass"
         ></v-text-field>
       </div>
       <!------------>
-      <v-row
-        class='justify-space-between'
-        >
-        <v-col col="12">
+      <v-row>
+        <v-col class="pr-2 pl-3 d-flex justify-space-between" >
           <v-checkbox
             v-model="userInfo.rememberMe"
-            class="pl-3 mt-0 float-right"
+            class="mt-0 float-right"
             :color="checkBoxColor"
             hide-details
-            :label="$t('components.login.rememberMe')"
             required
-          ></v-checkbox>
+          >
+            <template v-slot:label>
+              <span class="text-no-wrap text-truncate">{{$t('components.login.rememberMe')}}</span>
+            </template>
+          </v-checkbox>
           <v-btn
             text
             small
-            class="pl-1 pr-3 float-left text-decoration-underline forgot-password"
+            class="px-0 float-left text-decoration-underline forgot-password"
             :to="{ name: forgotPasswordRoute}">
             {{ forgotPassLinkTitle }}
           </v-btn>
@@ -84,23 +85,22 @@
       </v-row>
       <!-- login btn -->
       <v-row
-        class="justify-center mx-0"
+        class="justify-center py-3 mx-0"
         >
         <v-btn
-          type="button"
+          type="submit"
           :block="isButtonFullWidth"
           :x-large="isButtonLarge"
           :disabled="!valid"
           class="white--text"
-          :color="loginButtonColor"
-          @click="onLogin">
+          :color="loginButtonColor">
           {{ loginButtonTitle }}
         </v-btn>
       </v-row>
       <!-- register link -->
       <v-row
         v-if="registerLinkEnabled"
-        class="justify-center py-4 subtitle-2"
+        class="justify-center pt-6 subtitle-2"
         >
         <span class="py-1 pl-1">{{ $t('components.login.notRegister') }}</span>
         <v-btn
@@ -252,7 +252,7 @@ export default {
     },
     emailPatternRegex: {
       type: String,
-      default: '/.+@.+..+/',
+      default: '/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+[.][a-zA-Z]{2,4}$/',
       required: false
     },
     emailPatternMessage: {

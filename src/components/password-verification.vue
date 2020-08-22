@@ -38,7 +38,7 @@
       >
         <v-btn
           v-if="backButtonEnabled"
-          class="mx-3"
+          class="ml-3"
           :x-large="isButtonLarge"
           :color="backLinkColor"
           @click="cancelButtonClicked"

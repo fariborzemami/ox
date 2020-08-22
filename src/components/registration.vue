@@ -45,7 +45,7 @@
           class="mt-2"
           :label="nameTitle"
           :placeholder="namePlaceholder"
-          :rules="nameRequiredEnabled ? [nameRules.required] : [] "
+          :rules="nameRequiredEnabled ? [nameRules.required, nameRules.pattern] : [] "
           :prepend-icon="outlined && iconEnabled ? 'mdi-account-circle' : ''"
           name="name"
           type="text"
@@ -65,7 +65,7 @@
           class="mt-2"
           :label="lastNameTitle"
           :placeholder="lastNamePlaceholder"
-          :rules="lastNameRequiredEnabled ? [lastNameRules.required] : [] "
+          :rules="lastNameRequiredEnabled ? [lastNameRules.required, lastNameRules.pattern] : [] "
           name="lastName"
           :prepend-icon="outlined && iconEnabled ? 'mdi-account-circle' : ''"
           type="text"
@@ -91,7 +91,7 @@
           name="password"
           :type="showPass ? 'text' : 'password'"
           required
-          @click:append="showPass = !showPass"
+          @click:prepend-inner="showPass = !showPass"
         ></v-text-field>
       </div>
       <!-- phone number -->
@@ -112,6 +112,7 @@
           name="phoneNumber"
           type="text"
           required
+          @keypress="isNumber($event)"
           ></v-text-field>
       </div>
       <!-- role -->
@@ -242,7 +243,7 @@ export default {
     registerButtonTitle: {
       type: String,
       default () {
-        return this.$t('components.register.login')
+        return this.$t('components.register.register')
       },
       required: false
     },
@@ -306,7 +307,7 @@ export default {
     },
     emailPatternRegex: {
       type: String,
-      default: '/.+@.+..+/',
+      default: '/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+[.][a-zA-Z]{2,4}$/',
       required: false
     },
     emailPatternMessage: {
@@ -448,6 +449,18 @@ export default {
       },
       required: false
     },
+    namePatternRegex: {
+      type: String,
+      default: '/^[\u0600-\u06FF\u0020]+$/',
+      required: false
+    },
+    namePatternMessage: {
+      type: String,
+      default () {
+        return this.$t('components.register.nameValidation')
+      },
+      required: false
+    },
     nameRequiredEnabled: {
       type: Boolean,
       default: true,
@@ -484,6 +497,18 @@ export default {
       default: true,
       required: false
     },
+    lastNamePatternRegex: {
+      type: String,
+      default: '/^[\u0600-\u06FF\u0020]+$/',
+      required: false
+    },
+    lastNamePatternMessage: {
+      type: String,
+      default () {
+        return this.$t('components.register.lastNameValidation')
+      },
+      required: false
+    },
     titleEnabled: {
       type: Boolean,
       default: true,
@@ -504,7 +529,7 @@ export default {
         name: '',
         lastName: '',
         email: '',
-        agreeRules: true
+        agreeRules: false
       },
       showPass: false,
       passwordRules: {
@@ -517,10 +542,12 @@ export default {
         counter: value => value.length <= 11 || this.$t('components.register.phoneNumberCountValidation')
       },
       nameRules: {
-        required: value => !!value || this.nameRequiredMessage
+        required: value => !!value || this.nameRequiredMessage,
+        pattern: value => RegExp(this.namePatternRegex.substring(1, this.namePatternRegex.length - 1)).test(value) || this.namePatternMessage
       },
       lastNameRules: {
-        required: value => !!value || this.lastNameRequiredMessage
+        required: value => !!value || this.lastNameRequiredMessage,
+        pattern: value => RegExp(this.lastNamePatternRegex.substring(1, this.lastNamePatternRegex.length - 1)).test(value) || this.lastNamePatternMessage
       },
       emailRules: {
         required: value => !!value || this.emailRequiredMessage,
@@ -566,6 +593,15 @@ export default {
   methods: {
     register (event) {
       this.$emit('register', this.userInfo)
+    },
+    isNumber (evt) {
+      evt = (evt) || window.event
+      var charCode = (evt.which) ? evt.which : evt.keyCode
+      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+        evt.preventDefault()
+      } else {
+        return true
+      }
     }
   }
 }

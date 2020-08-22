@@ -31,7 +31,7 @@
         </v-col>
           <v-col
             cols="12"
-            class="layout-twoside--artwork-area fill-height blue-grey lighten-5 d-flex justify-center align-center"
+            class="d-md-flex d-none layout-twoside--artwork-area fill-height blue-grey lighten-5 justify-center align-center"
             sm="12"
             md="8"
             >
@@ -41,17 +41,26 @@
                 The slot content of the above portal component will be rendered here.
               -->
             </portal-target>
-        <v-img
-          v-if="artworkURL"
-          max-width="100%"
-          max-height="100%"
-          :aspect-ratio="this.$route.meta.artworkAspectRatio || APP_CONFIG.layout.twoside.defaultArtworkAspectRatio"
-          contain
-          :src="artworkURL" />
+            <v-footer
+              v-if="copyRight"
+              absolute
+              color="transparent"
+              class="d-none d-md-flex justify-center col-sm-12 col-md-4 col-12"
+            >
+              <span class="white--text text-caption">{{ $t('components.copyRight.copyRight')}} </span>
+            </v-footer>
+            <v-img
+              v-if="artworkURL"
+              max-width="100%"
+              max-height="100%"
+              :aspect-ratio="this.$route.meta.artworkAspectRatio || APP_CONFIG.layout.twoside.defaultArtworkAspectRatio"
+              contain
+              :src="artworkURL" />
           </v-col>
         </v-row>
       </v-container>
     </v-main>
+    <GlobalSnackbar />
   </v-app>
 </template>
 
@@ -64,6 +73,13 @@ export default {
     artworkURL () {
       const routeArtwork = this.$route.meta.artwork
       return routeArtwork || false
+    },
+    copyRight () {
+      if (this.$route.meta.copyRight === undefined || this.$route.meta.copyRight === true) {
+        return true
+      } else {
+        return false
+      }
     }
   }
 }

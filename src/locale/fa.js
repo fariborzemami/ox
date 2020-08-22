@@ -4,11 +4,14 @@ export default {
   ...fa,
 
   components: {
+    copyRight: {
+      copyRight: 'تمامی حقوق برای دیما محفوظ است \u00A9 1399'
+    },
     passwordVerification: {
-      title: 'تایید گذر واژه فعلی',
+      title: 'تایید کلمه عبور فعلی',
       password: 'کلمه عبور',
       passwordPlaceholder: '********',
-      buttonTitle: 'تایید گذر واژه',
+      buttonTitle: 'تایید کلمه عبور',
       passwordRequired: 'کلمه عبور فعلی الزامی‌است',
       passwordValidation: 'حداقل تعداد کاراکتر مجاز کلمه عبور 8 کاراکتر می‌باشد'
     },
@@ -16,11 +19,11 @@ export default {
       send: 'ارسال'
     },
     login: {
-      email: 'پست الکترونیکی',
+      email: 'پست الکترونیک',
       password: 'کلمه عبور',
       login: 'ورود',
       rememberMe: 'مرا به خاطر بسپار',
-      forgotPassword: 'کلمه عبور خود را فراموش کرده اید!',
+      forgotPassword: 'کلمه عبور را فراموش کرده اید!',
       notRegister: 'هنوز ثبت نام نکرده اید!',
       register: 'ثبت نام کنید',
       emailPlaceholder: 'email@example.com',
@@ -39,7 +42,7 @@ export default {
       legalPerson: 'شخص حقوقی',
       realPerson: 'شخص حقیقی',
       phoneNumber: 'شماره موبایل',
-      email: 'پست الکترونیکی',
+      email: 'پست الکترونیک',
       emailPlaceholder: 'email@example.com',
       name: 'نام',
       nameRequired: 'نام الزامی است',
@@ -57,7 +60,9 @@ export default {
       emailValidation: 'فرمت پست الکترونیکی اشتباه است',
       emailStatus: 'پست الکترونیکی شما به عنوان نام کاربری بوده و غیر قابل تغییر است',
       phoneNumberValidation: 'فرمت شماره موبایل اشتباه است',
-      phoneNumberCountValidation: 'شماره موبایل باید 11 رقمی باشد'
+      phoneNumberCountValidation: 'شماره موبایل باید 11 رقمی باشد',
+      nameValidation: 'لطفا نام را با حروف فارسی وارد کنید',
+      lastNameValidation: 'لطفا نام خانوادگی را با حروف فارسی وارد کنید'
     },
     forgotPassword: {
       title: 'بازیابی کلمه عبور',

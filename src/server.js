@@ -1,4 +1,5 @@
 import axios from 'axios'
+const qs = require('qs')
 const server = function (config, data) {
   axios.defaults.baseURL = config.baseURL
   axios.interceptors.request.use(config.requestInterceptor)
@@ -33,7 +34,10 @@ const server = function (config, data) {
             url: currentPath,
             method: method,
             data: data,
-            params: query
+            params: query,
+            paramsSerializer: function (params) {
+              return qs.stringify(params, { arrayFormat: 'repeat' })
+            }
           })
         }
       })
@@ -52,6 +56,7 @@ const setBaseServerMethod = function (server) {
   }
   server.generateDataModel = function generateDataModel (dataModel, payload) {
     if (dataModel && dataModel.constructor && dataModel.constructor.name === 'FormData') {
+      dataModel = new FormData()
       if (Array.isArray(payload)) {
         payload.map((item) => {
           dataModel.append('items', item)

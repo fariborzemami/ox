@@ -32,6 +32,7 @@ export default {
       console.log('Do Regsiter ---------------- !!!!')
       console.log(payload.email)
       console.log(payload.name)
+      console.log(payload.lastName)
       console.log(payload.password)
       console.log(payload.phoneNumber)
     }

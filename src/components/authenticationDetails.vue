@@ -22,7 +22,7 @@
           medium
           color="amber accent-1"
           class="align-baseline">{{descriptionIcon}}</v-icon>
-        <span class="pr-1">{{description}}</span>
+        <span class="pr-3">{{description}}</span>
       </v-card>
 
       <v-card

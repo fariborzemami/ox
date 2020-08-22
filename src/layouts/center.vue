@@ -28,6 +28,7 @@
         </v-row>
       </v-container>
     </v-main>
+    <GlobalSnackbar />
   </v-app>
 </template>
 
