@@ -70,12 +70,19 @@
               {{ profile.name }}
             </span>
             <v-avatar
-            width="32"
-            height="32">
+              class="mr-2"
+              width="32"
+              height="32">
               <img
+                v-if="profile.avatarImage"
                 :src="profile.avatarImage"
-                alt="profile.name"
-                >
+                :alt="profile.name"
+                />
+              <img
+                v-else
+                src="/img/default-avatar.jpg"
+                :alt="profile.name"
+                />
             </v-avatar>
           </v-btn>
         </template>
