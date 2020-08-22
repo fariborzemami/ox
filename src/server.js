@@ -22,7 +22,9 @@ const server = function (config, data) {
           } else {
             const schema =
               methodValue.requestBody.content['text/json'].schema.$ref
-            dataModel = retrieveDataModel(schema, data)
+            if (schema) {
+              dataModel = retrieveDataModel(schema, data)
+            }
           }
         }
         const methodName = generateMethodName(methodValue, pathKey, method)
