@@ -96,7 +96,6 @@
       >
         <v-file-input
           outlined
-          :value="value"
           truncate-length="10"
           v-bind="$attrs"
           @change="onChange"
