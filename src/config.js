@@ -6,6 +6,7 @@ import API_JSON from '../public/swagger/openapi.json'
 export default {
   homeURL: '/',
   locale: 'en',
+  localeDateFormat: 'LLLLL',
   localeDateString: 'en-US',
   locales: {
     fa,

@@ -11,9 +11,11 @@ import faker from 'faker'
 import Server from '@/plugins/server'
 import GetToken from '@/plugins/gettoken'
 import PortalVue from 'portal-vue'
+import Filters from '@/filters'
 
 Vue.mixin(globalMixin)
 Vue.use(PortalVue)
+Filters(APP_CONFIG)
 
 window.CURRENT_USER_ROLE = 'ADMIN'
 
