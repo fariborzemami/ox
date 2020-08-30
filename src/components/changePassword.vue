@@ -16,6 +16,8 @@
         <span v-if="solo">{{ passwordTitle}}</span>
         <v-text-field
           v-model="userPassword.password"
+          autofocus
+          tabindex="1"
           :solo="solo"
           :outlined="outlined"
           flat
@@ -38,6 +40,7 @@
         <span v-if="solo">{{ newPasswordTitle}}</span>
         <v-text-field
           v-model="userPassword.newPassword"
+          tabindex="2"
           :solo="solo"
           :outlined="outlined"
           flat
@@ -59,6 +62,7 @@
         class="justify-center mx-0"
         >
         <v-btn
+          tabindex="3"
           type="submit"
           :block="isButtonFullWidth"
           :x-large="isButtonLarge"

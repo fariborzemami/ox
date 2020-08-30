@@ -17,6 +17,8 @@
         <span v-if="solo">{{emailTitle}}</span>
         <v-text-field
           v-model="userInfo.email"
+          autofocus
+          tabindex="1"
           :solo="solo"
           :outlined="outlined"
           flat
@@ -38,6 +40,7 @@
         <span v-if="solo">{{nameTitle}}</span>
         <v-text-field
           v-model="userInfo.name"
+          tabindex="2"
           :solo="solo"
           :outlined="outlined"
           flat
@@ -58,6 +61,7 @@
         <span v-if="solo">{{lastNameTitle}}</span>
         <v-text-field
           v-model="userInfo.lastName"
+          tabindex="3"
           :solo="solo"
           :outlined="outlined"
           flat
@@ -78,6 +82,7 @@
         <span v-if="solo">{{passwordTitle}}</span>
         <v-text-field
           v-model="userInfo.password"
+          tabindex="4"
           :solo="solo"
           :outlined="outlined"
           flat
@@ -100,6 +105,7 @@
         <span v-if="solo">{{phoneNumberTitle}}</span>
         <v-text-field
           v-model="userInfo.phoneNumber"
+          tabindex="5"
           :solo="solo"
           :outlined="outlined"
           flat
@@ -121,6 +127,7 @@
         >
         <v-checkbox
           v-model="userInfo.agreeRules"
+          tabindex="6"
           :color="checkBoxColor"
           :label="$t('components.register.rules')"
           :rules="[agreeRulesRules.required]"
@@ -136,6 +143,7 @@
       <!-- register btn -->
       <v-row class="justify-center mx-0">
         <v-btn
+          tabindex="7"
           type="submit"
           :block="isButtonFullWidth"
           :x-large="isButtonLarge"

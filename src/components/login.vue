@@ -22,6 +22,8 @@
         <span v-if="solo">{{ emailTitle }}</span>
         <v-text-field
           v-model="userInfo.email"
+          autofocus
+          tabindex="1"
           :solo="solo"
           :outlined="outlined"
           flat
@@ -44,6 +46,7 @@
         <span v-if="solo">{{ passwordTitle }}</span>
         <v-text-field
           v-model="userInfo.password"
+          tabindex="2"
           :solo="solo"
           :outlined="outlined"
           flat
@@ -65,6 +68,7 @@
         <v-col class="pr-2 pl-3 d-flex justify-space-between" >
           <v-checkbox
             v-model="userInfo.rememberMe"
+            tabindex="3"
             class="mt-0 float-right"
             :color="checkBoxColor"
             hide-details
@@ -88,6 +92,7 @@
         class="justify-center py-3 mx-0"
         >
         <v-btn
+          tabindex="4"
           type="submit"
           :block="isButtonFullWidth"
           :x-large="isButtonLarge"

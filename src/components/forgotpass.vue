@@ -18,6 +18,7 @@
         <span v-if="solo">{{ emailTitle }}</span>
         <v-text-field
           v-model="email"
+          autofocus
           :solo="solo"
           :outlined="outlined"
           flat

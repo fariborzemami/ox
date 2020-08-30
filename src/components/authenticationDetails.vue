@@ -39,6 +39,7 @@
         justify="center">
         <v-btn
           type="submit"
+          autofocus
           class="white--text mt-6"
           :to="{ name: buttonRoute}"
           :color="buttonColor">
