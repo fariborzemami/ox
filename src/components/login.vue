@@ -67,6 +67,7 @@
       <v-row>
         <v-col class="pr-2 pl-3 d-flex justify-space-between" >
           <v-checkbox
+            v-if="rememberMeEnabled"
             v-model="userInfo.rememberMe"
             tabindex="3"
             class="mt-0 float-right"
@@ -79,6 +80,7 @@
             </template>
           </v-checkbox>
           <v-btn
+            v-if="forgotPasswordEnabled"
             text
             small
             class="px-0 float-left text-decoration-underline forgot-password"
@@ -165,6 +167,16 @@
  */
 export default {
   props: {
+    rememberMeEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    forgotPasswordEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
     iconEnabled: {
       type: Boolean,
       default: true,
