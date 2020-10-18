@@ -11,4 +11,12 @@ export default (APP_CONFIG) => {
     }
     return result
   })
+  Vue.filter('dateTime', (date) => {
+    let result = null
+    if (date) {
+      const newDate = new Date(date)
+      result = new PersianDate(newDate).format(APP_CONFIG.localeDateTimeFormat || 'LLLLL')
+    }
+    return result
+  })
 }

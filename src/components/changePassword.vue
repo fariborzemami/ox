@@ -59,17 +59,30 @@
       </div>
       <!-- change password btn -->
       <v-row
-        class="justify-center mx-0"
+        class="justify-center mx-0 my-3"
         >
         <v-btn
           tabindex="3"
           type="submit"
+          :width="buttonWidth"
           :block="isButtonFullWidth"
           :x-large="isButtonLarge"
           :disabled="!valid"
           class="white--text"
           :color="changePasswordButtonColor">
           {{ changePasswordButtonTitle }}
+        </v-btn>
+      </v-row>
+      <v-row
+        class="justify-center mx-0"
+        >
+        <v-btn
+          v-if="backButtonEnabled"
+          :width="buttonWidth"
+          :x-large="isButtonLarge"
+          :to="backButtonRoute"
+          :color="backLinkColor">
+          {{$t('components.forgotPassword.back')}}
         </v-btn>
       </v-row>
     </v-form>
@@ -107,9 +120,30 @@
  * @property {Boolean} [iconEnabled=true]
  * @property {Boolean} [titleEnabled=true] - Specifies whether main title is displayed or not
  * @property {Boolean} [isButtonLarge=false] - Specifies Button is larger than usual or not
+ * @property {Number} [buttonWidth=200] - button width
  */
 export default {
   props: {
+    buttonWidth: {
+      type: Number,
+      default: 200,
+      required: false
+    },
+    backButtonEnabled: {
+      type: Boolean,
+      default: false,
+      required: false
+    },
+    backButtonRoute: {
+      type: String,
+      default: '/',
+      required: false
+    },
+    backLinkColor: {
+      type: String,
+      default: 'rgba(25, 118, 210, 0.2)',
+      required: false
+    },
     iconEnabled: {
       type: Boolean,
       default: true,

@@ -51,7 +51,7 @@ const setBaseServerMethod = function (server) {
   server.generateQueryModel = function generateQueryModel (queryParameters, payload) {
     const query = {}
     queryParameters.forEach(pathQuery => {
-      if (payload && payload[pathQuery.name]) {
+      if (payload && !(payload[pathQuery.name] === undefined || payload[pathQuery.name] === null)) {
         query[pathQuery.name] = payload[pathQuery.name]
         delete payload[pathQuery.name]
       }

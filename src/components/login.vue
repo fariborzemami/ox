@@ -96,6 +96,7 @@
         <v-btn
           tabindex="4"
           type="submit"
+          :width="buttonWidth"
           :block="isButtonFullWidth"
           :x-large="isButtonLarge"
           :disabled="!valid"
@@ -163,10 +164,16 @@
  * @property {Boolean} [titleEnabled=true] - Specifies whether main title is displayed or not,
  * @property {Boolean} [registerLinkEnabled=true] - Specifies Registeration page link visibility,
  * @property {Boolean} [isButtonLarge=false] - Specifies Button is larger than usual or not
+ * @property {Number} [buttonWidth=200] - button width
 
  */
 export default {
   props: {
+    buttonWidth: {
+      type: Number,
+      default: 200,
+      required: false
+    },
     rememberMeEnabled: {
       type: Boolean,
       default: true,

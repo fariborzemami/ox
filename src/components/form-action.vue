@@ -4,14 +4,14 @@
     <template v-else>
       <v-btn
         :disabled="!$parent.value"
-        color="success"
+        :color="submitColor"
         depressed
         @click="submitButtonClicked"
       >
         {{ submitText }}
       </v-btn>
       <v-btn
-        color="secondary"
+        :color="cancelColor"
         depressed
         outlined
         @click="cancelButtonClicked"
@@ -29,6 +29,8 @@
  * @version 1.0.0
  * @property {string} [submitText=Submit] - submit button show text.
  * @property {string} [cancelText=Cancel] - cancel button show text.
+ * @property {string} [submitColor=primary] - submit button color.
+ * @property {string} [cancelColor=secondary] - cancel button color.
  * @event FormAction#submit - emitted when submit button clicked.
  */
 export default {
@@ -43,6 +45,16 @@ export default {
       type: String,
       required: false,
       default: 'Cancel'
+    },
+    submitColor: {
+      type: String,
+      required: false,
+      default: 'primary'
+    },
+    cancelColor: {
+      type: String,
+      required: false,
+      default: 'secondary'
     },
     novalidate: {
       type: Boolean,

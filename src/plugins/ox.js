@@ -16,6 +16,9 @@ import FormHelpBox from '../components/form-help-box.vue'
 import GlobalSnackbar from '../components/global-snackbar.vue'
 import PasswordVerification from '../components/password-verification.vue'
 import UnderConstruction from '../components/under-construction.vue'
+import Loading from '../components/loading.vue'
+import ConfirmBox from '../components/confirm-box.vue'
+import chat from '../components/chat.vue'
 
 Vue.use({
   install (Vue, options) {
@@ -37,5 +40,8 @@ Vue.use({
     Vue.component('GlobalSnackbar', GlobalSnackbar)
     Vue.component('PasswordVerification', PasswordVerification)
     Vue.component('UnderConstruction', UnderConstruction)
+    Vue.component('Loading', Loading)
+    Vue.component('ConfirmBox', ConfirmBox)
+    Vue.component('chat', chat)
   }
 })

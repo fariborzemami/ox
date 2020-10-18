@@ -18,6 +18,7 @@
     <div class="filter-actions d-flex flex-row-reverse pb-4">
       <v-btn
         outlined
+        :color="buttonColor"
         @click="onFilterClick"
       >
         {{ buttonText || $t('components.filterBox.buttonText') }}
@@ -49,6 +50,11 @@ export default {
       type: String,
       required: false,
       default: null
+    },
+    buttonColor: {
+      type: String,
+      required: false,
+      default: 'primary'
     }
   },
   data: () => ({
@@ -59,9 +65,11 @@ export default {
     onFilterClick (e) {
       const { fromDate, toDate } = this
       const slotItems = {}
-      this.$slots.default.forEach(filterItem => {
-        slotItems[filterItem.data.model.expression.split('.').pop()] = filterItem.data.model.value
-      })
+      if (this.$slots.default && this.$slots.default.length) {
+        this.$slots.default.forEach(filterItem => {
+          slotItems[filterItem.data.model.expression.split('.').pop()] = filterItem.data.model.value
+        })
+      }
       const payload = {
         ...(!this.disableFromDate) && { fromDate },
         ...(!this.disableToDate) && { toDate },

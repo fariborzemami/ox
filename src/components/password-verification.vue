@@ -29,30 +29,36 @@
           name="password"
           :type="showPass ? 'text' : 'password'"
           required
-          @click:append="showPass = !showPass"
+          @click:prepend-inner="showPass = !showPass"
         ></v-text-field>
       </div>
       <!-- verify password btn -->
+
       <v-row
-        class="justify-center mx-0"
+        class="justify-center mx-0 my-3"
       >
         <v-btn
-          v-if="backButtonEnabled"
-          class="ml-3"
-          :x-large="isButtonLarge"
-          :color="backLinkColor"
-          @click="cancelButtonClicked"
-        >
-          {{$t('components.forgotPassword.back')}}
-        </v-btn>
-        <v-btn
           type="submit"
+          :width="buttonWidth"
           :block="isButtonFullWidth"
           :x-large="isButtonLarge"
           :disabled="!valid"
           class="white--text"
           :color="verifyPasswordButtonColor">
           {{ verifyPasswordButtonTitle }}
+        </v-btn>
+      </v-row>
+      <v-row
+        class="justify-center mx-0"
+      >
+        <v-btn
+          v-if="backButtonEnabled"
+          :width="buttonWidth"
+          :x-large="isButtonLarge"
+          :color="backLinkColor"
+          @click="cancelButtonClicked"
+        >
+          {{$t('components.forgotPassword.back')}}
         </v-btn>
       </v-row>
     </v-form>
@@ -86,6 +92,11 @@
  */
 export default {
   props: {
+    buttonWidth: {
+      type: Number,
+      default: 200,
+      required: false
+    },
     backButtonEnabled: {
       type: Boolean,
       default: true,
@@ -93,7 +104,7 @@ export default {
     },
     backLinkColor: {
       type: String,
-      default: '',
+      default: 'rgba(25, 118, 210, 0.2)',
       required: false
     },
     iconEnabled: {

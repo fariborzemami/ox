@@ -42,22 +42,53 @@
         }
       }
     }
+    .form-file-input-uploader {
+      display: flex;
+      flex-direction: row;
+      height: auto;
+      flex-grow: 1;
+      flex-wrap: wrap;
+      min-width: 0;
+      width: 100%;
+      .upload-area {
+        background-color: var(--v-formInputColor-base);
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        border-radius: 0.3rem;
+      }
+      .message-area {
+        padding: 0 12px !important;
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        min-width: 250px;
+        flex: 1 0 auto;
+        max-width: 100%;
+        min-height: 14px;
+        overflow: hidden;
+      }
+    }
     .form-uploader{
       display: flex;
       flex-direction: row-reverse;
       justify-content: space-between;
       min-width: 320px;
-      width: 320px;
-      padding: 15px;
+      padding: 15px 15px 8px 15px;
       background-color: var(--v-formInputColor-base);
       border-radius: 0.3rem;
+      margin-bottom: 8px;
+      .v-input__control {
+        align-items: flex-end
+      }
       .v-file-input{
         .v-input__prepend-outer{
           display: none;
         }
         font-size: 0.84rem;
         width: auto;
-        max-width: min-content;
+        max-width: 100%;
         .v-input__slot{
           fieldset{
             border: none;
@@ -67,12 +98,12 @@
           padding: 0 !important;
           min-height: 32px;
           height: auto;
-          min-width: max-content;
+          width: fit-content !important;
           .v-text-field__slot{
-            padding: 0 8px;
+            padding: 0 4px;
             .v-file-input__text{
-              min-width: 60px;
-              max-width: 90px;
+              overflow: hidden;
+              white-space: nowrap;
             }
           }
           .v-input__append-inner{
@@ -85,8 +116,17 @@
             }
           }
         }
-        .v-text-field__details{
-          display: none;
+        .v-text-field__details {
+          position: absolute;
+          bottom: -32px;
+          right: -12px;
+          @media (min-width: 875px) and (max-width: 1263px){
+            bottom: 6px;
+            right: 305px;
+          }
+        }
+        .v-messages__wrapper{
+          width: 9rem;
         }
       }
       .v-image{
@@ -226,6 +266,15 @@
         width: 100%;
       }
     }
+    .form-file-input-uploader {
+      .upload-area {
+        width: 320px;
+        height: auto;
+        @media (max-width: 780px) {
+          width: 100%
+        }
+      }
+    }
   }
   .form-action-component{
     .v-btn{
@@ -258,6 +307,12 @@
     .vpd-input-group{
       height: auto;
       margin-bottom: 32px;
+    }
+    .form-file-input-uploader {
+      .upload-area {
+        width: 100%;
+        height: auto;
+      }
     }
   }
   .form-action-component{
@@ -331,6 +386,12 @@
       margin-bottom: 19px;
       input{
         width: 100%;
+      }
+    }
+    .form-file-input-uploader {
+      .upload-area {
+        width: 100%;
+        height: auto;
       }
     }
   }

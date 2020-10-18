@@ -168,8 +168,30 @@
         type="file"
         icon="mdi-file-upload"
         accept="image/*"
+        multiple
+        :rules="fileRules"
         :label="$t('pages.forms.docFileLabel')"
         :placeholder="$t('pages.forms.docFilePlaceholder')"
+      ></form-item>
+      <form-item
+        v-model="formData.combobox"
+        :class="{ 'col-3': formData.type === 'form-inline' }"
+        type="radio"
+        icon="mdi-radiobox-marked"
+        :label="$t('pages.forms.comboboxChipsLabel')"
+        multiple
+        chips
+        deletable-chips
+        append-icon
+      ></form-item>
+      <form-item
+        v-model="formData.autocomplete"
+        :class="{ 'col-3': formData.type === 'form-inline' }"
+        type="autocomplete"
+        :items="items"
+        icon="mdi-select-multiple"
+        :label="$t('pages.forms.autocompleteLabel')"
+        multiple
       ></form-item>
       <form-action
         :submit-text="$t('pages.forms.sendButtonText')"
@@ -219,9 +241,9 @@ export default {
       textArea: '',
       select: null,
       selectMultiple: null,
-      checkbox: false,
+      checkbox: true,
       radiobox: null,
-      file: null,
+      file: [],
       counter: 10,
       datetime: null,
       date: null,
@@ -250,6 +272,11 @@ export default {
       return [
         v => (v && v.length === 24) || this.$t('pages.forms.shebaRuleLength'),
         v => (v && /^\d+$/.test(v)) || this.$t('pages.forms.shebaRuleOnlyNumber')
+      ]
+    },
+    fileRules () {
+      return [
+        v => (v && v.length > 0) || 'Required'
       ]
     },
     complexItems () {

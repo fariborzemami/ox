@@ -34,24 +34,28 @@
       </div>
       <!------------>
       <v-row
-        class="justify-center mx-0"
-        >
-        <v-btn
-          v-if="backButtonEnabled"
-          class="mx-3"
-          :x-large="isButtonLarge"
-          :to="backButtonRoute"
-          :color="backLinkColor">
-          {{$t('components.forgotPassword.back')}}
-        </v-btn>
+        class="justify-center mx-0 my-3">
         <v-btn
           type="submit"
+          :width="buttonWidth"
           :disabled="!valid"
           :block="isButtonFullWidth"
           :x-large="isButtonLarge"
           class="white--text"
           :color="recoveryLinkColor">
           {{ recoveryButtonTitle }}
+        </v-btn>
+      </v-row>
+      <v-row
+        class="justify-center mx-0"
+        >
+        <v-btn
+          v-if="backButtonEnabled"
+          :width="buttonWidth"
+          :x-large="isButtonLarge"
+          :to="backButtonRoute"
+          :color="backLinkColor">
+          {{$t('components.forgotPassword.back')}}
         </v-btn>
       </v-row>
       <!-- register link -->
@@ -99,9 +103,16 @@
  * @property {String} [backButtonRoute='/'] - Specifies back button route
  * @property {String} [backLinkColor=''] - Specifies back button color
  * @property {Boolean} [isButtonLarge=false] - Specifies Button is larger than usual or not
+ * @property {Number} [buttonWidth=200] - button width
+
  */
 export default {
   props: {
+    buttonWidth: {
+      type: Number,
+      default: 200,
+      required: false
+    },
     iconEnabled: {
       type: Boolean,
       default: true,
@@ -209,7 +220,7 @@ export default {
     },
     backLinkColor: {
       type: String,
-      default: '',
+      default: 'rgba(25, 118, 210, 0.2)',
       required: false
     },
     isButtonLarge: {
