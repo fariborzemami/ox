@@ -96,6 +96,14 @@ export default {
     }
   },
   pages: {
+    confirmModal: {
+      title: 'confirm modal',
+      confirmTitle: 'Are you sure to delete item?',
+      confirmMessage: 'you can not access data again',
+      confirm: 'yes, sure',
+      cancel: 'cancel',
+      showModal: 'show modal'
+    },
     passwordVerification: {
       title: 'verify it\'s you'
     },
@@ -241,7 +249,9 @@ export default {
       cancelButtonText: 'Cancel',
       removeButtonText: 'Remove',
       sendButtonText: 'Send',
-      returnButtonText: 'Return'
+      returnButtonText: 'Return',
+      comboboxChipsLabel: 'combobox chips',
+      autocompleteLabel: 'autoComplete'
     },
     forgotPass: {
       title: 'Forgot password',

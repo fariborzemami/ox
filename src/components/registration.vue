@@ -134,9 +134,13 @@
           required
         >
           <template v-slot:label>
-            <a v-if="userInfo.agreeRules">
+            <v-btn
+              text
+              small
+              @click="onOpenTermsAndConditions"
+            >
               {{$t('components.register.rules')}}
-            </a>
+            </v-btn>
           </template>
         </v-checkbox>
       </v-row>
@@ -145,6 +149,7 @@
         <v-btn
           tabindex="7"
           type="submit"
+          :width="buttonWidth"
           :block="isButtonFullWidth"
           :x-large="isButtonLarge"
           :disabled="!valid"
@@ -185,6 +190,7 @@
  * @property {String} [loginLinkColor='blue darken-2'] - Specifies the color of the login link,
  * @property {String} [loginLinkTitle] - Specifies the title of the login link,
  * @property {String} [loginRoute='login'] - Specifies the URL of the login page,
+ * @property {String} [termsAndConditionsRoute] - Specifies the URL of the termsAndConditions page,
  * @property {Boolean} [isDark=false]
  * @property {Boolean} [emailEnabled]
  * @property {String} [emailTitle]
@@ -225,9 +231,15 @@
  * @property {Boolean} [iconEnabled=true]
  * @property {Boolean} [titleEnabled=true] - Specifies whether main title is displayed or not
  * @property {Boolean} [isButtonLarge=false] - Specifies Button is larger than usual or not
+ * @property {Number} [buttonWidth=200] - button width
  */
 export default {
   props: {
+    buttonWidth: {
+      type: Number,
+      default: 200,
+      required: false
+    },
     iconEnabled: {
       type: Boolean,
       default: true,
@@ -418,7 +430,7 @@ export default {
     },
     phoneNumberPatternRegex: {
       type: String,
-      default: '/[0][9][0-9]{9,9}/',
+      default: '/09[0-9]{9,9}/',
       required: false
     },
     phoneNumberRequiredEnabled: {
@@ -526,6 +538,11 @@ export default {
       type: Boolean,
       default: false,
       required: false
+    },
+    termsAndConditionsRoute: {
+      type: String,
+      default: '',
+      required: false
     }
   },
   data () {
@@ -546,7 +563,7 @@ export default {
       },
       phoneNumberRules: {
         required: value => !!value || this.phoneNumberRequiredMessage,
-        pattern: value => RegExp(this.phoneNumberPatternRegex.substring(1, this.phoneNumberPatternRegex.length - 1)).test(value) || this.phoneNumberPatternMessage,
+        pattern: value => value.length <= 11 || RegExp(this.phoneNumberPatternRegex.substring(1, this.phoneNumberPatternRegex.length - 1)).test(value) || this.phoneNumberPatternMessage,
         counter: value => value.length <= 11 || this.$t('components.register.phoneNumberCountValidation')
       },
       nameRules: {
@@ -599,6 +616,16 @@ export default {
     }
   },
   methods: {
+    onOpenTermsAndConditions () {
+      // TODO: target="_blank" does not work inside the checkbox template, temporarily used the
+      // click method and manually opened the link path in a new tab (should fixed and target
+      // attribute should be used instead)
+
+      const routeUrl = this.$router.resolve({
+        name: this.termsAndConditionsRoute
+      })
+      window.open(routeUrl.href, '_blank')
+    },
     register (event) {
       this.$emit('register', this.userInfo)
     },

@@ -40,7 +40,8 @@
         <v-btn
           type="submit"
           autofocus
-          class="white--text mt-6"
+          :width="buttonWidth"
+          class="white--text mt-7"
           :to="{ name: buttonRoute}"
           :color="buttonColor">
           {{ buttonTitle }}
@@ -67,6 +68,11 @@
  */
 export default {
   props: {
+    buttonWidth: {
+      type: Number,
+      default: 200,
+      required: false
+    },
     isDark: {
       type: Boolean,
       default: false,

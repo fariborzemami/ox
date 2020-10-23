@@ -30,21 +30,43 @@
         v-else-if="type === 'select'"
         :dir="ltr ? 'ltr' : 'rtl'"
         outlined
+        :menu-props="{ offsetY: true }"
         :value="value"
         v-bind="$attrs"
         @input="onChange"
-      ></v-select>
+        @click="onClick"
+      >
+        <template
+          v-if="Object.prototype.hasOwnProperty.call($attrs, 'selectAll')"
+          v-slot:prepend-item
+        >
+          <v-list-item
+            ripple
+            @click="toggleSelectAll"
+          >
+            <v-list-item-action>
+              <v-icon>
+                {{ allSelected ? 'mdi-minus-box' : 'mdi-checkbox-blank-outline' }}
+              </v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title> {{ $attrs.selectAllPlaceholder ? $attrs.selectAllPlaceholder :  $t('components.formItem.selectAllPlaceholder') }} </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider class="mt-2"></v-divider>
+        </template>
+      </v-select>
       <v-checkbox
         v-else-if="type === 'checkbox'"
-        :value="value"
+        v-model="value"
         v-bind="$attrs"
         @change="onChange"
       ></v-checkbox>
       <v-switch
         v-else-if="type === 'switch'"
+        v-model="value"
         dense
         inset
-        :value="value"
         v-bind="$attrs"
         @change="onChange"
       ></v-switch>
@@ -54,6 +76,7 @@
         :value="value"
         v-bind="$attrs"
         @change="onChange"
+        @mousedown="onMousedown"
       >
         <v-radio
           v-for="(option, index) in $attrs.options"
@@ -76,10 +99,10 @@
           @change="onChange"
         >
           <template v-slot:prepend>
-            {{ value[0] }}
+            {{ formatNumber(value[0], prependNumeralFormatter, prependNumeralFormatterLocale) }}
           </template>
           <template v-slot:append>
-            {{ value[1] }}
+            {{ formatNumber(value[1], appendNumeralFormatter, appendNumeralFormatterLocale) }}
           </template>
         </v-range-slider>
       </div>
@@ -90,6 +113,13 @@
         v-bind="$attrs"
         @change="onChange"
       ></v-slider>
+      <form-item-file-input
+        v-else-if="type === 'file'"
+        :value="value"
+        v-bind="$attrs"
+        @input="onChange"
+      ></form-item-file-input>
+      <!--
       <div
         v-else-if="type === 'file'"
         class="form-uploader"
@@ -98,6 +128,7 @@
           outlined
           truncate-length="10"
           v-bind="$attrs"
+          width=200
           @change="onChange"
         ></v-file-input>
         <v-img
@@ -105,6 +136,7 @@
           :src="url"
         ></v-img>
       </div>
+      -->
       <multiselect
         v-else-if="type === 'multiselect'"
         :value="value"
@@ -113,12 +145,31 @@
       ></multiselect>
       <date-picker
         v-else-if="type === 'date' || type === 'datetime' || type === 'time'"
+        format="YYYY-MM-DD"
+        display-format="jDD jMMMM jYYYY"
         :type="type"
         :value="value"
         v-bind="$attrs"
         @input="onChange"
       >
       </date-picker>
+      <v-combobox
+        v-if="type === 'combobox'"
+        :dir="ltr ? 'ltr' : 'rtl'"
+        :value="value"
+        v-bind="$attrs"
+        @input="onChange"
+      ></v-combobox>
+      <v-autocomplete
+        v-else-if="type === 'autocomplete'"
+        :dir="ltr ? 'ltr' : 'rtl'"
+        :menu-props="{ offsetY: true }"
+        outlined
+        :value="value"
+        v-bind="$attrs"
+        @input="onChange"
+        @click="onClick"
+      ></v-autocomplete>
     </template>
   </div>
 </template>
@@ -137,13 +188,35 @@
  */
 import Multiselect from 'vue-multiselect'
 import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
+import formItemFileInput from '../components/form-item-file-input'
 export default {
   name: 'FormItem',
   components: {
     multiselect: Multiselect,
-    'date-picker': VuePersianDatetimePicker
+    'date-picker': VuePersianDatetimePicker,
+    formItemFileInput
   },
   props: {
+    prependNumeralFormatterLocale: {
+      type: String,
+      default: 'en',
+      required: false
+    },
+    appendNumeralFormatterLocale: {
+      type: String,
+      default: 'en',
+      required: false
+    },
+    prependNumeralFormatter: {
+      type: String,
+      default: '',
+      required: false
+    },
+    appendNumeralFormatter: {
+      type: String,
+      default: '',
+      required: false
+    },
     label: {
       type: String,
       required: false
@@ -156,7 +229,7 @@ export default {
       type: String,
       required: false,
       validator: (v) => ['textbox', 'textarea', 'select', 'checkbox', 'switch', 'radio', 'file',
-        'multiselect', 'date', 'datetime', 'time', 'slider', 'range'].indexOf(v) !== -1
+        'multiselect', 'date', 'datetime', 'time', 'slider', 'range', 'combobox', 'autocomplete'].indexOf(v) !== -1
     },
     value: {
       type: [String, Boolean, Array, Number, File],
@@ -188,11 +261,30 @@ export default {
         return
       }
       return URL.createObjectURL(this.value)
+    },
+    allSelected () {
+      return this.value.length === this.$attrs.items.length
     }
   },
   methods: {
     onChange (e) {
       this.$emit('input', e)
+    },
+    onClick (e) {
+      this.$emit('click', e)
+    },
+    onMousedown (e) {
+      this.$emit('mousedown', e)
+    },
+    toggleSelectAll () {
+      this.$nextTick(() => {
+        if (this.allSelected) {
+          this.$emit('input', [])
+        } else {
+          const values = this.$attrs.items.map(v => v.value)
+          this.$emit('input', values)
+        }
+      })
     }
   }
 }

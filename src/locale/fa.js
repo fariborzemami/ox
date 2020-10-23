@@ -67,7 +67,7 @@ export default {
     forgotPassword: {
       title: 'بازیابی کلمه عبور',
       email: 'پست الکترونیکی',
-      back: 'بازگشت',
+      back: 'لغو',
       passwordRecovery: 'بازیابی کلمه عبور',
       notRegister: 'هنوز ثبت نام نکرده اید ! ',
       register: 'ثبت نام کنید',
@@ -99,9 +99,23 @@ export default {
     underConstruction: {
       title: 'در حال ساخت',
       description: 'این بخش در حال ساخت میباشد.'
+    },
+    formItem: {
+      selectAllPlaceholder: 'انتخاب همه'
+    },
+    formItemFileInput: {
+      selectLabel: 'انتخاب فایل'
     }
   },
   pages: {
+    confirmModal: {
+      title: 'مودال تایید اطلاعات',
+      confirmTitle: 'آیا از حذف آیتم مورد نظر مطمئن می‌باشید؟',
+      confirmMessage: 'با حذف این گزینه دیگر امکان دسترسی به اطلاعات حذف شده نمی باشد',
+      confirm: 'بله، مطمئن هستم',
+      cancel: 'انصراف',
+      showModal: 'نمایش مودال'
+    },
     admin: {
       title: 'صفحات مدیریت'
     },
@@ -253,7 +267,9 @@ export default {
       cancelButtonText: 'لغو',
       removeButtonText: 'حذف',
       sendButtonText: 'ارسال',
-      returnButtonText: 'بازگشت'
+      returnButtonText: 'بازگشت',
+      comboboxChipsLabel: 'combobox chips',
+      autocompleteLabel: 'autoComplete'
     },
     forgotPass: {
       title: 'فراموشی رمز عبور',

@@ -10,6 +10,7 @@
         >
         <!-- user and search col -->
         <v-col
+          v-if="!chatOnly"
           md="4"
           lg="3"
           :class="selectedUser.userName == '' ? '' : 'd-none d-md-block'"
@@ -77,14 +78,14 @@
                       color="transparent"
                       class="text-truncate text-body-2"
                       >
-                      <span>{{user.userName}}</span>
+                      <span>{{user.name}}</span>
                     </v-card>
                     <v-card
                       flat
                       color="transparent"
                       class="text-truncate chat__details_color text-caption"
                       >
-                      <span>{{user.messages.slice(-1)[0].messages.slice(-1)[0].text}}</span>
+                      <span>{{userMessage(user)}}</span>
                     </v-card>
                   </v-col>
                   <v-col
@@ -94,7 +95,7 @@
                     >
                     <span
                       class="chat__details_color">
-                      {{moment(user.messages.slice(-1)[0].messages.slice(-1)[0].sendTime).format("jYYYY/jMM/jDD") }}
+                      {{dateMessage(user)}}
                     </span>
                   </v-col>
                 </v-row>
@@ -105,8 +106,8 @@
         </v-col>
         <!-- chat col -->
         <v-col
-          md="8"
-          lg="9"
+          :md="chatOnly ? 12 : 8"
+          :lg="chatOnly ? 12 : 9"
           :class="selectedUser.userName == '' ? 'd-none d-md-block': ''">
           <v-card
             v-show="selectedUser.userName != ''"
@@ -126,12 +127,13 @@
                   size="32">
                   <img :src="avatar(selectedUser.avatarImage)" />
                 </v-avatar>
-                <span>{{selectedUser.userName}}</span>
+                <span>{{selectedUser.name}}</span>
               </div>
               <v-spacer></v-spacer>
               <v-card-actions
                 class="d-md-none px-0">
                 <v-icon
+                  v-if="!chatOnly"
                   large
                   left
                   @click="resetSelectedUser()"
@@ -170,23 +172,31 @@
                   v-for="(message, index) in messagesGroup.messages"
                   v-bind:key="index"
                   no-gutters
-                  :class="[message.writer != userInfo.userName ? 'flex-row-reverse' : '']"
+                  :class="[!isCurrentUserMessage(message.writer) ? 'flex-row-reverse' : '']"
                   class="d-flex flex-nowrap text-caption px-2 py-4">
                   <v-avatar color="grey lighten-2">
-                    <img :src="message.writer != userInfo.userName ? avatar(selectedUser.avatarImage) : avatar(userInfo.avatarImage) " />
+                    <img :src="!isCurrentUserMessage(message.writer) ? avatar(selectedUser.avatarImage) : avatar(userInfo.avatarImage) " />
                   </v-avatar>
                   <v-row
                     no-gutters
                     align="center"
-                    :class="[message.writer != userInfo.userName ? 'flex-row-reverse' : '']"
+                    :class="[!isCurrentUserMessage(message.writer) ? 'flex-row-reverse' : '']"
                     class="d-flex flex-nowrap mt-5"
                     >
                     <div
                       class="mx-3 rounded-lg"
-                      :class="[message.writer != userInfo.userName ? 'message-box-in cyan lighten-4 cyan--text text--lighten-4 ' : 'message-box-out grey lighten-2 grey--text                    text--lighten-2']">
+                      :class="[!isCurrentUserMessage(message.writer) ? 'message-box-in cyan lighten-4 cyan--text text--lighten-4 ' : 'message-box-out grey lighten-2 grey--text text--lighten-2']">
                       <span class="text-pre-wrap grey--text text--darken-3">{{message.text}}</span>
                     </div>
-                    <span>
+                    <v-icon
+                      v-if="isCurrentUserMessage(message.writer)"
+                      :color="message.isRead ? 'success' : 'grey'"
+                    >
+                      mdi-check
+                    </v-icon>
+                    <span
+                      class="grey--text text--darken-1 px-2"
+                    >
                       {{moment(message.sendTime).format("hh:mm")}}
                     </span>
                   </v-row>
@@ -220,8 +230,8 @@
                   @input="messageText($event)"
                 ></v-textarea>
                   <v-btn
-                    color="cyan darken-2"
-                    class="ma-2 white--text"
+                    color="blue darken-2"
+                    class="ma-2 white--text send-message--btn"
                     @click="sendMessage()"
                   >
                   <v-icon left dense dark>mdi-send</v-icon>
@@ -243,9 +253,9 @@
  * @version 1.0.0
  * @author mahsa <mahsa.allahyari71@gmail.com>
  * @event onSendMessage - return user message  array[{userName: 'String', avatarImage:'String',
- lastOnline:'String', messages:[{text:'String', sendTime:'Date', writer:'String'}]}]
+ lastOnline:'String', messages:[{text:'String', sendTime:'Date', writer:'String', isRead:'Boolean'}]}]
  * @property {Array} [conversationData] - [{userName: 'String', avatarImage:'String',
- lastOnline:'String', messages:[{text:'String', sendTime:'Date', writer:'String'}]}]
+ lastOnline:'String', messages:[{text:'String', sendTime:'Date', writer:'String', isRead: 'Boolean'}]}]
  * @property {object} [userInfo] - {userName:'String', avataImage:''}
  */
 import moment from 'moment-jalaali'
@@ -268,12 +278,18 @@ export default {
       type: Object,
       default: () => ({}),
       required: true
+    },
+    chatOnly: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   },
   data () {
     return {
       moment: moment,
       selectedUser: {
+        name: '',
         userName: '',
         avatarImage: '',
         lastOnline: '',
@@ -302,6 +318,9 @@ export default {
   },
   created () {
     this.sortedUser = this.sortedMessages()
+    const firstUser = this.filteredUserList && this.filteredUserList.length > 0
+      ? this.filteredUserList[0] : {}
+    this.getSelectedUser(firstUser)
   },
   mounted () {
     this.$nextTick(function () {
@@ -322,16 +341,36 @@ export default {
     filteredUserList () {
       const term = this.search
       return this.sortedUser.filter(function (user) {
-        return user.userName.toLowerCase().includes(term.toLowerCase())
+        return user.name.toLowerCase().includes(term.toLowerCase())
       })
     }
   },
   methods: {
+    isCurrentUserMessage (writer) {
+      return writer === this.userInfo.userName
+    },
     resetSelectedUser () {
       this.selectedUser.userName = ''
+      this.selectedUser.name = ''
       this.selectedUser.lastOnline = ''
       this.selectedUser.avatarImage = ''
       this.selectedUser.messages = ''
+    },
+    userMessage (user) {
+      const text = user.messages.slice(-1)[0]
+        ? user.messages.slice(-1)[0].messages.slice(-1)[0]
+          ? user.messages.slice(-1)[0].messages.slice(-1)[0].text
+          : ''
+        : ''
+      return text
+    },
+    dateMessage (user) {
+      const date = user.messages.slice(-1)[0]
+        ? user.messages.slice(-1)[0].messages.slice(-1)[0]
+          ? user.messages.slice(-1)[0].messages.slice(-1)[0].date
+          : null
+        : null
+      moment(date).format('jYYYY/jMM/jDD')
     },
     avatar (image) {
       return (image !== '' ? image : '/img/samples/user-sample.png')
@@ -368,6 +407,7 @@ export default {
           })
         })
         const userData = {
+          name: val.name,
           userName: val.userName,
           lastOnline: val.lastOnline,
           avatarImage: val.avatarImage,
@@ -387,6 +427,7 @@ export default {
       }, 300)
     },
     getSelectedUser (user) {
+      this.selectedUser.name = user.name
       this.selectedUser.userName = user.userName
       this.selectedUser.avatarImage = user.avatarImage
       this.selectedUser.messages = user.messages
@@ -397,6 +438,7 @@ export default {
       const msgRef = this.$refs.msg
       if (this.chatText.trim() !== '') {
         const userMessage = {
+          name: this.selectedUser.name,
           userName: this.selectedUser.userName,
           lastOnline: this.selectedUser.lastOnline,
           avatarImage: this.selectedUser.avatarImage,
@@ -498,6 +540,9 @@ export default {
     .__rail-is-vertical {
       right: auto !important;
       left : 1px;
+    }
+    .send-message--btn .v-icon {
+      transform: rotate(-180deg);
     }
   }
 </style>

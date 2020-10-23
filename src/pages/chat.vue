@@ -16,19 +16,14 @@
     <chat
       :conversationData="conversationData"
       :userInfo="userInfo"
+      :chatOnly="false"
       @sendMessage="message($event)" />
   </div>
 </template>
 <script>
-import chat from '@/components/chat.vue'
-import pageTitle from '@/components/page-title'
 import faker from '../../node_modules/faker/locale/fa'
 export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
-  components: {
-    chat,
-    'page-title': pageTitle
-  },
   data () {
     return {
       conversationData: [],
@@ -48,27 +43,34 @@ export default {
     }
   },
   mounted () {
+    this.userInfo.name = faker.name.firstName() + ' ' + faker.name.lastName()
     this.userInfo.userName = faker.name.firstName() + ' ' + faker.name.lastName()
     this.userInfo.avatarImage = faker.image.avatar()
     for (var i = 1; i <= 50; i++) {
       var messagesTemp = []
       for (var j = 1; j <= 100; j++) {
         var randomDate = new Date(+(new Date()) - Math.floor(Math.random() * 10000000000))
+        const currentDate = new Date()
         if ((j % 2) === 0) {
           messagesTemp.push({
             text: faker.lorem.sentences(),
             sendTime: randomDate,
-            writer: ''
+            writer: '',
+            isRead: !(currentDate.getDate() === randomDate.getDate() && currentDate.getMonth() ===
+            randomDate.getMonth() && currentDate.getFullYear() === randomDate.getFullYear())
           })
         } else {
           messagesTemp.push({
             text: faker.lorem.sentences(),
             sendTime: randomDate,
-            writer: this.userInfo.userName
+            writer: this.userInfo.userName,
+            isRead: !(currentDate.getDate() === randomDate.getDate() && currentDate.getMonth() ===
+            randomDate.getMonth() && currentDate.getFullYear() === randomDate.getFullYear())
           })
         }
       }
       this.conversationData.push({
+        name: faker.name.firstName() + ' ' + faker.name.lastName(),
         userName: faker.name.firstName() + ' ' + faker.name.lastName(),
         lastOnline: faker.date.weekday(),
         avatarImage: faker.image.avatar(),
@@ -83,6 +85,7 @@ export default {
         writer: ''
       })
       this.conversationData.push({
+        name: faker.name.firstName() + ' ' + faker.name.lastName(),
         userName: faker.name.firstName() + ' ' + faker.name.lastName(),
         lastOnline: faker.date.weekday(),
         avatarImage: faker.image.avatar(),
