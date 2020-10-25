@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <router-view />
+    <GlobalSnackbar />
   </v-app>
 </template>
 
