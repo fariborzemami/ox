@@ -17,6 +17,16 @@
         v-bind="$attrs"
         @input="onChange"
       ></v-text-field>
+      <v-text-field
+        v-else-if="type === 'number'"
+        :dir="ltr ? 'ltr' : 'rtl'"
+        no-resize
+        outlined
+        :value="value"
+        type="number"
+        v-bind="$attrs"
+        @input="onChange"
+      ></v-text-field>
       <v-textarea
         v-else-if="type === 'textarea'"
         :dir="ltr ? 'ltr' : 'rtl'"
@@ -228,7 +238,7 @@ export default {
     type: {
       type: String,
       required: false,
-      validator: (v) => ['textbox', 'textarea', 'select', 'checkbox', 'switch', 'radio', 'file',
+      validator: (v) => ['textbox', 'number', 'textarea', 'select', 'checkbox', 'switch', 'radio', 'file',
         'multiselect', 'date', 'datetime', 'time', 'slider', 'range', 'combobox', 'autocomplete'].indexOf(v) !== -1
     },
     value: {
