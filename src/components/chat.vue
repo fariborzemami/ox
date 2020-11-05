@@ -3,7 +3,7 @@
      class="chat-component"
     >
     <v-card
-      outlined
+      class="rounded-t-0"
       :height="windowHeight - 200">
       <v-row
         no-gutters

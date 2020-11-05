@@ -6,12 +6,14 @@
         v-model="fromDate"
         type="date"
         :placeholder="$t('components.filterBox.fromDate')"
+        @input="onFilterClick"
       ></filter-item>
       <filter-item
         v-if="!disableToDate"
         v-model="toDate"
         type="date"
         :placeholder="$t('components.filterBox.toDate')"
+        @input="onFilterClick"
       ></filter-item>
       <slot></slot>
     </v-form>
@@ -22,6 +24,14 @@
         @click="onFilterClick"
       >
         {{ buttonText || $t('components.filterBox.buttonText') }}
+      </v-btn>
+      <v-btn
+        class="ml-2"
+        outlined
+        :color="cancelButtonColor"
+        @click="onCancelFilterClick"
+      >
+        {{ cancelButtonText || $t('components.filterBox.cancelButtonText') }}
       </v-btn>
     </div>
   </div>
@@ -55,6 +65,16 @@ export default {
       type: String,
       required: false,
       default: 'primary'
+    },
+    cancelButtonText: {
+      type: String,
+      required: false,
+      default: null
+    },
+    cancelButtonColor: {
+      type: String,
+      required: false,
+      default: 'gray'
     }
   },
   data: () => ({
@@ -77,6 +97,11 @@ export default {
       }
 
       this.$emit('filter', payload)
+    },
+    onCancelFilterClick (e) {
+      this.fromDate = null
+      this.toDate = null
+      this.$emit('cancelFilter')
     }
   }
 }

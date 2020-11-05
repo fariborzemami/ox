@@ -100,6 +100,7 @@
           :block="isButtonFullWidth"
           :x-large="isButtonLarge"
           :disabled="!valid"
+          :loading="isLoading"
           class="white--text"
           :color="loginButtonColor">
           {{ loginButtonTitle }}
@@ -165,6 +166,7 @@
  * @property {Boolean} [registerLinkEnabled=true] - Specifies Registeration page link visibility,
  * @property {Boolean} [isButtonLarge=false] - Specifies Button is larger than usual or not
  * @property {Number} [buttonWidth=200] - button width
+ * @property {Boolean} [isLoading=false] - button loading state
 
  */
 export default {
@@ -355,6 +357,11 @@ export default {
       required: false
     },
     isButtonLarge: {
+      type: Boolean,
+      default: false,
+      required: false
+    },
+    isLoading: {
       type: Boolean,
       default: false,
       required: false

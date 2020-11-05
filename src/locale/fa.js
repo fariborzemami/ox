@@ -94,7 +94,8 @@ export default {
     filterBox: {
       fromDate: 'از تاریخ',
       toDate: 'تا تاریخ',
-      buttonText: 'فیلتر کردن'
+      buttonText: 'فیلتر کردن',
+      cancelButtonText: 'پاک کردن'
     },
     underConstruction: {
       title: 'در حال ساخت',

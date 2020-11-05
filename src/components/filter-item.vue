@@ -1,6 +1,6 @@
 <template>
   <form-item
-    class="col-12"
+    class="filter-item-component col-12 py-0"
     :class="['range', 'slider'].indexOf($attrs.type) !== -1 ?
             ['col-sm-8', 'col-md-6', 'col-lg-4'] :
             ['col-sm-4', 'col-md-3', 'col-lg-2']"
@@ -43,3 +43,16 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.filter-item-component {
+  height: 50px !important;
+  margin-top: 10px;
+  & .v-text-field__details{
+    display: none !important;
+  }
+  & .v-select,
+  & .v-select__slot {
+    margin-top: 0 !important;
+  }
+}
+</style>

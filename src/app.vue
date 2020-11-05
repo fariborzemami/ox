@@ -1,5 +1,7 @@
 <template>
   <div>
+    <portal to="layoutPanel_appBarAfterMemberTerritory">
+    </portal>
     <portal to="layoutPanelFullHeightSide_headerCenter">
       <v-icon
         class="mx-3">

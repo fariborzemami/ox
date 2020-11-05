@@ -10,20 +10,18 @@
     <slot v-if="hasSlot"></slot>
     <template v-else>
       <v-text-field
-        v-if="type === 'textbox'"
+        v-if="type === 'textbox' && isNumber"
         :dir="ltr ? 'ltr' : 'rtl'"
         outlined
-        :value="value"
+        :value="value ? formatNumber(value, numeralFormatter, numeralFormatterLocale) : null"
         v-bind="$attrs"
         @input="onChange"
       ></v-text-field>
       <v-text-field
-        v-else-if="type === 'number'"
+        v-else-if="type === 'textbox'"
         :dir="ltr ? 'ltr' : 'rtl'"
-        no-resize
         outlined
         :value="value"
-        type="number"
         v-bind="$attrs"
         @input="onChange"
       ></v-text-field>
@@ -207,6 +205,16 @@ export default {
     formItemFileInput
   },
   props: {
+    numeralFormatterLocale: {
+      type: String,
+      default: 'en',
+      required: false
+    },
+    numeralFormatter: {
+      type: String,
+      default: '',
+      required: false
+    },
     prependNumeralFormatterLocale: {
       type: String,
       default: 'en',
@@ -238,7 +246,7 @@ export default {
     type: {
       type: String,
       required: false,
-      validator: (v) => ['textbox', 'number', 'textarea', 'select', 'checkbox', 'switch', 'radio', 'file',
+      validator: (v) => ['textbox', 'textarea', 'select', 'checkbox', 'switch', 'radio', 'file',
         'multiselect', 'date', 'datetime', 'time', 'slider', 'range', 'combobox', 'autocomplete'].indexOf(v) !== -1
     },
     value: {
@@ -251,6 +259,11 @@ export default {
       default: false
     },
     md: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    isNumber: {
       type: Boolean,
       required: false,
       default: false
@@ -278,6 +291,17 @@ export default {
   },
   methods: {
     onChange (e) {
+      // TODO: move it to better place
+      String.prototype.toEnglishDigits = function () {
+        return this.replace(/[۰-۹]/g, function (chr) {
+          var persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹']
+          return persian.indexOf(chr)
+        })
+      }
+      if (e && this.isNumber) {
+        e = e.replace(/[ ,.]/g, '')
+        e = e.toEnglishDigits()
+      }
       this.$emit('input', e)
     },
     onClick (e) {

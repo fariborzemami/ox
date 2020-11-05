@@ -153,6 +153,7 @@
           :block="isButtonFullWidth"
           :x-large="isButtonLarge"
           :disabled="!valid"
+          :loading="isLoading"
           class="white--text"
           :color="registerButtonColor">
           {{registerButtonTitle}}
@@ -232,6 +233,7 @@
  * @property {Boolean} [titleEnabled=true] - Specifies whether main title is displayed or not
  * @property {Boolean} [isButtonLarge=false] - Specifies Button is larger than usual or not
  * @property {Number} [buttonWidth=200] - button width
+ * @property {Boolean} [isLoading=false] - button loading state
  */
 export default {
   props: {
@@ -543,6 +545,11 @@ export default {
       type: String,
       default: '',
       required: false
+    },
+    isLoading: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   },
   data () {
@@ -678,7 +685,6 @@ export default {
         color : white;
       }
     }
-
     .v-text-field .v-input__slot {
       background: $input-color !important;
     }
@@ -703,7 +709,9 @@ export default {
         }
       }
     }
-
+    .v-text-field .v-input__control {
+      min-height: 42px !important;
+    }
     .v-text-field .v-input__slot {
       border-radius: 5px !important;
     }
@@ -713,6 +721,10 @@ export default {
         font-size: 12px !important;
         text-decoration : underline;
       }
+    }
+    .v-input--selection-controls {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
     }
     .v-application--is-rtl .v-input--selection-controls__input {
       margin-left: 15px !important;

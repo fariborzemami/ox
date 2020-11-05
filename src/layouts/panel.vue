@@ -47,6 +47,13 @@
         class="mt-5 ml-2"
         @change="changeTheme"
       ></v-switch>
+      <portal-target
+        name="layoutPanel_appBarAfterMemberTerritory">
+        <!--
+          This component can be located anywhere in your App.
+          The slot content of the above portal component will be rendered here.
+        -->
+      </portal-target>
       <v-menu
         offset-y >
         <template v-slot:activator="{ on, attrs }">
