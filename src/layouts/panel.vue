@@ -34,10 +34,11 @@
         {{ profile.name }}
       </span>
       </v-card>
-
       <sidebar-list />
-        <v-divider></v-divider>
-      <v-list dense>
+      <v-divider class="d-block d-sm-none"></v-divider>
+      <v-list
+        class="d-block d-sm-none"
+        dense>
         <v-list-item
           v-for="(item, index) in memberTerritoryMenus"
           :key="'member-territory-list-item-' + index"
