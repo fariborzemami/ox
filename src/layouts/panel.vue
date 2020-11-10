@@ -9,10 +9,57 @@
       :mini-variant="drawerIsMini"
       class="sidebarContent"
       >
+      <v-card
+        to="/profile"
+        class="pa-4 d-block d-md-none rounded-0"
+        elevation="1">
+        <v-avatar
+          class="mr-auto ml-auto d-block"
+          rounded
+          width="64"
+          height="64">
+          <img
+            v-if="profile.avatarImage"
+            :src="profile.avatarImage"
+            :alt="profile.name"
+            />
+          <img
+            v-else
+            src="/img/default-avatar.jpg"
+            :alt="profile.name"
+            />
+        </v-avatar>
+      <span
+        class="d-block w-100 mt-4 text-caption text-center">
+        {{ profile.name }}
+      </span>
+      </v-card>
+
       <sidebar-list />
+        <v-divider></v-divider>
+      <v-list dense>
+        <v-list-item
+          v-for="(item, index) in memberTerritoryMenus"
+          :key="'member-territory-list-item-' + index"
+          link
+          :to="item.path"
+          >
+          <v-list-item-action
+            class="mx-0">
+            <v-icon small>
+              {{ item.iconName }}
+            </v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>
+              {{ $t(item.title) }}
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
         <template v-slot:append>
           <v-list
-            class="mt-auto"
+            class="mt-auto d-none d-md-block"
             dense>
             <v-list-item
               @click.stop="drawerIsMini = !drawerIsMini">
@@ -31,7 +78,6 @@
       :clipped-left="!$vuetify.rtl"
       app
       >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <router-link :to="APP_CONFIG.homeURL" >
         <v-img
           :src="APP_CONFIG.brandLogo"
@@ -42,6 +88,7 @@
       </router-link>
       <v-spacer></v-spacer>
       <v-switch
+        v-if="APP_CONFIG.themes.enableChange"
         dense
         inset
         class="mt-5 ml-2"
@@ -54,13 +101,16 @@
           The slot content of the above portal component will be rendered here.
         -->
       </portal-target>
+      <v-app-bar-nav-icon
+        class="d-block d-md-none"
+        @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-menu
         offset-y >
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             :elevation="0"
             color="transparent"
-            class="px-0 pr-2"
+            class="px-0 pr-2 d-none d-md-block"
             v-bind="attrs"
             v-on="on"
             >
