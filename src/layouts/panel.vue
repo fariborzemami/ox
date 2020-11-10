@@ -45,9 +45,8 @@
           link
           :to="item.path"
           >
-          <v-list-item-action
-            class="mx-0">
-            <v-icon small>
+          <v-list-item-action>
+            <v-icon>
               {{ item.iconName }}
             </v-icon>
           </v-list-item-action>
