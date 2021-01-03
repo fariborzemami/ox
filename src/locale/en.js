@@ -160,10 +160,14 @@ export default {
       campaignTypes: {
         type1: 'Type 1',
         type2: 'Type 2',
-        type3: 'Type 3'
+        type3: 'Type 3',
+        type4: 'type 4',
+        type5: 'type 5',
+        type6: 'type 6'
       },
       show: 'Show details',
       campaignTypePlaceholder: 'Campaign type',
+      namePlaceholder: 'campaign name',
       genderPlaceholder: 'Gender',
       ageRangePlaceholder: 'Age range',
       female: 'Female',

@@ -56,6 +56,12 @@
         multiple
       ></filter-item>
       <filter-item
+        v-model="filterBox.name"
+        type="textbox"
+        :placeholder="$t('pages.reports.namePlaceholder')"
+        multiple
+      ></filter-item>
+      <filter-item
         v-model="filterBox.ageRange"
         type="range"
         min="15"
@@ -110,6 +116,7 @@ export default {
     return {
       items: [],
       filterBox: {
+        name: null,
         campaignType: null,
         gender: null,
         ageRange: [20, 40]
@@ -157,7 +164,10 @@ export default {
       return [
         this.$t('pages.reports.campaignTypes.type1'),
         this.$t('pages.reports.campaignTypes.type2'),
-        this.$t('pages.reports.campaignTypes.type3')
+        this.$t('pages.reports.campaignTypes.type3'),
+        this.$t('pages.reports.campaignTypes.type4'),
+        this.$t('pages.reports.campaignTypes.type5'),
+        this.$t('pages.reports.campaignTypes.type6')
       ]
     },
     genders () {

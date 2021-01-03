@@ -50,9 +50,19 @@ export default {
   & .v-text-field__details{
     display: none !important;
   }
-  & .v-select,
-  & .v-select__slot {
+  & .v-input, & .v-text-field__slot,
+  & .v-select, & .v-select__slot {
     margin-top: 0 !important;
+    padding-top: 0 !important;
+    .v-select__selections {
+      .v-select__selection:not(:nth-child(-n+3)) {
+        display: none !important;
+      }
+      flex-flow: nowrap !important;
+    }
+  }
+  & .v-input__slot {
+    min-height: auto !important;
   }
 }
 </style>

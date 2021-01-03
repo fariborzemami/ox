@@ -104,7 +104,7 @@
         <v-icon  v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-cellphone-iphone</v-icon>
         <span v-if="solo">{{phoneNumberTitle}}</span>
         <v-text-field
-          v-model="userInfo.phoneNumber"
+          :value="userInfo.phoneNumber"
           tabindex="5"
           :solo="solo"
           :outlined="outlined"
@@ -114,11 +114,11 @@
           :rules="phoneNumberValidation"
           :label="phoneNumberTitle"
           :placeholder="phoneNumberPlaceholder"
+          @input="onPhoneNumberChange"
           :prepend-icon="outlined && iconEnabled ? 'mdi-cellphone-iphone' : ''"
           name="phoneNumber"
           type="text"
           required
-          @keypress="isNumber($event)"
           ></v-text-field>
       </div>
       <!-- role -->
@@ -570,8 +570,8 @@ export default {
       },
       phoneNumberRules: {
         required: value => !!value || this.phoneNumberRequiredMessage,
-        pattern: value => value.length <= 11 || RegExp(this.phoneNumberPatternRegex.substring(1, this.phoneNumberPatternRegex.length - 1)).test(value) || this.phoneNumberPatternMessage,
-        counter: value => value.length <= 11 || this.$t('components.register.phoneNumberCountValidation')
+        pattern: value => RegExp(this.phoneNumberPatternRegex.substring(1, this.phoneNumberPatternRegex.length - 1)).test(value) || this.phoneNumberPatternMessage,
+        counter: value => value.length === 11 || this.$t('components.register.phoneNumberCountValidation')
       },
       nameRules: {
         required: value => !!value || this.nameRequiredMessage,
@@ -644,6 +644,18 @@ export default {
       } else {
         return true
       }
+    },
+    onPhoneNumberChange (e) {
+      String.prototype.toEnglishDigits = function () {
+        return this.replace(/[۰-۹]/g, function (chr) {
+          var persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹']
+          return persian.indexOf(chr)
+        })
+      }
+      if (e) {
+        e = e.toEnglishDigits()
+      }
+      this.userInfo.phoneNumber = e
     }
   }
 }

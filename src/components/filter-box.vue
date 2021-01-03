@@ -20,18 +20,18 @@
     <div class="filter-actions d-flex flex-row-reverse pb-4">
       <v-btn
         outlined
-        :color="buttonColor"
-        @click="onFilterClick"
-      >
-        {{ buttonText || $t('components.filterBox.buttonText') }}
-      </v-btn>
-      <v-btn
-        class="ml-2"
-        outlined
         :color="cancelButtonColor"
         @click="onCancelFilterClick"
       >
         {{ cancelButtonText || $t('components.filterBox.cancelButtonText') }}
+      </v-btn>
+      <v-btn
+        class="mx-2"
+        outlined
+        :color="buttonColor"
+        @click="onFilterClick"
+      >
+        {{ buttonText || $t('components.filterBox.buttonText') }}
       </v-btn>
     </div>
   </div>

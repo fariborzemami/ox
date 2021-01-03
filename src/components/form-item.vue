@@ -10,7 +10,7 @@
     <slot v-if="hasSlot"></slot>
     <template v-else>
       <v-text-field
-        v-if="type === 'textbox' && isNumber"
+        v-if="type === 'textbox' && isNumber && !noNumberFormatter"
         :dir="ltr ? 'ltr' : 'rtl'"
         outlined
         :value="value ? formatNumber(value, numeralFormatter, numeralFormatterLocale) : null"
@@ -267,6 +267,11 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    noNumberFormatter: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   model: {
@@ -327,6 +332,9 @@ export default {
 <style scoped lang="scss">
 .form-item-component > * + *{
   margin-top: 10px;
+}
+.form-item-component > div + span {
+  margin-top: 0px;
 }
 .form-label{
   display: flex;

@@ -32,20 +32,11 @@ const server = function (config, data) {
           const query = this.generateQueryModel(queryParameters, payload)
           const data = this.generateDataModel(dataModel, payload)
           const currentPath = this.generateUrl(pathKey, pathParameters, payload)
-          let params = {
-            ...query
-          }
-          if (payload && payload.params) {
-            params = {
-              ...query,
-              ...payload.params,
-            }
-          }
           return axios.request({
             url: currentPath,
             method: method,
             data: data,
-            params: params,
+            params: query,
             paramsSerializer: function (params) {
               return qs.stringify(params, { arrayFormat: 'repeat' })
             }

@@ -179,10 +179,14 @@ export default {
       campaignTypes: {
         type1: 'نوع ۱',
         type2: 'نوع ۲',
-        type3: 'نوع ۳'
+        type3: 'نوع ۳',
+        type4: 'نوع ۴',
+        type5: 'نوع ۵',
+        type6: 'نوع ۶'
       },
       show: 'نمایش جزییات',
       campaignTypePlaceholder: 'نوع کمپین',
+      namePlaceholder: 'نام کمپین',
       genderPlaceholder: 'جنسیت',
       ageRangePlaceholder: 'بازه سنی',
       female: 'زن',

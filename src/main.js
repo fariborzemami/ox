@@ -12,6 +12,12 @@ import Server from '@/plugins/server'
 import GetToken from '@/plugins/gettoken'
 import PortalVue from 'portal-vue'
 import Filters from '@/filters'
+import Bowser from 'bowser'
+import browserVersionCompatibility from '@/plugins/browser-compatibility'
+
+const browser = Bowser && Bowser.getParser(window.navigator.userAgent)
+const isValidBrowser = browser && browser.satisfies(APP_CONFIG.validBrowsers)
+browserVersionCompatibility(isValidBrowser)
 
 Vue.mixin(globalMixin)
 Vue.use(PortalVue)
