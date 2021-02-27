@@ -16,6 +16,7 @@
         <span v-if="solo">{{ passwordTitle}}</span>
         <v-text-field
           v-model="userPassword.password"
+          autofocus
           :solo="solo"
           :outlined="outlined"
           flat
