@@ -4,6 +4,7 @@
       v-model="drawer"
       clipped
       app
+      temporary
       right
       :dark="APP_CONFIG.layout.panel.isSidebarDark"
       class="sidebarContent"
