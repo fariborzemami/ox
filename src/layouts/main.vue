@@ -9,8 +9,7 @@
       class="sidebarContent"
     >
       <template v-slot:prepend>
-        <v-list-item two-line>
-
+        <v-list-item>
           <v-list-item-content>
             <v-switch dense inset class="mt-5 ml-2" @change="changeTheme"></v-switch>
           </v-list-item-content>
@@ -116,11 +115,11 @@
 </template>
 
 <script>
-import sidebarList from "../components/sidebar-list";
+import sidebarList from '../components/sidebar-list'
 export default {
-  name: "LayoutsDemosBaselineFlipped",
+  name: 'LayoutsDemosBaselineFlipped',
   components: {
-    "sidebar-list": sidebarList
+    'sidebar-list': sidebarList
   },
   props: {
     source: String
@@ -130,16 +129,16 @@ export default {
   }),
   computed: {
     profile() {
-      console.log(this.$store.state.layout.profile);
+      console.log(this.$store.state.layout.profile)
       return this.$store.state.layout.profile;
     },
     memberTerritoryMenus() {
-      return this.$store.state.layout.memberTerritoryMenus;
+      return this.$store.state.layout.memberTerritoryMenus
     }
   },
   methods: {
     changeTheme() {
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
     }
   }
 };
