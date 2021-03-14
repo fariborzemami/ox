@@ -28,9 +28,9 @@
       >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <router-link :to="APP_CONFIG.homeURL">
-        <v-img :src="APP_CONFIG.brandLogo" 
-                height="auto" 
-                width="80"> 
+        <v-img :src="APP_CONFIG.brandLogo"
+                height="auto"
+                width="100">
         </v-img>
       </router-link>
       <v-spacer></v-spacer>
@@ -46,7 +46,7 @@
 
       <router-link :to="APP_CONFIG.homeURL"> </router-link>
       <v-spacer></v-spacer>
-      <v-btn 
+      <v-btn
         color="transparent"
         small
         fab
@@ -129,18 +129,18 @@ export default {
     drawer: null
   }),
   computed: {
-    profile() {
+    profile () {
       console.log(this.$store.state.layout.profile)
-      return this.$store.state.layout.profile;
+      return this.$store.state.layout.profile
     },
-    memberTerritoryMenus() {
+    memberTerritoryMenus () {
       return this.$store.state.layout.memberTerritoryMenus
     }
   },
   methods: {
-    changeTheme() {
+    changeTheme () {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
     }
   }
-};
+}
 </script>
