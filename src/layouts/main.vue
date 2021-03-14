@@ -51,7 +51,7 @@
         small
         fab
         :elevation="0"
-        to="/basket">
+        to="/checkout">
         <v-icon title="" class="">
           mdi-basket-outline
         </v-icon>
