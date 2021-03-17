@@ -52,9 +52,17 @@
         fab
         :elevation="0"
         to="/checkout">
-        <v-icon title="" class="">
-          mdi-basket-outline
-        </v-icon>
+        <v-badge :v-if="this.$store.state.checkoutCount !== null"
+                 transition="scroll-y-reverse-transition"
+                 left
+                 color="success"
+                 :content="this.$store.state.checkoutCount"
+                 :value="this.$store.state.checkoutCount"
+                 bordered>
+          <v-icon>
+            mdi-basket-outline
+          </v-icon>
+        </v-badge>
       </v-btn>
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
