@@ -52,12 +52,12 @@
         fab
         :elevation="0"
         to="/checkout">
-        <v-badge :v-if="this.$store.state.checkoutCount !== null"
+        <v-badge :v-if="this.$store.state.checkout.checkoutCount !== null"
                  transition="scroll-y-reverse-transition"
                  left
                  color="success"
-                 :content="this.$store.state.checkoutCount"
-                 :value="this.$store.state.checkoutCount"
+                 :content="this.$store.state.checkout.checkoutCount"
+                 :value="this.$store.state.checkout.checkoutCount"
                  bordered>
           <v-icon>
             mdi-basket-outline
