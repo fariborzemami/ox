@@ -45,25 +45,15 @@
       </portal-target>
 
       <router-link :to="APP_CONFIG.homeURL"> </router-link>
-      <v-spacer></v-spacer>
-      <v-btn
-        color="transparent"
-        small
-        fab
-        :elevation="0"
-        to="/checkout">
-        <v-badge :v-if="this.$store.state.checkout.checkoutCount !== null"
-                 transition="scroll-y-reverse-transition"
-                 left
-                 color="success"
-                 :content="this.$store.state.checkout.checkoutCount"
-                 :value="this.$store.state.checkout.checkoutCount"
-                 bordered>
-          <v-icon>
-            mdi-basket-outline
-          </v-icon>
-        </v-badge>
-      </v-btn>
+       <portal-target
+        class="float-left"
+        name="layoutPanel_headerLeft"
+      >
+        <!--
+          This component can be located anywhere in your App.
+          The slot content of the above portal component will be rendered here.
+        -->
+      </portal-target>
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
