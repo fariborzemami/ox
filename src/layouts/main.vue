@@ -11,9 +11,9 @@
     >
       <template v-slot:prepend>
         <v-list-item>
-          <v-list-item-content>
+          <!-- <v-list-item-content>
             <v-switch dense inset class="mt-5 ml-2" @change="changeTheme"></v-switch>
-          </v-list-item-content>
+          </v-list-item-content> -->
         </v-list-item>
       </template>
       <sidebar-list />
@@ -56,9 +56,6 @@
             v-bind="attrs"
             v-on="on"
           >
-            <span>
-              {{ profile.name }}
-            </span>
             <v-avatar class="mx-2" width="32" height="32">
               <img
                 v-if="profile.avatarImage"
@@ -70,6 +67,13 @@
           </v-btn>
         </template>
         <v-list dense>
+            <v-list-item v-if="profile.name != ' '">
+            <v-list-item-content>
+              <v-list-item-subtitle>
+                {{ profile.name }}
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
           <v-list-item
             v-for="(item, index) in memberTerritoryMenus"
             :key="'member-territory-list-item-' + index"
