@@ -3,6 +3,7 @@
     <v-snackbar
       v-model="show"
       :color="color"
+      :transition="transition"
       content-class="text-center"
       >
       {{ message }}
@@ -21,7 +22,8 @@ export default {
     return {
       show: false,
       message: '',
-      color: ''
+      color: '',
+      transition: ''
     }
   },
   created () {
@@ -30,6 +32,7 @@ export default {
         this.color = state.snackbar.color
         this.message = state.snackbar.content
         this.show = true
+        this.transition = state.snackbar.transition
       }
     })
   }
