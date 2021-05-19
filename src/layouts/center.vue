@@ -1,6 +1,7 @@
 <template>
   <v-app id="inspire">
-    <v-main>
+    <v-main :style="{ 'background': 'url(' + APP_CONFIG.defaultPagesArtwork +') center center no-repeat' }"
+    >
       <v-container
         class="fill-height"
         fluid
@@ -13,13 +14,14 @@
             cols="12"
             sm="8"
             md="4"
+            :class="!isMobile ? 'white rounded-lg elevation-18'  : ''"
           >
           <router-link :to="APP_CONFIG.homeURL" >
             <v-img
               :src="APP_CONFIG.brandLogo"
               class="mb-15 mx-auto"
               height="auto"
-              width="230"
+              :width="APP_CONFIG.brandLogoWidth"
               >
             </v-img>
           </router-link>
@@ -36,6 +38,11 @@
 export default {
   props: {
     source: String
+  },
+  data () {
+    return {
+      isMobile: this.$vuetify.breakpoint.mobile
+    }
   }
 }
 </script>
