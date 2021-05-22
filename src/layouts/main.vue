@@ -45,7 +45,7 @@
       </portal-target>
 
       <router-link :to="APP_CONFIG.homeURL"> </router-link>
-      <v-menu offset-y>
+      <v-menu open-on-hover offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             :elevation="0"
