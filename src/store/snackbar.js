@@ -3,7 +3,8 @@ export default {
   state: {
     content: '',
     color: '',
-    show: ''
+    show: '',
+    closable: true
   },
   mutations: {
     showMessage (state, payload) {
