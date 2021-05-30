@@ -132,7 +132,6 @@ export default {
   }),
   computed: {
     profile () {
-      console.log(this.$store.state.layout.profile)
       return this.$store.state.layout.profile
     },
     memberTerritoryMenus () {
