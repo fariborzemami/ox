@@ -135,7 +135,10 @@ export default {
       return this.$store.state.layout.profile
     },
     memberTerritoryMenus () {
-      return this.$store.state.layout.memberTerritoryMenus
+      let memberTerritoryMenus = this.$store.state.layout.memberTerritoryMenus
+      const userRoles = this.$store.getters['layout/userInfo'].role
+      memberTerritoryMenus = memberTerritoryMenus.filter(item => item.role.includes('All') || item.role.indexOf(userRoles) > -1)
+      return memberTerritoryMenus
     }
   },
   methods: {
