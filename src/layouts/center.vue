@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-main
-      :style=" !isMobile ? { 'background': 'url(' + APP_CONFIG.defaultPagesArtwork +') center center no-repeat' } : '' "
+      :style=" !isMobile ? { 'background': 'url(' + APP_CONFIG.defaultPagesArtwork +') center center no-repeat','background-size': 'cover' } : '' "
     >
       <v-container
         class="fill-height"
