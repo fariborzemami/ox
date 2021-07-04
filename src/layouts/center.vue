@@ -42,7 +42,7 @@ export default {
   },
   data () {
     return {
-      isMobile: this.$vuetify.breakpoint.mobile
+      isMobile: window.innerWidth < 600
     }
   }
 }
