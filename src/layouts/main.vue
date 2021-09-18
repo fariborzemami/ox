@@ -43,7 +43,15 @@
           The slot content of the above portal component will be rendered here.
         -->
       </portal-target>
-
+      <portal-target
+        class="float-left"
+        name="layoutPanel_headerLeft"
+        >
+        <!--
+          This component can be located anywhere in your App.
+          The slot content of the above portal component will be rendered here.
+        -->
+      </portal-target>
       <router-link :to="APP_CONFIG.homeURL"> </router-link>
       <v-menu open-on-hover offset-y>
         <template v-slot:activator="{ on, attrs }">
@@ -93,15 +101,6 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <portal-target
-        class="float-left"
-        name="layoutPanel_headerLeft"
-        >
-        <!--
-          This component can be located anywhere in your App.
-          The slot content of the above portal component will be rendered here.
-        -->
-      </portal-target>
     </v-app-bar>
 
     <v-main class="mainContent">
