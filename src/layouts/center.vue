@@ -14,7 +14,8 @@
           <v-col
             cols="12"
             sm="8"
-            md="4"
+            md="6"
+            lg="4"
             :class="!isMobile ? 'white rounded-lg elevation-18'  : ''"
           >
           <router-link :to="APP_CONFIG.homeURL" >
