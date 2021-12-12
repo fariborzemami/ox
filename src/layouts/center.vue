@@ -19,9 +19,16 @@
             :class="!isMobile ? 'white rounded-lg elevation-18'  : ''"
           >
           <router-link :to="APP_CONFIG.homeURL" >
+            <portal-target
+              name="center_layout_top">
+                <!--
+              This component can be located anywhere in your App.
+              The slot content of the above portal component will be rendered here.
+            -->
+            </portal-target>
             <v-img
               :src="APP_CONFIG.brandLogo"
-              class="mb-15 mx-auto"
+              class="my-2 mx-auto"
               height="auto"
               :width="APP_CONFIG.brandLogoWidth"
               >
