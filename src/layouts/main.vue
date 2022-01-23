@@ -53,29 +53,37 @@
         -->
       </portal-target>
       <router-link :to="APP_CONFIG.homeURL"> </router-link>
-      <v-menu open-on-hover offset-y>
+      <v-menu
+        open-on-hover
+        offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             :elevation="0"
-            fab
-            small
-            color="transparent"
-            class="px-0 mr-3"
+            left
+            text
+            class="pl-0 pr-1"
             v-bind="attrs"
             v-on="on"
-          >
-            <v-avatar class="mx-2" width="32" height="32">
-              <img
+            >
+            <span v-if="!isMobile">
+              {{ profile.name }}
+            </span>
+            <v-avatar>
+              <v-img
                 v-if="profile.avatarImage"
                 :src="profile.avatarImage"
                 :alt="profile.name"
               />
-              <img v-else src="/img/default-avatar.jpg" :alt="profile.name" />
+              <v-icon size="28">
+                mdi-account-circle-outline
+              </v-icon>
             </v-avatar>
           </v-btn>
         </template>
-        <v-list dense>
-            <v-list-item v-if="profile.name != ' '">
+        <v-list
+          dense
+          >
+          <v-list-item v-if="isMobile && profile.name != ' '">
             <v-list-item-content>
               <v-list-item-subtitle>
                 {{ profile.name }}
@@ -127,8 +135,20 @@ export default {
     source: String
   },
   data: () => ({
-    drawer: null
+    drawer: null,
+    isMobile: false
   }),
+  created () {
+    this.calculateScreenWidth()
+    window.addEventListener('resize', () => {
+      const screenWidth = window.screen.width
+      if (screenWidth > 768) {
+        this.isMobile = false
+      } else {
+        this.isMobile = true
+      }
+    })
+  },
   computed: {
     profile () {
       return this.$store.state.layout.profile
@@ -143,6 +163,14 @@ export default {
   methods: {
     changeTheme () {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+    },
+    calculateScreenWidth () {
+      const screenWidth = window.screen.width
+      if (screenWidth > 768) {
+        this.isMobile = false
+      } else {
+        this.isMobile = true
+      }
     }
   }
 }
