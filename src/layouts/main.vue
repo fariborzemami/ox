@@ -61,7 +61,7 @@
             :elevation="0"
             left
             text
-            class="pl-0 pr-1"
+            :class="isMobile ? 'pl-6 pr-0' :'pl-0 pr-1'"
             v-bind="attrs"
             v-on="on"
             >
