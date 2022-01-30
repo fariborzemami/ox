@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-main
-      :style=" !isMobile ? { 'background': 'url(' + APP_CONFIG.defaultPagesArtwork +') center center no-repeat','background-size': 'cover' } : '' "
+      :style="!isMobile ? { 'background': 'url(' + APP_CONFIG.defaultPagesArtwork +') center center no-repeat','background-size': 'cover' } : '' "
     >
       <v-container
         class="fill-height"
@@ -13,11 +13,17 @@
         >
           <v-col
             cols="12"
-            sm="8"
             md="6"
             lg="4"
-            :class="!isMobile ? 'white rounded-lg elevation-18'  : ''"
+            :class="isMobile ? '' : 'pl-0 pr-10 mr-auto'"
           >
+             <v-card
+               color="#fff"
+               raised
+               min-height="580px"
+               max-height="580px"
+               class="overflow-y-auto scrollbar loginMessage rounded-l-0 rounded-r-lg"
+              >
           <router-link :to="APP_CONFIG.homeURL" >
             <portal-target
               name="center_layout_top">
@@ -28,13 +34,28 @@
             </portal-target>
             <v-img
               :src="APP_CONFIG.brandLogo"
-              class="my-2 mx-auto"
+              class="my-8 mx-auto"
               height="auto"
               :width="APP_CONFIG.brandLogoWidth"
               >
             </v-img>
           </router-link>
           <router-view />
+             </v-card>
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+            lg="4"
+            :class="isMobile ? 'mx-auto' : 'ml-auto pr-0'"
+            >
+            <portal-target
+              name="center_layout_side">
+                <!--
+              This component can be located anywhere in your App.
+              The slot content of the above portal component will be rendered here.
+            -->
+            </portal-target>
           </v-col>
         </v-row>
       </v-container>
@@ -50,7 +71,7 @@ export default {
   },
   data () {
     return {
-      isMobile: window.innerWidth < 600
+      isMobile: window.innerWidth < 959
     }
   }
 }
