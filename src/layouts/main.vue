@@ -135,20 +135,8 @@ export default {
     source: String
   },
   data: () => ({
-    drawer: null,
-    isMobile: false
+    drawer: null
   }),
-  created () {
-    this.calculateScreenWidth()
-    window.addEventListener('resize', () => {
-      const screenWidth = window.screen.width
-      if (screenWidth > 768) {
-        this.isMobile = false
-      } else {
-        this.isMobile = true
-      }
-    })
-  },
   computed: {
     profile () {
       return this.$store.state.layout.profile
@@ -163,14 +151,6 @@ export default {
   methods: {
     changeTheme () {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
-    },
-    calculateScreenWidth () {
-      const screenWidth = window.screen.width
-      if (screenWidth > 768) {
-        this.isMobile = false
-      } else {
-        this.isMobile = true
-      }
     }
   }
 }

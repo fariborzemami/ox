@@ -13,17 +13,19 @@
         >
           <v-col
             cols="12"
-            md="6"
+            md="5"
             lg="4"
+            xl="3"
             :class="isMobile ? '' : 'pl-0 pr-10 mr-auto'"
           >
              <v-card
                color="#fff"
                raised
                :flat="isMobile"
+               max-width="480px"
                :min-height="!isMobile ? '580px' : 'auto'"
                :max-height="!isMobile ? '580px' : 'auto'"
-               :class="isMobile ? '' : 'pt-1'"
+               :class="isMobile ? 'mx-auto' : 'pt-1 mr-auto'"
                class="loginMessage rounded-l-0 rounded-r-lg"
               >
           <router-link :to="APP_CONFIG.homeURL" >
@@ -36,8 +38,7 @@
             </portal-target>
             <v-img
               :src="APP_CONFIG.brandLogo"
-              class="my-8 mx-auto"
-              height="auto"
+              class="mt-8 mx-auto"
               :width="APP_CONFIG.brandLogoWidth"
               >
             </v-img>
@@ -47,8 +48,9 @@
           </v-col>
           <v-col
             cols="12"
-            md="6"
+            md="5"
             lg="4"
+            xl="3"
             :class="isMobile ? 'mx-auto' : 'ml-auto pr-0'"
             >
             <portal-target
@@ -73,7 +75,6 @@ export default {
   },
   data () {
     return {
-      isMobile: window.innerWidth < 959
     }
   }
 }
