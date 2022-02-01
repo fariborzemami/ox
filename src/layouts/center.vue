@@ -20,9 +20,11 @@
              <v-card
                color="#fff"
                raised
-               min-height="580px"
-               max-height="580px"
-               class="overflow-y-auto scrollbar loginMessage rounded-l-0 rounded-r-lg"
+               :flat="isMobile"
+               :min-height="!isMobile ? '580px' : 'auto'"
+               :max-height="!isMobile ? '580px' : 'auto'"
+               :class="isMobile ? '' : 'pt-1'"
+               class="loginMessage rounded-l-0 rounded-r-lg"
               >
           <router-link :to="APP_CONFIG.homeURL" >
             <portal-target
